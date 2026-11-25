@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04 通行规则 · 重新学开车</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .grid > .card + .card { margin-top: 0; }
+  .stage svg text { font-family: inherit; }
+  .cross-stage { max-width: 700px; margin-left: auto; margin-right: auto; }
+  .rb-stage { max-width: 540px; margin-left: auto; margin-right: auto; }
+  .bigm { font-size: 30px; font-weight: 800; line-height: 1.1; margin-bottom: 4px; }
+  .bigm small { font-size: 14px; font-weight: 700; color: var(--muted); }
+
+  /* 无信号路口：右方来车先通过 */
+  @keyframes crossA {
+    0%   { transform: translateX(0); }
+    36%  { transform: translateX(-300px); }
+    62%  { transform: translateX(-580px); }
+    100% { transform: translateX(-580px); }
+  }
+  @keyframes crossB {
+    0%   { transform: translateY(0); }
+    24%  { transform: translateY(-125px); }
+    46%  { transform: translateY(-125px); }
+    76%  { transform: translateY(-410px); }
+    100% { transform: translateY(-410px); }
+  }
+  @keyframes brakeOn {
+    0%, 20% { opacity: 0; }
+    24%, 45% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  @keyframes waitTag {
+    0%, 18% { opacity: 0; }
+    24%, 44% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .car-a { animation: crossA 8s linear infinite; }
+  .car-b { animation: crossB 8s linear infinite; }
+  .brake { opacity: 0; animation: brakeOn 8s linear infinite; }
+  .wait-tag { opacity: 0; animation: waitTag 8s linear infinite; }
+
+  /* 减少动态时给一张静态定格：右方车在路口、我车在停止线前 */
+  @media (prefers-reduced-motion: reduce) {
+    .car-a { transform: translateX(-300px); }
+    .car-b { transform: translateY(-125px); }
+    .brake, .wait-tag { opacity: 1; }
+  }
+</style>
+</head>
+<body data-mod="04_rules">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span>重新学开车</a>
+    <span class="crumb">04 · <b>通行规则</b></span>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="01_signs.html">标志</a>
+      <a href="02_markings.html">标线</a>
+      <a href="03_scenes.html">场景</a>
+      <a href="04_rules.html" class="on">规则</a>
+      <a href="05_points.html">记分</a>
+      <a href="06_ev.html">电车</a>
+      <a href="07_practice.html">实操</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">模块 04 / 共 7 个</span>
+    <h1>通行规则：把“谁先走”变成条件反射</h1>
+    <p>三年没开，最先钝化的不是手脚，是<b>路权判断</b>：无灯路口谁先过、环岛怎么进、哪里不能停、高速怎么走。这一页把规则压成一条判定链和几张卡，目标是在路口不用现场推理。</p>
+    <div class="hero-tags">
+      <span class="chip">让行判定矩阵</span>
+      <span class="chip">50m / 30m 停车禁区</span>
+      <span class="chip">高速 + 灯光</span>
+      <span class="chip">14 题闯关</span>
+    </div>
+  </section>
+
+  <nav class="toc">
+    <a href="#s1" class="on">让行总则</a>
+    <a href="#s2">路口</a>
+    <a href="#s3">变道超车</a>
+    <a href="#s4">掉头</a>
+    <a href="#s5">停车</a>
+    <a href="#s6">高速</a>
+    <a href="#s7">灯光</a>
+    <a href="#s8">事故底线</a>
+    <a href="#s9">速查</a>
+    <a href="#quiz">闯关</a>
+  </nav>
+
+  <!-- ================= 1 ================= -->
+  <section class="sec" id="s1">
+    <h2><span class="num">1</span>让行总则：先找“指挥官”，再走兜底</h2>
+    <p class="lead">场景：小区门口的老路口，没有信号灯，也没有标志标线。你从南边过来直行，右方一辆车从东边过来，左边还有一辆车打着左转灯。三辆车同时到，谁先走？别猜，按顺序判。</p>
+
+    <div class="card">
+      <b>判定顺序：从上往下，遇到能用的就停</b>
+      <ol class="steps" style="margin-bottom:0">
+        <li><b>有交警 → 听交警</b><span>交警手势的效力高于信号灯和标志。手势和灯冲突时，按交警的走。</span></li>
+        <li><b>有信号灯 → 看灯</b><span>圆饼灯管整个路口，箭头灯只管箭头方向。绿灯只代表“可以通行”，不代表“别人必须让你”。</span></li>
+        <li><b>有标志标线 → 按标志</b><span>停车让行必须停稳；减速让行减速观察；干路先行你有优先权，但仍要防支路车抢行。</span></li>
+        <li><b>什么都没有 → 四条兜底</b><span>转弯让直行；相对方向右转让左转；支路让干路；让右方道路的来车。</span></li>
+      </ol>
+    </div>
+
+    <div class="grid g4" style="margin-top:14px">
+      <div class="card flat" style="border-top:4px solid var(--blue)">
+        <b>① 转弯让直行</b>
+        <p class="small muted mb0">只要你在转，对向或侧向的直行车就有优先权。绿灯不解除这条。</p>
+      </div>
+      <div class="card flat" style="border-top:4px solid var(--green)">
+        <b>② 右转让左转</b>
+        <p class="small muted mb0">相对方向同时到，右转车让左转车。左转轨迹长、横跨路口，右转一把就能出去。</p>
+      </div>
+      <div class="card flat" style="border-top:4px solid var(--orange)">
+        <b>③ 支路让干路</b>
+        <p class="small muted mb0">从小路、小区、辅路进主路，先停再观察。干路车流量大、车速高，没有义务为你急刹。</p>
+      </div>
+      <div class="card flat" style="border-top:4px solid var(--red)">
+        <b>④ 让右方来车</b>
+        <p class="small muted mb0">无灯、无标志标线时，让右方道路的来车先行。这是打破僵局的最后一条约定。</p>
+      </div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      路权必须唯一。两条规则同时适用时，必须有一条优先级更高，否则每个人都有一套“我有理”。所以顺序是死的：<b>交警 &gt; 信号灯 &gt; 标志标线 &gt; 兜底四条</b>。现场不要推理，背下来直接用。
+    </div>
+
+    <div class="stage cross-stage">
+      <svg viewBox="0 0 520 320" role="img" aria-label="无信号灯路口让行动画：右方来车先通过，蓝车在停止线前等待后通行">
+        <rect x="0" y="0" width="225" height="125" fill="#dde6f0"/>
+        <rect x="295" y="0" width="225" height="125" fill="#dde6f0"/>
+        <rect x="0" y="195" width="225" height="125" fill="#dde6f0"/>
+        <rect x="295" y="195" width="225" height="125" fill="#dde6f0"/>
+        <rect x="225" y="0" width="70" height="320" fill="#c3cedb"/>
+        <rect x="0" y="125" width="520" height="70" fill="#c3cedb"/>
+        <g stroke="#f7fafc" stroke-width="2.5" stroke-dasharray="10 9" opacity=".9">
+          <line x1="0" y1="160" x2="225" y2="160"/>
+          <line x1="295" y1="160" x2="520" y2="160"/>
+          <line x1="260" y1="0" x2="260" y2="125"/>
+          <line x1="260" y1="195" x2="260" y2="320"/>
+        </g>
+        <line class="flow" x1="500" y1="142" x2="20" y2="142" stroke="#e8720c" stroke-width="2.5" opacity=".55"/>
+        <line class="flow" x1="277" y1="300" x2="277" y2="20" stroke="#1f6feb" stroke-width="2.5" opacity=".55"/>
+        <rect x="262" y="198" width="31" height="6" rx="2" fill="#fff" opacity=".95"/>
+        <g transform="translate(277 355)">
+          <g class="car-b">
+            <g transform="rotate(-90)">
+              <rect x="-23" y="-11" width="46" height="22" rx="7" fill="#1f6feb"/>
+              <rect x="1" y="-8" width="13" height="16" rx="3" fill="#dbe9ff"/>
+              <rect class="brake" x="-23" y="-11" width="4.5" height="22" rx="2" fill="#ff5b5b"/>
+            </g>
+            <text x="-30" y="5" text-anchor="end" font-size="13" font-weight="700" fill="#0b3d91">我</text>
+          </g>
+        </g>
+        <g transform="translate(540 142)">
+          <g class="car-a">
+            <g transform="rotate(180)">
+              <rect x="-23" y="-11" width="46" height="22" rx="7" fill="#e8720c"/>
+              <rect x="1" y="-8" width="13" height="16" rx="3" fill="#ffe9cf"/>
+            </g>
+            <text x="0" y="-18" text-anchor="middle" font-size="13" font-weight="700" fill="#8a4408">右方来车</text>
+          </g>
+        </g>
+        <g class="wait-tag">
+          <rect x="306" y="203" width="68" height="26" rx="8" fill="#0f8a54"/>
+          <text x="340" y="221" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">让右方</text>
+        </g>
+      </svg>
+      <div class="stage-cap">无信号灯、无标志标线：右方来车先通过，我停在停止线外观察，确认后再走。虚线 = 行驶轨迹，动画 8 秒一轮。</div>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-item"><span class="sign" data-sign="s-stop"></span><span class="sname">停车让行</span><span class="smean">停稳 → 观察 → 再走</span></div>
+      <div class="sign-item"><span class="sign" data-sign="s-yield"></span><span class="sname">减速让行</span><span class="smean">减速到随时能停，让干道车</span></div>
+      <div class="sign-item"><span class="sign" data-sign="s-priority"></span><span class="sname">干路先行</span><span class="smean">你在干路，支路车应让你</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-roundabout"></span><span class="sname">环形交叉</span><span class="smean">进环岛让环内车</span></div>
+    </div>
+
+    <h3 class="sub">让行判定矩阵</h3>
+    <p>把这张表当成随身卡。遇到表里没有的情况，退回第一步：找指挥官；找不到就减速、停车、让对方先走。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">场景</th><th style="width:26%">谁让</th><th>为什么</th></tr></thead>
+        <tbody>
+          <tr><td>无灯无标志，两车直行交叉</td><td><b>让右方道路的来车</b></td><td>必须有一条约定打破僵局，中国选“让右”，记住即可，别现场推理</td></tr>
+          <tr><td>转弯遇直行</td><td><b>转弯车让直行车</b></td><td>直行车速稳、轨迹可预期；转弯车本来就要减速</td></tr>
+          <tr><td>相对方向，你右转、对方左转</td><td><b>右转让左转</b></td><td>左转轨迹长、横跨路口；右转一把就能出去</td></tr>
+          <tr><td>支路进干路</td><td><b>支路让干路</b></td><td>干路流量大、车速高，支路有停车观察的条件</td></tr>
+          <tr><td>进环岛</td><td><b>进环岛让环内车</b></td><td>环内车已经取得路权，不能逼它急刹</td></tr>
+          <tr><td>窄路有障碍</td><td><b>无障碍一方先行</b>；有障碍一方已驶入则它先行</td><td>谁已经占住通道谁先过，倒车比等待更危险</td></tr>
+          <tr><td>狭窄山路会车</td><td><b>不靠山体的一方先行</b></td><td>靠山体一方有避让空间，外侧车无处可退</td></tr>
+          <tr><td>窄坡会车</td><td><b>上坡先行</b>；下坡已行至中途则下坡先行</td><td>半坡起步最难，规则替下坡车省掉一次坡起</td></tr>
+          <tr><td>人行横道有人</td><td><b>车让人，必须停</b></td><td>法定义务；不按规定减速停车避让记 <span class="badge b3">3 分</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">环岛：进让内，出打右灯</h3>
+    <div class="stage rb-stage">
+      <svg viewBox="0 0 420 280" role="img" aria-label="环岛进出示意：进环岛让环内车，出环岛打右转灯">
+        <g fill="#c3cedb">
+          <rect x="0" y="118" width="146" height="44"/>
+          <rect x="274" y="118" width="146" height="44"/>
+          <rect x="188" y="0" width="44" height="80"/>
+          <rect x="188" y="200" width="44" height="80"/>
+          <circle cx="210" cy="140" r="80"/>
+        </g>
+        <circle cx="210" cy="140" r="36" fill="#cfe6d8" stroke="#a9cdb8" stroke-width="2"/>
+        <circle cx="210" cy="140" r="58" fill="none" stroke="#f7fafc" stroke-width="2.5" stroke-dasharray="9 8" opacity=".9"/>
+        <path class="flow" d="M 221 262 L 221 218 Q 221 198 242 196 L 260 196" fill="none" stroke="#1f6feb" stroke-width="2.5" opacity=".8"/>
+        <polygon points="260,189 272,196 260,203" fill="#1f6feb" opacity=".8"/>
+        <path class="flow" d="M 282 128 Q 294 128 304 128 L 352 128" fill="none" stroke="#0f8a54" stroke-width="2.5" opacity=".8"/>
+        <polygon points="352,121 364,128 352,135" fill="#0f8a54" opacity=".8"/>
+        <g transform="translate(221 248)">
+          <g transform="rotate(-90)">
+            <rect x="-21" y="-10" width="42" height="20" rx="6" fill="#1f6feb"/>
+            <rect x="1" y="-7" width="12" height="14" rx="3" fill="#dbe9ff"/>
+          </g>
+          <text x="28" y="5" font-size="12.5" font-weight="700" fill="#0b3d91">我 · 等</text>
+        </g>
+        <g transform="translate(268 140)">
+          <g transform="rotate(-90)">
+            <rect x="-21" y="-10" width="42" height="20" rx="6" fill="#0f8a54"/>
+            <rect x="1" y="-7" width="12" height="14" rx="3" fill="#d9f2e4"/>
+            <circle class="blink" cx="19" cy="10" r="4" fill="#ffb020" stroke="#8a5a00" stroke-width="1.5"/>
+          </g>
+          <text x="0" y="35" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b5c3a">环内车</text>
+        </g>
+        <text x="16" y="28" font-size="12.5" fill="#4a5a6a">进环岛不打左灯</text>
+        <text x="352" y="112" text-anchor="end" font-size="12.5" font-weight="700" fill="#0b5c3a">出环岛：打右灯</text>
+      </svg>
+      <div class="stage-cap">进环岛：让已在环内的车先行，不打左灯（你是汇入，不是左转）。出环岛：提前打右灯，告诉后车和环内车你要切出去。</div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card">
+        <b>环岛三条</b>
+        <p class="small muted mb0">进环岛让环内车；进环岛不打左灯；出环岛打右灯。环内不要随意变道，错过出口就再绕一圈，不许倒车。</p>
+      </div>
+      <div class="card">
+        <b>山路窄路会车</b>
+        <p class="small muted mb0">不靠山体的一方先行。靠山体一侧有地方可让，外侧车一旦被挤就是悬崖。看到对向车，先往右靠、减速，别赌对方会让你。</p>
+      </div>
+      <div class="card">
+        <b>窄坡与障碍</b>
+        <p class="small muted mb0">窄坡：上坡先行；但下坡车已行至中途、上坡车还没上坡时，下坡先行。有障碍：无障碍一方先行；有障碍一方已驶入障碍段，则有障碍一方先行。</p>
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">小结</span>
+      <b>交警 &gt; 灯 &gt; 标志 &gt; 兜底四条。</b>现场拿不准就减速、停车、让对方先走：让错了只慢两秒，抢错了要赔上一天。
+    </div>
+  </section>
+
+  <!-- ================= 2 ================= -->
+  <section class="sec" id="s2">
+    <h2><span class="num">2</span>路口：转弯的弧度，决定你抢了谁的道</h2>
+    <p class="lead">场景：早高峰右转，斑马线上有人正过街，右边还有电动车直行过来，后面排着队按喇叭。三个动作要同时做：看人、看右后方、看路口里有没有空位。</p>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      路口的冲突点最密：左转要横跨对向直行，右转要横切非机动车和行人，直行要防两侧抢行。<b>转大弯还是转小弯，本质是决定你在哪里与别人交叉。</b>弧度对了，冲突点就少一个。
+    </div>
+
+    <div class="compare">
+      <div class="cmp-box">
+        <div class="cmp-title">左转：大弯</div>
+        <div class="cmp-desc">先过路口中心点，再往左带；进入目标方向最左侧车道。切角会侵占对向直行车道，也会把自己送进左侧车道。</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="cmp-box">
+        <div class="cmp-title">右转：小弯</div>
+        <div class="cmp-desc">贴着右侧路缘转，进最右侧车道。甩大弯会横切非机动车道和相邻车道，是最容易出事的右转方式。</div>
+      </div>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-item"><span class="sign" data-sign="m-left"></span><span class="sname">左转</span><span class="smean">大弯，进最左车道</span></div>
+      <div class="sign-item"><span class="sign" data-sign="m-right"></span><span class="sname">右转</span><span class="smean">小弯，进最右车道</span></div>
+      <div class="sign-item"><span class="sign" data-sign="m-crosswalk"></span><span class="sname">人行横道</span><span class="smean">有人必须停，不是慢</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-signal"></span><span class="sname">注意信号灯</span><span class="smean">别抢最后几秒</span></div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">你在路口…</th><th style="width:34%">正确动作</th><th>原因</th></tr></thead>
+        <tbody>
+          <tr><td>要左转</td><td>过中心点再转，进目标方向最左车道</td><td>不切角，不抢对向直行，也不挤进左侧车道</td></tr>
+          <tr><td>要右转</td><td>贴右侧转小弯，进最右车道</td><td>不跨车道，不横切非机动车</td></tr>
+          <tr><td>斑马线上有人</td><td><b>停车让行</b>，等行人完全通过</td><td>法定义务；不按规定减速停车避让记 <span class="badge b3">3 分</span></td></tr>
+          <tr><td>前方路口堵住</td><td>在停止线外等候，不进入路口</td><td>进去只会把交叉方向堵死，自己也出不来</td></tr>
+          <tr><td>只有圆饼绿灯，要左转</td><td>让对向直行先过，再找安全间隔</td><td>绿灯只表示允许通行，不解除“转弯让直行”</td></tr>
+          <tr><td>直行绿灯，要左转</td><td>先进入左转待转区，等左转绿灯再走</td><td>待转区就是用来提前排队的；两个红灯时在停止线后等</td></tr>
+          <tr><td>有右转箭头红灯</td><td>停车等待，不能右转</td><td>箭头灯对右转同样有效，“右转不受灯控”是错的</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">易错</span>
+      堵车时跟着前车往前蹭，车头停在<b>人行横道或黄色网状线</b>上——这同样是违停，而且把行人和转弯车都堵住了。判断标准很简单：<b>路口对面没有你的位置，就不要进路口。</b>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">教练提醒</span>
+      右转前养成一个固定动作：<b>右后视镜 + 扭头看右后方</b>。电动车常常贴着你的右侧直行，后视镜里还有盲区，只看镜不够。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">小结</span>
+      进路口前问三句：<b>我去哪条道？斑马线上有没有人？路口对面有没有空位？</b>三个都有答案，再往里走。
+    </div>
+  </section>
+
+<!-- ================= 3 ================= -->
+  <section class="sec" id="s3">
+    <h2><span class="num">3</span>变道与超车：灯是申请，不是通知</h2>
+    <p class="lead">场景：高架上导航提示 500 米后下匝道，你在最左车道，右边还有两条车道都排着车。你想一次切两条，后车却在加速。</p>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      变道的风险不在打方向，而在<b>后车有没有预期</b>。后车按你当前的车道和速度规划了刹车距离，你突然横移，它只能急刹。所以顺序永远是：先给信号，再给时间，最后才动方向。
+    </div>
+
+    <div class="card">
+      <b>变道四步，一步都不能省</b>
+      <ol class="steps" style="margin-bottom:0">
+        <li><b>看镜</b><span>内后视镜看整体车流，外后视镜看目标车道。后车完整出现在镜中、且没有快速变大，才有讨论的余地。</span></li>
+        <li><b>打灯</b><span>提前 3 秒以上。法规要求“提前开启转向灯”，三秒是给后车的反应余量，不是可选项。</span></li>
+        <li><b>扭头看盲区</b><span>后视镜有死角，尤其是右后方。扭头一眼，比任何辅助配置都可靠。</span></li>
+        <li><b>缓打方向</b><span>小角度切入，车身过半再回正。变道后别立刻减速，先稳住速度，让后车重新建立距离。</span></li>
+      </ol>
+    </div>
+
+    <div class="flex" style="margin:14px 0">
+      <span class="chip on">0 秒 打灯</span>
+      <span class="muted">→</span>
+      <span class="chip">1 秒 再看一眼镜</span>
+      <span class="muted">→</span>
+      <span class="chip">2 秒 扭头扫盲区</span>
+      <span class="muted">→</span>
+      <span class="chip">3 秒 缓打方向</span>
+    </div>
+
+    <h3 class="sub">变道：能不能，看这三条</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">情况</th><th style="width:16%">能不能</th><th>原因</th></tr></thead>
+        <tbody>
+          <tr><td>虚线，目标车道后方安全</td><td class="c"><span class="hl-g">可以</span></td><td>但不得影响所借车道内正常行驶的车辆</td></tr>
+          <tr><td>实线（白实线、黄实线）</td><td class="c"><span class="hl-r">不行</span></td><td>实线是墙，压线变道本身就是违法</td></tr>
+          <tr><td>一次跨两条以上车道</td><td class="c"><span class="hl-r">不行</span></td><td>后车完全预判不到你的落点，必须一条一条变</td></tr>
+          <tr><td>出口前已经进了实线区</td><td class="c"><span class="hl-r">不行</span></td><td>提前 500 米以上逐条变道；错过就下一个出口</td></tr>
+          <tr><td>目标车道里有车正在正常行驶</td><td class="c"><span class="hl-r">让它</span></td><td>变道是借道，借道就得等主人先过</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">超车：只从左侧，这些地方不超</h3>
+    <div class="card">
+      <ul class="mb0">
+        <li><b>从左侧超。</b>超车前打左灯、看镜、扫盲区，确认前车没有左转或掉头的意图，再加速通过。</li>
+        <li><b>不得超车：</b>前车正在左转、掉头、超车；与对面来车有会车可能；前车是执行紧急任务的特种车辆。</li>
+        <li><b>没有超车条件的地方：</b>隧道、窄桥、交叉路口、急弯、陡坡、铁路道口、人行横道、匝道。高速上还不得借应急车道超车。</li>
+        <li><b>回原车道前：</b>内后视镜里看到被超车辆的完整车头，再打右灯并线；不要刚超过就切回去。</li>
+      </ul>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-item"><span class="sign" data-sign="p-overtake"></span><span class="sname">禁止超车</span><span class="smean">到解除标志前都不能超</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-tunnel"></span><span class="sname">隧道</span><span class="smean">隧道内不超车、不变道</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-rail"></span><span class="sname">铁路道口</span><span class="smean">一停、二看、三通过</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-bridge"></span><span class="sname">窄桥</span><span class="smean">桥面窄，不并行、不超车</span></div>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">易错</span>
+      连续变道、实线变道、右侧超车，这三件事在考试里都是直接错，在路上一旦被后车行车记录仪拍下，就是实打实的违法。<b>赶时间的最佳做法是提前出发，不是提前变道。</b>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">小结</span>
+      变道是申请，不是通知：<b>灯打够三秒，镜和盲区都看过，后车不用刹车</b>，才算一次合格的变道。
+    </div>
+  </section>
+
+  <!-- ================= 4 ================= -->
+  <section class="sec" id="s4">
+    <h2><span class="num">4</span>掉头：先找禁令，再找空间</h2>
+    <p class="lead">场景：导航让你掉头，路口立着禁止左转标志，地上是双黄实线，前方 20 米就是斑马线。你还想“就这一下”。</p>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      掉头等于<b>连续两次左转</b>，会横跨对向所有车道，是路口里动作最大、暴露时间最长的操作。所以规则对它的限制最多：先看禁令，再看地点，最后看有没有足够空间一次完成。
+    </div>
+
+    <div class="card">
+      <b>掉头前的判定顺序</b>
+      <ol class="steps" style="margin-bottom:0">
+        <li><b>看标志</b><span>有“禁止掉头”或“禁止左转”，都不能掉头。禁止左转的地方，掉头一定不行。</span></li>
+        <li><b>看标线</b><span>中心实线不得跨越；人行横道、导流线上不得掉头。</span></li>
+        <li><b>看地点</b><span>人行横道、桥梁、隧道、急弯、陡坡、铁路道口，一律不得掉头，有没有禁标都一样。</span></li>
+        <li><b>看道路等级</b><span>高速公路、城市快速路严禁掉头、倒车、逆行。穿越中央分隔带掉头一次记 <span class="badge b12">12 分</span>，细节见 05。</span></li>
+      </ol>
+    </div>
+
+    <div class="compare">
+      <div class="cmp-box">
+        <span class="sign" data-sign="p-uturn"></span>
+        <div class="cmp-title">这些情况不能掉头</div>
+        <div class="cmp-desc">禁止掉头 / 禁止左转、中心实线、人行横道、桥梁、隧道、急弯、陡坡、铁路道口、高速与快速路。</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="cmp-box">
+        <svg viewBox="0 0 100 100" width="84" height="84" aria-hidden="true"><circle cx="50" cy="50" r="43" fill="#e9f7ef" stroke="#0f8a54" stroke-width="8"/><path d="M30 52l14 14 26-30" fill="none" stroke="#0f8a54" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="cmp-title">可以掉头的地方</div>
+        <div class="cmp-desc">没有禁令、中心线允许越线、有掉头专用道或左转导向车道；打左灯，一次完成，不影响其他车和行人。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <b>一次合格的掉头</b>
+      <p class="small muted">提前进入最左车道或掉头专用道 → 打左灯 → 看对向直行和右后方非机动车 → 确认有足够空间 → 一次转过去 → 回正、回灯。</p>
+      <p class="small mb0">空间不够、对向车流不断，就继续往前找下一个路口。<b>掉头掉到一半倒车，是路口最危险的动作之一。</b></p>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">小结</span>
+      <b>掉头 = 两次左转。</b>禁左的地方一定不能掉头；高速和快速路上，连想都不要想。拿不准就看现场标志标线，以当地规定为准。
+    </div>
+  </section>
+
+  <!-- ================= 5 ================= -->
+  <section class="sec" id="s5">
+    <h2><span class="num">5</span>停车：守住 50 米和 30 米两道线</h2>
+    <p class="lead">场景：去接人，路边没有车位，你想“就靠边停两分钟”。可前面是公交站，后面是路口，中间还画着黄实线。</p>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      这些地点都有一个共同点：<b>视距差、进出频繁</b>。路口和铁路道口需要通视，桥梁隧道没有避让空间，公交站和消防栓随时可能有车靠停或紧急取水。你停两分钟，别人可能被挡两公里。
+    </div>
+
+    <div class="grid g2">
+      <div class="card flat" style="border-top:4px solid var(--red)">
+        <div class="bigm">50 <small>米</small></div>
+        <b>这些地点及 50 米以内，不得停车</b>
+        <p class="small muted mb0">交叉路口、铁路道口、急弯路、宽度不足 4 米的窄路、桥梁、陡坡、隧道，以及距上述地点 50 米以内的路段。</p>
+      </div>
+      <div class="card flat" style="border-top:4px solid var(--orange)">
+        <div class="bigm">30 <small>米</small></div>
+        <b>这些地点门前及 30 米以内，不得停车</b>
+        <p class="small muted mb0">公共汽车站、急救站、加油站、消防栓、消防队（站）门前。正在使用该设施的车辆除外。</p>
+      </div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:14px">
+      <table>
+        <thead><tr><th style="width:30%">看到这个</th><th style="width:26%">能不能停</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>路侧<b>黄实线</b></td><td class="c"><span class="hl-r">禁停</span></td><td>临时上下客也不行，一秒都算违停</td></tr>
+          <tr><td>路侧<b>黄虚线</b></td><td class="c">禁止长时停</td><td>可临时上下客，驾驶人不能离车</td></tr>
+          <tr><td><span class="sign sm" data-sign="m-crosswalk"></span> 人行横道</td><td class="c"><span class="hl-r">禁停</span></td><td>包括车头、车尾压在上面</td></tr>
+          <tr><td>黄色网状线</td><td class="c"><span class="hl-r">禁停</span></td><td>堵车时也要在网状线外等，不能压上去</td></tr>
+          <tr><td>导流线（白色斜纹区）</td><td class="c"><span class="hl-r">禁停</span></td><td>不是停车区，也不是排队区，不得压线、越线</td></tr>
+          <tr><td>消防通道、盲道</td><td class="c"><span class="hl-r">禁停</span></td><td>堵消防通道可能延误救援，后果远比一张罚单重</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">开门杀</span>
+      靠边停稳后，<b>先看后视镜和左后方，再用右手开左门</b>（荷式开门法）。这个动作会强迫你转身，眼睛自然扫到后方来车。开门不得妨碍其他车辆和行人通行，骑车人被撞飞的事故，几乎都是这一下。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">小结</span>
+      停车三问：<b>这里禁不禁停？挡不挡人和车？开门会不会撞到人？</b>三问有一个不对，就换个地方停。
+    </div>
+  </section>
+
+<!-- ================= 6 ================= -->
+  <section class="sec" id="s6">
+    <h2><span class="num">6</span>高速：速度高，只做“保持车距 + 提前决策”</h2>
+    <p class="lead">场景：第一次上高速，匝道里限速 40，主路车流 100，你只有两百米加速车道，左边一辆大货车正压过来。</p>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      高速的危险来自<b>速度差</b>。你 60 汇入 100 的车流，后车每秒钟逼近 11 米；你也一样，看错一个出口再急刹变道，后车根本刹不住。所以高速规则的核心只有两个：把速度差抹平，把决策提前。
+    </div>
+
+    <h3 class="sub">车道与限速</h3>
+    <div class="tbl-wrap compact">
+      <table>
+        <thead><tr><th>车道</th><th>最低车速</th><th>最高车速</th></tr></thead>
+        <tbody>
+          <tr><td>全路（默认）</td><td>60</td><td>小客车 120；其他机动车 100；摩托车 80</td></tr>
+          <tr><td>同方向 2 条 · 左侧</td><td>100</td><td>看限速牌，不超过车型上限</td></tr>
+          <tr><td>同方向 2 条 · 右侧</td><td>60</td><td>看限速牌，不超过车型上限</td></tr>
+          <tr><td>3 条及以上 · 最左</td><td>110</td><td>看限速牌，不超过车型上限</td></tr>
+          <tr><td>3 条及以上 · 中间</td><td>90</td><td>看限速牌，不超过车型上限</td></tr>
+          <tr><td>3 条及以上 · 最右</td><td>60</td><td>看限速牌，不超过车型上限</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <span class="lbl">优先</span>
+      法定的逐车道规定只有<b>最低车速</b>；逐车道最高车速没有全国统一数值，以路面和门架上的限速牌为准。两者冲突时，<b>按限速牌走</b>。低于最低限速同样违法（记 3 分），但拥堵、雨雪雾等特殊情况除外。
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-item"><span class="sign" data-sign="g-highway"></span><span class="sname">高速入口</span><span class="smean">确认入口，提前提速</span></div>
+      <div class="sign-item"><span class="sign" data-sign="g-exit"></span><span class="sname">出口预告</span><span class="smean">2km 准备，1km 打灯</span></div>
+      <div class="sign-item"><span class="sign" data-sign="g-service"></span><span class="sname">服务区</span><span class="smean">加油充电、休息、厕所</span></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>匝道</b>
+        <p class="small muted mb0">按匝道限速牌走，常见 40。匝道内不超车、不掉头、不随便变道。进主路前在加速车道把速度提到接近主路车流，打左灯、看镜、找空隙一次汇入；<b>不要在加速车道末端停下来等</b>，那是最容易被追尾的位置。</p>
+      </div>
+      <div class="card">
+        <b>应急车道</b>
+        <p class="small muted mb0">只给车辆故障、事故、人员突发疾病等紧急情况用。正常行驶占用应急车道，一次记 <span class="badge b6">6 分</span>；它同时是救护车、消防车的生命通道。累了进服务区，别在应急车道休息。</p>
+      </div>
+    </div>
+
+    <h3 class="sub">故障处置：九字诀</h3>
+    <div class="card">
+      <b>车靠边、人撤离、即报警</b>
+      <ol class="steps" style="margin-bottom:0">
+        <li><b>车靠边</b><span>能移动就开双闪、尽量挪到应急车道；不能移动，开双闪，人立刻下车。</span></li>
+        <li><b>放牌</b><span>在车后 <b>150 米</b>放三角警告牌（普通道路一般 50–100 米）。雨雾天、夜间距离还要加大。</span></li>
+        <li><b>人撤离</b><span>所有人撤到<b>护栏外</b>，不要在车里等，也不要在车旁站着。</span></li>
+        <li><b>即报警</b><span>打 12122 或 110，报清高速名称、方向、最近的公里牌或百米桩位置。</span></li>
+      </ol>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">给复训的你</span>
+      实习期（领证 12 个月内）不得独自上高速，需要持相应或更高车型驾驶证 3 年以上的人陪同。你已经过了实习期，但三年没开，<b>建议头几次高速让教练陪同</b>：匝道汇入、超大车、出高速这三个动作，有人在旁边点一句，比自己摸索省很多时间。
+    </div>
+
+    <div class="trap">
+      <span class="lbl">血亏操作</span>
+      错过出口后倒车、逆行、穿越中央分隔带掉头，一次记 <span class="badge b12">12 分</span>，还是高速上最危险的动作。正确做法：<b>继续开到下一个出口</b>，多绕十几公里，换一条命。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">小结</span>
+      高速只做两件事：<b>保持车距，提前决策。</b>出口提前 2 公里准备，1 公里打灯，500 米已经在最右车道；进了实线区就认命，下一个出口见。
+    </div>
+  </section>
+
+  <!-- ================= 7 ================= -->
+  <section class="sec" id="s7">
+    <h2><span class="num">7</span>灯光：近光是礼貌，远光是喇叭</h2>
+    <p class="lead">场景：晚上走双向两车道的国道，对向一辆车开着远光过来，你眼前一片白；前方还有一条隧道在等着。</p>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      夜间事故大多不是“看不见路”，而是<b>被晃得看不见人</b>。远光灯的光型又高又散，会车时直接照进对方眼睛，对方会有几秒钟完全失明。所以用灯的第一原则是：<b>不要让别人的眼睛替你承担风险。</b>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">场景</th><th style="width:24%">用什么灯</th><th>要点</th></tr></thead>
+        <tbody>
+          <tr><td>夜间会车</td><td><b>近光</b></td><td>距对向来车 <b>150 米以外</b>就要改近光，不要等对方先变</td></tr>
+          <tr><td>夜间近距离跟车</td><td><b>近光</b></td><td>远光会从后视镜直射前车司机</td></tr>
+          <tr><td>有路灯的城市道路</td><td><b>近光</b></td><td>能看清路况就不开远光</td></tr>
+          <tr><td>无路灯、无来车的公路</td><td>远光</td><td>一旦发现来车、前车或行人，立刻改近光</td></tr>
+          <tr><td>进隧道</td><td><b>近光</b></td><td>进洞前开灯，出洞注意光线突变，先减速再适应</td></tr>
+          <tr><td>雾天</td><td>雾灯 + 近光（能见度 &lt;100 米再加双闪）</td><td>别开远光，远光在雾里只会变成一堵白墙</td></tr>
+          <tr><td>变道、超车、转弯、靠边</td><td><b>转向灯</b></td><td>提前 3 秒以上，给后车反应时间</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">雾天高速：三个能见度，三档速度</h3>
+    <div class="tbl-wrap compact">
+      <table>
+        <thead><tr><th>能见度</th><th>车速</th><th>车距</th><th>灯光</th></tr></thead>
+        <tbody>
+          <tr><td>小于 200 米</td><td>不超过 60</td><td>100 米以上</td><td>雾灯 + 近光 + 示廓灯 + 前后位灯</td></tr>
+          <tr><td>小于 100 米</td><td>不超过 40</td><td>50 米以上</td><td>再加双闪</td></tr>
+          <tr><td>小于 50 米</td><td>不超过 20</td><td>—</td><td>双闪，从最近出口尽快驶离高速</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">教练提醒</span>
+      转向灯不是“我要转了”的通报，是“我准备转了”的申请。给自己定死：<b>灯响三下，再动方向。</b>超车、变道、靠边、起步、进出环岛，一个都不能省。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">小结</span>
+      灯是语言：<b>近光是礼貌，远光是喇叭，转向灯是提前打招呼。</b>打灯不是给自己看的，是给后车看的。
+    </div>
+  </section>
+
+  <!-- ================= 8 ================= -->
+  <section class="sec" id="s8">
+    <h2><span class="num">8</span>事故与违法底线：先保人，再谈责任</h2>
+    <p class="lead">场景：小区门口轻微剐蹭，两辆车都能动，人也没事，后面的车已经开始排队按喇叭。你们站在车道中间争论是谁的责任。</p>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      轻微事故最大的风险不是修车钱，是<b>二次事故</b>：人站在行车道上，后车一个分神就是人命。所以顺序永远是先保人、再撤离、最后谈责任。反过来，该报警的情况也绝不能私了，否则后患更大。
+    </div>
+
+    <div class="card">
+      <b>轻微事故：四步走</b>
+      <ol class="steps" style="margin-bottom:0">
+        <li><b>开双闪</b><span>两车都开双闪，夜间再开示廓灯。人先撤到路侧安全位置。</span></li>
+        <li><b>拍照取证</b><span>车头、车尾、两车相对位置、碰撞点、车牌、地面标线各来一张，尽量拍到全景。</span></li>
+        <li><b>迅速撤离</b><span>把车移到不妨碍交通的地方，不要在车道中间理论，也不要在原地等保险。</span></li>
+        <li><b>协商或快处</b><span>责任清楚就线上快处或自行协商；说不清就报警，等交警定责。</span></li>
+      </ol>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">必须报警，不能私了</span>
+      有人受伤、车辆无牌无证、驾驶人无证或酒驾、对方逃逸、撞了公共设施或危险品车辆——<b>立即报警，先救人</b>，不要移动现场（为救人必须移动的，先标记位置）。
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>酒驾：两个数字</b>
+        <p class="small muted mb0">血液酒精含量 <b>≥20mg/100ml 且 &lt;80mg/100ml</b> 为饮酒驾驶；<b>≥80mg/100ml</b> 为醉酒驾驶。处罚标准见 05 模块。隔夜酒、两瓶啤酒都算，别用“我感觉清醒”做判断。</p>
+      </div>
+      <div class="card">
+        <b>疲劳：4 小时 / 20 分钟</b>
+        <p class="small muted mb0">连续驾驶不得超过 4 小时，停车休息不少于 20 分钟；客运、货运、危化品车辆还有记分。困了就近进服务区，不要靠“再撑一下”。</p>
+      </div>
+      <div class="card">
+        <b>儿童：座椅 + 后排</b>
+        <p class="small muted mb0">《未成年人保护法》要求监护人采取配备儿童安全座椅等措施。不要抱孩子坐副驾：碰撞时大人根本抱不住，气囊弹出反而伤孩子。孩子坐后排，按年龄和身高选座椅，以当地规定为准。</p>
+      </div>
+      <div class="card">
+        <b>特种车辆：让，但不跟</b>
+        <p class="small muted mb0">警车、消防车、救护车、工程救险车执行紧急任务时，其他车辆和行人应当让行，<b>不得穿插、不得跟随</b>。为让行产生的越线等行为，可凭行车记录申请撤销。</p>
+      </div>
+      <div class="card">
+        <b>校车：停车等待</b>
+        <p class="small muted mb0">校车停靠上下学生、打开停车指示牌时：同方向只有一条车道，后车停车等待；两条以上车道，校车所在车道和相邻车道的车停车等待，其他车道减速通过。孩子可能从车头突然跑出来。</p>
+      </div>
+      <div class="card">
+        <b>一条底线</b>
+        <p class="small muted mb0">不拿别人的安全换自己的方便。抢一秒、停一下、晃一下远光，省下的都是几秒钟，赔上的可能是一整天甚至更久。</p>
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">小结</span>
+      事故现场的顺序：<b>先保人、再撤离、最后谈责任。</b>该报警的六种情况记牢，剩下的走快处；拿不准就报警，别自己当裁判。
+    </div>
+  </section>
+
+<!-- ================= 9 ================= -->
+  <section class="sec" id="s9">
+    <h2><span class="num">9</span>速查：四张卡收口</h2>
+    <p class="lead">上车前扫一眼。记不住细节就记顺序，顺序能在路口替你争取两秒钟。</p>
+
+    <div class="grid g2">
+      <div class="card flat" style="border-top:4px solid var(--blue)">
+        <b>让行</b>
+        <ul class="small mb0">
+          <li>交警 &gt; 信号灯 &gt; 标志标线 &gt; 兜底四条</li>
+          <li>转弯让直行；右转让左转；支路让干路；让右方来车</li>
+          <li>进环岛让环内；出环岛打右灯</li>
+          <li>山路不靠山体先行；窄坡上坡先行（下坡已到中途除外）</li>
+          <li>有障碍：无障碍先行（有障碍已驶入则它先行）</li>
+        </ul>
+      </div>
+      <div class="card flat" style="border-top:4px solid var(--red)">
+        <b>停车距离</b>
+        <ul class="small mb0">
+          <li><b>50 米</b>：路口、铁路道口、急弯、不足 4 米的窄路、桥梁、陡坡、隧道</li>
+          <li><b>30 米</b>：公交站、急救站、加油站、消防栓、消防队门前（使用时除外）</li>
+          <li>黄实线禁停；黄虚线禁长时停</li>
+          <li>人行横道、网状线、导流线：一律不停</li>
+          <li>开门先看后方，右手开左门</li>
+        </ul>
+      </div>
+      <div class="card flat" style="border-top:4px solid var(--green)">
+        <b>高速</b>
+        <ul class="small mb0">
+          <li>最高 120，最低 60；限速牌优先</li>
+          <li>2 条车道：100–120 / 60–100</li>
+          <li>3 条以上：110–120 / 90–110 / 60–90</li>
+          <li>应急车道只给紧急情况，违法占用记 6 分</li>
+          <li>故障：双闪 + 车后 150 米三角牌 + 护栏外 + 报警</li>
+          <li>错过出口：下一个，绝不倒车</li>
+        </ul>
+      </div>
+      <div class="card flat" style="border-top:4px solid var(--orange)">
+        <b>灯光</b>
+        <ul class="small mb0">
+          <li>夜间会车 150 米外改近光；跟车、有路灯用近光</li>
+          <li>雾天：能见度 &lt;200 限 60；&lt;100 限 40 + 双闪；&lt;50 限 20 并尽快驶离</li>
+          <li>进隧道开近光，出隧道防光线突变</li>
+          <li>转向灯提前 3 秒以上</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="lbl">边界</span>
+      本页是复训要点，不是法条全文。罚款与记分细节见 05 模块；具体路段的限速、禁停时段、掉头规定以现场标志和当地规定为准。
+    </div>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section class="sec" id="quiz">
+    <h2><span class="num">✓</span>闯关：14 题</h2>
+    <p class="lead">点选项立即判分，答错会给出依据。目标：14 题至少对 12 题；错题回到对应小节再看一遍。</p>
+    <div id="quiz1"></div>
+  </section>
+
+  <div class="pager">
+    <a href="03_scenes.html"><div class="pdir">← 上一模块</div><div class="pt">03 道路场景（动图）</div></a>
+    <a href="05_points.html" class="next"><div class="pdir">下一模块 →</div><div class="pt">05 记分点</div></a>
+  </div>
+
+  <footer class="foot">
+    <div class="fr"><span>04 通行规则</span><span>依据：道路交通安全法及实施条例</span></div>
+  </footer>
+</main>
+
+<script src="assets/js/signs.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+Driving.quiz("#quiz1", {
+  id: "04_rules-01",
+  title: "规则闯关",
+  qs: [
+    {
+      q: "在没有信号灯、也没有标志标线的路口，你直行，右方道路也有一辆车直行过来，两车同时到达。谁先走？",
+      o: ["右方来车先走", "我先走，我是直行", "车身大的先走", "鸣笛示意后我先走"],
+      a: 0,
+      why: "无信号灯、无标志标线的路口，进入路口前停车瞭望，让右方道路的来车先行。这是打破僵局的兜底规则，别在现场推理。"
+    },
+    {
+      q: "相对方向两车同时进入路口：你右转，对面一辆车左转。谁让谁？",
+      o: ["左转车让我", "我让左转车", "谁先到谁先走", "看谁打灯早"],
+      a: 1,
+      why: "相对方向行驶，右转弯的机动车让左转弯的车辆先行。左转轨迹长、要横跨对向车道，右转一把就能出去。"
+    },
+    {
+      q: "你在路口左转，只有圆饼绿灯（没有左转箭头灯），对向有直行车正常驶来。可以直接转吗？",
+      o: ["绿灯亮了，我有优先权，直接转", "对向直行车让我", "鸣笛催对方减速", "让对向直行车先过，再找安全间隔左转"],
+      a: 3,
+      why: "转弯让直行。圆饼绿灯只表示“可以进入路口”，不解除让行义务；左转要等对向直行车流出现安全间隔再过。"
+    },
+    {
+      q: "准备进入环岛时，环内左侧已有一辆车驶来。正确做法是？",
+      o: ["环内车让我，我直接进", "打左灯直接切入", "减速或停车，让环内车先过再进", "加速抢在它前面进环"],
+      a: 2,
+      why: "进环岛的车让已在环岛内的车先行。进环岛不打左灯（你是汇入，不是左转）；出环岛才打右灯。"
+    },
+    {
+      q: "在狭窄的山路会车，你靠山体一侧，对向车外侧是悬崖。谁先过？",
+      o: ["不靠山体的一方先行，我让它", "我先过，我在内侧安全", "下坡一方先行，与山体无关", "鸣笛后两车同时通过"],
+      a: 0,
+      why: "狭窄山路会车，不靠山体的一方先行。靠山体一方有避让空间，外侧车一旦被挤就无处可退。"
+    },
+    {
+      q: "下面哪个位置可以临时停车？",
+      o: ["交叉路口内，靠边一点", "距公交站 25 米的路边", "距交叉路口 60 米、靠右且不妨碍通行的路边", "人行横道上，驾驶员不离车"],
+      a: 2,
+      why: "交叉路口及距路口 50 米以内禁停；公交站及距站 30 米以内禁停（正在使用该站的车辆除外）；人行横道一律不能停。C 已出 50 米禁区，但仍要看现场有没有禁停标志、黄实线和消防通道。"
+    },
+    {
+      q: "你在最左车道，导航提示 200 米后要下匝道，右侧还有两条车道。怎么做？",
+      o: ["一次连续变两条，抓紧时间", "分两次变道，每次变完稳住再变下一条", "打灯后从实线区直接切过去", "先急刹到 20 km/h 再连续变道"],
+      a: 1,
+      why: "一次只能变更一条车道，连续跨两条后车完全预判不到。实线区不得变道；减速过猛同样危险，应该提前 500 米以上开始逐条变道。"
+    },
+    {
+      q: "前车在隧道里开得很慢，你赶时间，可以超车吗？",
+      o: ["可以，打灯从左侧超", "可以，隧道内是虚线就能超", "可以，鸣笛后从右侧超", "不可以，隧道内不得超车"],
+      a: 3,
+      why: "隧道、窄桥、急弯、陡坡、铁路道口、人行横道、匝道等没有超车条件的地方不得超车。隧道空间封闭、光线差，跟车减速才是正解。"
+    },
+    {
+      q: "前方人行横道处没有禁止掉头标志，可以在斑马线上掉头吗？",
+      o: ["不可以，人行横道不得掉头", "可以，只要不影响行人", "可以，等行人走完再掉头", "可以，打左灯就行"],
+      a: 0,
+      why: "人行横道、桥梁、急弯、陡坡、隧道、铁路道口都不得掉头，与有没有禁止掉头标志无关。掉头要在最左车道或掉头专用道，且不得妨碍正常通行。"
+    },
+    {
+      q: "高速上右侧车道排队，应急车道空着，可以借它超车吗？",
+      o: ["可以，超完立刻回主道", "不可以，违法占用应急车道行驶记 6 分", "可以，只要不超速", "可以，只有货车不允许"],
+      a: 1,
+      why: "应急车道只给故障、事故、急救等紧急情况用。违法占用应急车道行驶一次记 6 分；它还是救护车、消防车的生命通道。"
+    },
+    {
+      q: "高速上车辆故障，停在应急车道后，三角警告牌应放在车后多远？",
+      o: ["车后 50 米", "车后 100 米", "车后 150 米", "放在车顶就行"],
+      a: 2,
+      why: "高速上故障停车：开双闪，在车后 150 米放三角牌（普通道路一般 50–100 米），人撤到护栏外，再报警。九字诀：车靠边、人撤离、即报警。"
+    },
+    {
+      q: "高速上能见度小于 50 米，正确做法是？",
+      o: ["开远光，保持 60 km/h", "停在应急车道等雾散", "跟紧前车尾灯行驶", "开雾灯和双闪，车速不超过 20 km/h，尽快从最近出口驶离"],
+      a: 3,
+      why: "能见度小于 50 米：雾灯 + 近光 + 示廓灯 + 前后位灯 + 双闪，车速不超过 20 km/h，并从最近出口尽快驶离高速。停在应急车道等雾散，反而容易被追尾。"
+    },
+    {
+      q: "夜间在没有路灯的公路上会车，应在多远处把远光灯改成近光灯？",
+      o: ["150 米以外", "50 米以外", "100 米以外", "等对方先变我再变"],
+      a: 0,
+      why: "夜间会车应在距对向来车 150 米以外改用近光灯；同向近距离跟车也用近光。远光会让对方瞬间致盲，双方都危险。"
+    },
+    {
+      q: "后方有消防车鸣笛闪灯执行任务，你正在路口等红灯。怎么办？",
+      o: ["跟在消防车后面一起通过", "在确保安全的前提下让出通道，必要时越过停止线靠边", "保持不动，等绿灯再走", "加速抢在消防车前面通过"],
+      a: 1,
+      why: "警车、消防车、救护车、工程救险车执行紧急任务时，其他车辆和行人应当让行，不得穿插、跟随。为让行产生的越线等行为，可凭行车记录申请撤销。"
+    }
+  ]
+});
+</script>
+</body>
+</html>

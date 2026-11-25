@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 交通标志 · 重新学开车</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .decode { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .decode-item { border-radius: 12px; padding: 14px 16px; min-height: 96px; position: relative; overflow: hidden; }
+  .decode-item .dt { font-weight: 800; font-size: 15px; margin-bottom: 3px; }
+  .decode-item .dd { font-size: 12.5px; line-height: 1.5; opacity: .9; }
+  .decode-item .sw { position: absolute; right: -18px; bottom: -22px; width: 76px; height: 76px; border-radius: 50%; background: rgba(255,255,255,.18); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .fade-seq > * { animation: fadeUp .7s ease both; }
+  .fade-seq > *:nth-child(2) { animation-delay: .3s; }
+  .fade-seq > *:nth-child(3) { animation-delay: .6s; }
+  .fade-seq > *:nth-child(4) { animation-delay: .9s; }
+
+  @keyframes slashIn { 0%, 12% { stroke-dashoffset: 80; opacity: .2; } 42%, 88% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 80; opacity: .2; } }
+  .cmp-anim [data-sign="p-noparking"] svg path { stroke-dasharray: 80; animation: slashIn 4s ease-in-out infinite; }
+  .cmp-anim [data-sign="p-noparking"] svg path:nth-of-type(2) { animation-delay: .3s; }
+  .cmp-anim [data-sign="p-nolongparking"] svg path { stroke-dasharray: 70; animation: slashIn 4s ease-in-out infinite; }
+  .cmp-anim .cmp-box { padding-bottom: 6px; }
+
+  .exitseq { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; padding: 10px 0 4px; }
+  .ex {
+    background: #007a4d; color: #fff; border-radius: 8px; padding: 12px 18px; text-align: center;
+    min-width: 96px; opacity: .4; animation: light 4.8s ease-in-out infinite; animation-delay: var(--d);
+    box-shadow: 0 0 0 0 rgba(0,122,77,0);
+  }
+  .ex b { display: block; font-size: 15px; letter-spacing: .12em; }
+  .ex span { display: block; font-size: 13px; opacity: .9; }
+  @keyframes light {
+    0%, 33% { opacity: 1; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,122,77,.28); }
+    42%, 100% { opacity: .4; transform: none; box-shadow: 0 0 0 0 rgba(0,122,77,0); }
+  }
+  .exitcap { text-align: center; font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .sign-item.tall .smean { min-height: 2.9em; }
+</style>
+</head>
+<body data-mod="01_signs">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span>重新学开车</a>
+    <span class="crumb">01 · <b>交通标志</b></span>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="01_signs.html" class="on">标志</a>
+      <a href="02_markings.html">标线</a>
+      <a href="03_scenes.html">场景</a>
+      <a href="04_rules.html">规则</a>
+      <a href="05_points.html">记分</a>
+      <a href="06_ev.html">电车</a>
+      <a href="07_practice.html">实操</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">模块 01 / 共 7 个</span>
+    <h1>交通标志：先分类，再记含义</h1>
+    <p>标志不是几百张图要背，而是<b>一套编码系统</b>：颜色决定语气，形状决定力度，图案说明具体管什么。学会解码，第一次见到的标志也能猜个八九不离十。</p>
+    <div class="hero-tags">
+      <span class="chip">颜色 + 形状定类</span>
+      <span class="chip">50+ 个高频标志</span>
+      <span class="chip">8 组易混对照</span>
+      <span class="chip">14 题闯关</span>
+    </div>
+  </section>
+
+  <nav class="toc">
+    <a href="#s1" class="on">一秒定类</a>
+    <a href="#s2">警告</a>
+    <a href="#s3">禁令</a>
+    <a href="#s4">指示</a>
+    <a href="#s5">指路</a>
+    <a href="#s6">让行</a>
+    <a href="#s7">高速专项</a>
+    <a href="#s8">易混对照</a>
+    <a href="#s9">新国标</a>
+    <a href="#s10">速查</a>
+    <a href="#quiz">闯关</a>
+  </nav>
+
+  <!-- ================= 1 ================= -->
+  <section class="sec" id="s1">
+    <h2><span class="num">1</span>一秒定类：看颜色，再看形状</h2>
+    <p class="lead">路上没时间细看图案。先用颜色判断“这是提醒我、禁止我，还是命令我”，再用形状确认强度。</p>
+
+    <div class="decode fade-seq">
+      <div class="decode-item" style="background:#ffcf00;color:#111">
+        <div class="dt">黄底 + 三角</div>
+        <div class="dd">警告：前方有情况<br>动作：松电门、脚放刹车</div>
+        <div class="sw"></div>
+      </div>
+      <div class="decode-item" style="background:#c9202f">
+        <div class="dt">白底 + 红圈</div>
+        <div class="dd">禁令：不许这么做<br>动作：立刻放弃这个念头</div>
+        <div class="sw"></div>
+      </div>
+      <div class="decode-item" style="background:#1769c9">
+        <div class="dt">蓝底 + 圆形</div>
+        <div class="dd">指示：必须这么做<br>动作：按箭头方向走</div>
+        <div class="sw"></div>
+      </div>
+      <div class="decode-item" style="background:#007a4d">
+        <div class="dt">蓝/绿 + 方形</div>
+        <div class="dd">指路：这里是哪、往哪走<br>动作：确认路线，别临时变道</div>
+        <div class="sw"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <b>三问解码法</b>
+      <ol class="steps" style="margin-bottom:0">
+        <li><b>什么颜色？</b><span>黄=提醒 · 红=禁止 · 蓝=指令 · 绿/蓝方=指路 · 棕=旅游 · 橙=施工 · 白=辅助说明。</span></li>
+        <li><b>什么形状？</b><span>三角=警告 · 圆=禁令或指令 · 方=指路/车道 · 八角=必须停车 · 倒三角=减速让行。</span></li>
+        <li><b>图案在管什么？</b><span>人、车、箭头、数字、地名。图案只负责“管什么”，语气已经由颜色和形状给完了。</span></li>
+      </ol>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">口诀</span>
+      <b>黄三角是提醒，红圈是禁止，蓝圆是指令，蓝绿方是路名，八角必须停，倒三角要让行。</b>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">别搞混</span>
+      同样是蓝色：<b>蓝圆</b>是“必须按它做”（指示），<b>蓝方</b>是“这条路/这个车道是什么”（指路）。单行路是蓝方，直行是蓝圆。
+    </div>
+  </section>
+
+  <!-- ================= 2 ================= -->
+  <section class="sec" id="s2">
+    <h2><span class="num">2</span>警告标志：黄三角，提前告诉你“前面有情况”</h2>
+    <p class="lead">警告标志不改变规则，只提前告知风险。看到它，正确动作永远是同一个：<b>松电门、脚移到刹车上、把速度降下来</b>。它一般设在危险点前方几十米到上百米，随限速提高而变长。</p>
+
+    <div class="sign-grid">
+      <div class="sign-item"><span class="sign" data-sign="w-crosswalk"></span><span class="sname">注意行人</span><span class="smean">前方行人多或有人行横道</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-children"></span><span class="sname">注意儿童</span><span class="smean">学校、幼儿园附近</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-cross"></span><span class="sname">十字交叉</span><span class="smean">前方有路口，注意横向来车</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-roundabout"></span><span class="sname">环形交叉</span><span class="smean">前方环岛，进环岛要让环内车</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-signal"></span><span class="sname">注意信号灯</span><span class="smean">前方有信号灯，别抢最后几秒</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-curves"></span><span class="sname">连续弯路</span><span class="smean">降速，弯内不超车</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-steep"></span><span class="sname">陡坡</span><span class="smean">下坡用低挡/高回收，别一直踩刹车</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-narrow"></span><span class="sname">窄路</span><span class="smean">路面变窄，会车小心</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-bridge"></span><span class="sname">窄桥</span><span class="smean">桥面窄，先让对向</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-rock"></span><span class="sname">注意落石</span><span class="smean">山区路段，别在坡下停车</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-wind"></span><span class="sname">注意横风</span><span class="smean">桥面、山口、海边，双手握稳</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-slip"></span><span class="sname">易滑</span><span class="smean">雨雪后尤其危险，提前减速</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-tunnel"></span><span class="sname">隧道</span><span class="smean">开近光灯，隧道内不变道</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-rail"></span><span class="sname">无人看守道口</span><span class="smean">一停、二看、三通过</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-build"></span><span class="sname">施工</span><span class="smean">按临时标志和锥桶走</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-village"></span><span class="sname">村庄</span><span class="smean">人、畜、电动车随时可能横穿</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-animal"></span><span class="sname">野生动物</span><span class="smean">林区、山区，夜间尤其注意</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-bump"></span><span class="sname">路面高突</span><span class="smean">前方减速带，别高速通过</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-flood"></span><span class="sname">过水路面</span><span class="smean">先判断水深，再决定过不过</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-merge"></span><span class="sname">合流</span><span class="smean">匝道汇入主路，注意主路车流</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-fork"></span><span class="sname">分流</span><span class="smean">前方分道，提前选好车道</span></div>
+      <div class="sign-item"><span class="sign" data-sign="w-accident"></span><span class="sname">交通事故管理</span><span class="smean">粉底为新国标标志，前方事故现场</span></div>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">上手</span>
+      警告标志最容易被“看懂了但没反应”。练车时给自己定一个动作：<b>只要视线扫到黄三角，右脚必须离开电门</b>。先建立这个条件反射，再谈判断。
+    </div>
+
+    <div class="trap">
+      <span class="lbl">易错</span>
+      “注意行人”（黄三角）是<b>警告</b>，告诉你前方可能有人；“人行横道”（蓝方）是<b>指示</b>，告诉你这里就是斑马线。两者都要减速，但含义不同。
+    </div>
+  </section>
+
+  <!-- ================= 3 ================= -->
+  <section class="sec" id="s3">
+    <h2><span class="num">3</span>禁令标志：红圈，写着“不许”</h2>
+    <p class="lead">红圈标志没有商量余地。它分三类：<b>禁止某动作</b>（左转、掉头、超车）、<b>限制某个量</b>（速度、高度、重量）、<b>禁止某种状态</b>（停车、鸣喇叭）。看到红圈，先假设“不能做”，再找允许的替代动作。</p>
+
+    <div class="sign-grid">
+      <div class="sign-item"><span class="sign" data-sign="p-noentry"></span><span class="sname">禁止驶入</span><span class="smean">单行道出口，进去就是逆行</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-nopass"></span><span class="sname">禁止通行</span><span class="smean">人和车都不能通过</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-novehicle"></span><span class="sname">禁止机动车通行</span><span class="smean">整条路机动车不能进</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-left"></span><span class="sname">禁止左转</span><span class="smean">也不能掉头（掉头是两次左转）</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-right"></span><span class="sname">禁止右转</span><span class="smean">右转也不行，直行或左转看其他标志</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-uturn"></span><span class="sname">禁止掉头</span><span class="smean">只能继续往前</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-straight"></span><span class="sname">禁止直行</span><span class="smean">只能转弯</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-overtake"></span><span class="sname">禁止超车</span><span class="smean">直到解除标志前都不能超</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-speed40"></span><span class="sname">限速 40</span><span class="smean">最高时速，不是建议速度</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-speed60"></span><span class="sname">限速 60</span><span class="smean">超 20% 以内不记分但仍可能罚款</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-height"></span><span class="sname">限高 3.5 m</span><span class="smean">车顶加装行李架要留意</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-weight"></span><span class="sname">限重 10 t</span><span class="smean">货车看总质量，小车基本无关</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-noparking"></span><span class="sname">禁止停车</span><span class="smean">红叉：一秒都不能停，上下客也不行</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-nolongparking"></span><span class="sname">禁止长时停车</span><span class="smean">单斜杠：可临时上下客，人不能离车</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-horn"></span><span class="sname">禁止鸣喇叭</span><span class="smean">医院、学校、居民区常见</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-ebike"></span><span class="sname">禁止电动自行车</span><span class="smean">2022 版新国标新增</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-end-overtake"></span><span class="sname">解除禁止超车</span><span class="smean">灰色=前面的禁令到此结束</span></div>
+      <div class="sign-item"><span class="sign" data-sign="p-end-40"></span><span class="sname">解除限速 40</span><span class="smean">恢复该路段默认限速</span></div>
+    </div>
+
+    <h3 class="sub">最容易混的两个：禁止停车 vs 禁止长时停车</h3>
+    <div class="cmp-anim">
+      <div class="compare">
+        <div class="cmp-box">
+          <span class="sign" data-sign="p-noparking"></span>
+          <div class="cmp-title">禁止停车（X）</div>
+          <div class="cmp-desc">任何情况都不能停。靠边上下客、等人、看导航，都算违停。</div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="cmp-box">
+          <span class="sign" data-sign="p-nolongparking"></span>
+          <div class="cmp-title">禁止长时停车（/）</div>
+          <div class="cmp-desc">允许临时停靠上下客、装卸，但驾驶人不能离车，也不能停着不走。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      红叉是“叉掉”整个停车行为；单斜杠只是“划掉长时间”。这是设计上的语义差别，不是随意画的。<b>记法：叉 = 全禁，杠 = 禁久。</b>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">连着看</span>
+      红圈经常和<b>白底辅助牌</b>一起出现：下面写“7:00–19:00”就只在时段内有效；写“公交车除外”就只管其他车；写“前方 100m”就管那一段。辅助牌是限定条件，不是装饰。
+    </div>
+  </section>
+
+  <!-- ================= 4 ================= -->
+  <section class="sec" id="s4">
+    <h2><span class="num">4</span>指示标志：蓝圆，必须照做</h2>
+    <p class="lead">蓝圆不是建议，是命令：让你直行就得直行，让你靠右就得靠右。它和禁令的区别只是“正向要求”与“反向禁止”，违反的后果一样。</p>
+
+    <div class="sign-grid">
+      <div class="sign-item"><span class="sign" data-sign="m-straight"></span><span class="sname">直行</span><span class="smean">这个路口只能直行</span></div>
+      <div class="sign-item"><span class="sign" data-sign="m-left"></span><span class="sname">向左转弯</span><span class="smean">必须左转，不能直行</span></div>
+      <div class="sign-item"><span class="sign" data-sign="m-right"></span><span class="sname">向右转弯</span><span class="smean">必须右转</span></div>
+      <div class="sign-item"><span class="sign" data-sign="m-roundabout"></span><span class="sname">环岛行驶</span><span class="smean">按逆时针绕环岛</span></div>
+      <div class="sign-item"><span class="sign" data-sign="m-keepright"></span><span class="sname">靠右侧行驶</span><span class="smean">中央有障碍物时从右侧过</span></div>
+      <div class="sign-item"><span class="sign" data-sign="m-crosswalk"></span><span class="sname">人行横道</span><span class="smean">这里就是斑马线，必须礼让</span></div>
+      <div class="sign-item"><span class="sign" data-sign="m-min60"></span><span class="sname">最低限速 60</span><span class="smean">开太慢也违法，高速上尤其</span></div>
+      <div class="sign-item"><span class="sign" data-sign="s-oneway"></span><span class="sname">单行路</span><span class="smean">蓝方：整条路只能单向行驶</span></div>
+      <div class="sign-item"><span class="sign" data-sign="s-priority"></span><span class="sname">干路先行</span><span class="smean">蓝方：你在干道，支路车应让你</span></div>
+    </div>
+
+    <div class="compare">
+      <div class="cmp-box">
+        <span class="sign" data-sign="m-straight"></span>
+        <div class="cmp-title">直行（蓝圆）</div>
+        <div class="cmp-desc">对“这个路口”的指令：你必须直行。</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="cmp-box">
+        <span class="sign" data-sign="s-oneway"></span>
+        <div class="cmp-title">单行路（蓝方）</div>
+        <div class="cmp-desc">对“整条路”的描述：这条路只有一个方向。</div>
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定</span>
+      蓝圆看箭头方向 = <b>我在这个路口必须往哪走</b>；蓝方看图案 = <b>这条路/这个车道的属性</b>。
+    </div>
+  </section>
+
+  <!-- ================= 5 ================= -->
+  <section class="sec" id="s5">
+    <h2><span class="num">5</span>指路标志：颜色就是道路等级</h2>
+    <p class="lead">指路牌不命令你做什么，它回答三个问题：这是哪条路、往哪走、还有多远。颜色先告诉你这条路是什么级别。</p>
+
+    <div class="tbl-wrap compact">
+      <table>
+        <thead><tr><th>底色</th><th>道路类型</th><th>典型内容</th></tr></thead>
+        <tbody>
+          <tr><td><b style="color:#007a4d">绿底白字</b></td><td>高速公路、国道</td><td>出口、服务区、下一站地名、里程</td></tr>
+          <tr><td><b style="color:#1769c9">蓝底白字</b></td><td>城市道路、一般公路</td><td>路名、方向、距离</td></tr>
+          <tr><td><b style="color:#7a4a22">棕底白字</b></td><td>旅游区</td><td>景区、景点、游客中心</td></tr>
+          <tr><td><b style="color:#c25e00">橙底黑字</b></td><td>施工作业区</td><td>临时改道、施工绕行</td></tr>
+          <tr><td><b>白底黑字</b></td><td>辅助说明</td><td>时间、车型、距离等限定条件</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-item"><span class="sign" data-sign="g-highway"></span><span class="sname">高速入口</span><span class="smean">进入高速前的确认</span></div>
+      <div class="sign-item"><span class="sign" data-sign="g-exit"></span><span class="sname">出口预告</span><span class="smean">2km / 1km / 500m 三级递减</span></div>
+      <div class="sign-item"><span class="sign" data-sign="g-service"></span><span class="sname">服务区</span><span class="smean">加油/充电、厕所、餐饮</span></div>
+      <div class="sign-item"><span class="sign" data-sign="g-tunnel"></span><span class="sname">隧道</span><span class="smean">名称和长度，进洞开灯</span></div>
+      <div class="sign-item"><span class="sign" data-sign="g-city"></span><span class="sname">城市指路</span><span class="smean">路名 + 方向 + 距离</span></div>
+      <div class="sign-item"><span class="sign" data-sign="g-tour"></span><span class="sname">旅游区</span><span class="smean">棕色底，景区方向</span></div>
+      <div class="sign-item"><span class="sign" data-sign="g-work"></span><span class="sname">作业区</span><span class="smean">橙色底，临时施工信息</span></div>
+    </div>
+
+    <h3 class="sub">高速出口预告：一块比一块近</h3>
+    <div class="stage">
+      <div class="exitseq">
+        <div class="ex" style="--d:0s"><b>出 口</b><span>2 km</span></div>
+        <div class="ex" style="--d:1.7s"><b>出 口</b><span>1 km</span></div>
+        <div class="ex" style="--d:3.4s"><b>出 口</b><span>500 m</span></div>
+      </div>
+      <div class="exitcap">看到 2km 开始准备，1km 打灯，500m 应该已经在最右车道；进了实线区就不能再变道。</div>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">血亏操作</span>
+      错过出口后<b>倒车、逆行、穿越中央分隔带掉头</b>，一次记 <span class="badge b12">12 分</span>，还是高速上最危险的动作之一。正确做法：继续开到下一个出口。
+    </div>
+  </section>
+
+  <!-- ================= 6 ================= -->
+  <section class="sec" id="s6">
+    <h2><span class="num">6</span>让行三兄弟：停、让、会车</h2>
+    <p class="lead">这三种标志决定了“谁先走”。它们的形状本身就带着力度：八角最硬，倒三角次之，圆形只管会车场景。</p>
+
+    <div class="sign-grid" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))">
+      <div class="sign-item tall"><span class="sign lg" data-sign="s-stop"></span><span class="sname">停车让行</span><span class="smean">必须停稳（车轮静止），观察确认后再走，哪怕路上没车。</span></div>
+      <div class="sign-item tall"><span class="sign lg" data-sign="s-yield"></span><span class="sname">减速让行</span><span class="smean">减速观察，让干道车辆先行；不必停死，但要随时能停。</span></div>
+      <div class="sign-item tall"><span class="sign lg" data-sign="s-yieldcircle"></span><span class="sname">会车让行</span><span class="smean">窄路/坡道会车时，<b>看到红圈的一方让</b>，必要时停车。</span></div>
+      <div class="sign-item tall"><span class="sign lg" data-sign="s-prioritycircle"></span><span class="sname">会车先行</span><span class="smean">你有优先权，但仍要防对方不让，别赌。</span></div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      八角形在各国都被用作“必须停车”，因为即使标志被雪盖住或背面反光，<b>形状也能认出来</b>。倒三角同理，专门用于“让行”。这是形状编码，不是审美选择。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定</span>
+      停车让行：<b>停</b>（速度必须为 0）→ 看 → 走。<br>
+      减速让行：<b>慢</b> → 看 → 让过主路车 → 走。<br>
+      会车让行：<b>看谁的红圈</b>，红圈一方退让。
+    </div>
+  </section>
+
+  <!-- ================= 7 ================= -->
+  <section class="sec" id="s7">
+    <h2><span class="num">7</span>高速专项：这些牌子只在高速上见</h2>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>车道与限速</b>
+        <p class="small muted">高速最高 120 km/h、最低 60 km/h。同方向 2 条车道：左 100–120、右 60–100；3 条及以上：最左 110–120、中间 90–110、最右 60–90。</p>
+        <p class="small mb0">低于最低限速也违法（记 3 分）；但遇到拥堵、雨雪雾等特殊情况除外。</p>
+      </div>
+      <div class="card">
+        <b>应急车道</b>
+        <p class="small muted">只有车辆故障、事故、人员突发疾病等紧急情况才能用。正常行驶占用应急车道记 <span class="badge b6">6 分</span>。</p>
+        <p class="small mb0">故障停车：开双闪 → 车后 150m 放三角牌 → 人撤到护栏外 → 报警。</p>
+      </div>
+      <div class="card">
+        <b>避险车道</b>
+        <p class="small muted">长下坡路段专设，给刹车失灵的车辆冲坡减速用。里面是碎石或砂床，<b>不能停车休息</b>，也不能当超车道。</p>
+      </div>
+      <div class="card">
+        <b>车距确认牌</b>
+        <p class="small muted">路边 0m / 50m / 100m 的牌子配合使用：前车经过 0m 牌时开始数秒，你的车到 0m 牌时满 3 秒，就是安全距离。</p>
+      </div>
+      <div class="card">
+        <b>服务区 / 停车区</b>
+        <p class="small muted">服务区有加油/充电、餐饮、厕所；停车区只有停车和厕所。连续驾驶 4 小时必须休息 20 分钟以上。</p>
+      </div>
+      <div class="card">
+        <b>隧道</b>
+        <p class="small muted">进洞前开近光灯、摘墨镜；洞内不变道、不掉头、不停车；出洞注意横风和光线突变。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 8 ================= -->
+  <section class="sec" id="s8">
+    <h2><span class="num">8</span>八组易混对照</h2>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">看到这个</th><th style="width:30%">它是</th><th>不是</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sign sm" data-sign="p-noparking"></span> 蓝底红叉</td><td>禁止停车：任何时候都不能停</td><td>可临时上下客（那是单斜杠）</td></tr>
+          <tr><td><span class="sign sm" data-sign="p-speed40"></span> 红圈 40</td><td>最高限速 40</td><td>最低限速（蓝圆才是最低）</td></tr>
+          <tr><td><span class="sign sm" data-sign="p-noentry"></span> 红底白横杠</td><td>禁止驶入：车不能进这条路</td><td>禁止通行（红圈白底，人和车都不能过）</td></tr>
+          <tr><td><span class="sign sm" data-sign="s-stop"></span> 八角“停”</td><td>必须停稳再走</td><td>减速观察（那是倒三角“让”）</td></tr>
+          <tr><td><span class="sign sm" data-sign="w-crosswalk"></span> 黄三角行人</td><td>警告：前方可能有行人</td><td>人行横道位置（蓝方）</td></tr>
+          <tr><td><span class="sign sm" data-sign="s-oneway"></span> 蓝方箭头</td><td>单行路：整条路单向</td><td>必须直行（蓝圆直行）</td></tr>
+          <tr><td><span class="sign sm" data-sign="s-yieldcircle"></span> 红圈双箭头</td><td>会车让行：你让</td><td>会车先行（蓝方，你优先）</td></tr>
+          <tr><td><span class="sign sm" data-sign="w-merge"></span> 黄三角汇入</td><td>合流：两条并一条</td><td>分流（一条分两条）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= 9 ================= -->
+  <section class="sec" id="s9">
+    <h2><span class="num">9</span>2022 版新国标改了什么</h2>
+    <p class="lead">GB 5768.2—2022 于 2022 年 10 月 1 日实施。路上新旧标志会并存一段时间，认识新增的就够用了。</p>
+    <div class="card">
+      <ul class="mb0">
+        <li><b>新增“禁止电动自行车进入”标志</b>——红圈加被斜杠划掉的自行车，用于禁止电动自行车通行的道路或路段。</li>
+        <li><b>新增“交通事故管理”警告标志</b>——粉红底三角，提示前方有事故现场或事故处理区域。</li>
+        <li><b>隧道内指路标志</b>有了更明确的规定，长隧道里也会给出方向与出口信息。</li>
+        <li><b>客车图案与部分标志设置位置</b>做了调整，含义不变，只是画得更清楚。</li>
+      </ul>
+    </div>
+    <div class="note">
+      <span class="lbl">提醒</span>
+      导航说“可以左转”但路边是禁止左转标志时，<b>以现场标志和标线为准</b>。导航数据可能滞后，标志是你与执法之间的直接依据。
+    </div>
+  </section>
+
+  <!-- ================= 10 ================= -->
+  <section class="sec" id="s10">
+    <h2><span class="num">10</span>速查表</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>颜色 / 形状</th><th>类别</th><th>你要做的</th></tr></thead>
+        <tbody>
+          <tr><td><b style="color:#b58900">黄底三角</b></td><td>警告</td><td>松电门、脚放刹车、降速</td></tr>
+          <tr><td><b style="color:#c9202f">白底红圈</b></td><td>禁令</td><td>不要做；找替代路线/动作</td></tr>
+          <tr><td><b style="color:#1769c9">蓝底圆形</b></td><td>指示</td><td>必须按箭头/图案做</td></tr>
+          <tr><td><b style="color:#1769c9">蓝底方形</b></td><td>指路 / 车道</td><td>确认道路属性和车道</td></tr>
+          <tr><td><b style="color:#007a4d">绿底方形</b></td><td>高速/国道指路</td><td>提前选车道、看出口距离</td></tr>
+          <tr><td><b style="color:#7a4a22">棕底方形</b></td><td>旅游区</td><td>景区方向，注意减速</td></tr>
+          <tr><td><b style="color:#c25e00">橙底方形</b></td><td>施工</td><td>按临时标志绕行</td></tr>
+          <tr><td><b>白底方形</b></td><td>辅助</td><td>看限定条件（时间/车型/距离）</td></tr>
+          <tr><td><b style="color:#c9202f">红色八角</b></td><td>停车让行</td><td>停稳 → 观察 → 再走</td></tr>
+          <tr><td><b style="color:#c9202f">红边倒三角</b></td><td>减速让行</td><td>减速 → 让干道车 → 再走</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section class="sec" id="quiz">
+    <h2><span class="num">✓</span>闯关：14 题</h2>
+    <p class="lead">点选项立即判分，答错会给出依据。目标：14 题至少对 12 题。</p>
+    <div id="quiz1"></div>
+  </section>
+
+  <div class="pager">
+    <a href="index.html"><div class="pdir">返回</div><div class="pt">总目录</div></a>
+    <a href="02_markings.html" class="next"><div class="pdir">下一模块 →</div><div class="pt">02 标线 · 信号灯 · 手势</div></a>
+  </div>
+
+  <footer class="foot">
+    <div class="fr"><span>01 交通标志</span><span>标志图为国标示意重绘</span></div>
+  </footer>
+</main>
+
+<script src="assets/js/signs.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+Driving.quiz("#quiz1", {
+  id: "signs-01",
+  title: "标志闯关",
+  qs: [
+    {
+      q: "蓝色圆形底色、白色直行箭头，这个标志是什么意思？",
+      o: ["必须直行", "这条路是单行路", "前方可以直行", "禁止转向"],
+      a: 0,
+      why: "蓝圆是“指示标志”，表示必须按箭头方向行驶。单行路是蓝底方形（指路），注意区分圆形和方形。"
+    },
+    {
+      q: "红色圆形、中间一条白色横杠，是什么标志？",
+      o: ["禁止通行", "禁止驶入", "禁止停车", "单行路"],
+      a: 1,
+      why: "红底白横杠是“禁止驶入”，多设在单行道的出口，误入就是逆行。禁止通行是红圈白底、没有图案。"
+    },
+    {
+      q: "蓝色圆底、红圈里有红色叉号（X），允许临时靠边上下客吗？",
+      o: ["可以，只要人不离车", "可以，停 3 分钟以内", "不可以，任何情况都不能停", "夜间可以"],
+      a: 2,
+      why: "红叉表示“禁止车辆停放”，临时上下客也算停车。允许临时停靠的是单斜杠（禁止长时停车）。"
+    },
+    {
+      q: "蓝色圆底、红圈里只有一条红色斜杠（/），它的含义是？",
+      o: ["禁止长时停车，可临时上下客", "禁止停车，一秒都不行", "解除禁停", "只允许出租车停"],
+      a: 0,
+      why: "单斜杠是“禁止长时停车”：可以临时上下客或装卸，但驾驶人不能离车，也不能停着不走。"
+    },
+    {
+      q: "黄底三角形里画着一个行人，它提醒你什么？",
+      o: ["这里是人行横道，行人必须走这里", "前方可能有行人，注意减速", "行人禁止通行", "前方是步行街"],
+      a: 1,
+      why: "黄三角是警告标志，提示前方有行人出没的风险，不等于“人行横道”的位置。人行横道是蓝底方形指示标志。"
+    },
+    {
+      q: "红色八角形、白色“停”字，正确做法是？",
+      o: ["减速通过即可", "鸣笛示意后通过", "停稳，观察确认后再走", "有车才停，没车可以不停"],
+      a: 2,
+      why: "停车让行的“停”是硬要求：车轮必须停住，观察确认安全后再通过，即使路上暂时没车也要停。"
+    },
+    {
+      q: "红边倒三角形、白色“让”字，正确做法是？",
+      o: ["必须停稳 3 秒", "减速观察，让干道车辆先行", "你有优先通行权", "只让右侧来车"],
+      a: 1,
+      why: "减速让行不要求停死，但必须减速到随时能停，并让干道车辆先通过。"
+    },
+    {
+      q: "红色圆环里写“40”，与蓝色圆形里写“60”，分别表示？",
+      o: ["最高 40 / 最低 60", "最低 40 / 最高 60", "建议 40 / 建议 60", "前方 40m / 60m"],
+      a: 0,
+      why: "红圈数字是最高限速，蓝圆数字是最低限速。高速上开太慢同样违法，低于最低限速记 3 分。"
+    },
+    {
+      q: "绿底白字的方形指路牌，一般用于哪类道路？",
+      o: ["城市支路", "高速公路、国道", "旅游区", "施工路段"],
+      a: 1,
+      why: "绿底白字用于高速公路和国道；城市道路一般用蓝底白字；棕色是旅游区；橙色是施工作业区。"
+    },
+    {
+      q: "棕色底的指路牌表示什么？",
+      o: ["旅游区方向", "施工绕行", "高速公路出口", "公交专用道"],
+      a: 0,
+      why: "棕色底白字是旅游区标志，告诉你景区、景点的方向和距离。"
+    },
+    {
+      q: "橙色底的指路牌一般出现在什么场景？",
+      o: ["学校周边", "隧道内", "施工作业区", "服务区"],
+      a: 2,
+      why: "橙色用于施工作业区，属于临时性标志，提示改道、绕行或施工信息。"
+    },
+    {
+      q: "在窄路或坡道会车，你看到红圈双箭头（会车让行）标志，谁让？",
+      o: ["对方让", "你让", "车速快的让", "车身大的让"],
+      a: 1,
+      why: "会车让行标志设在需要让行的一方，看到红圈的一方必须让行，必要时停车。蓝底方形的会车先行才表示你优先。"
+    },
+    {
+      q: "2022 版新国标新增了哪个禁令标志？",
+      o: ["禁止电动自行车进入", "禁止鸣喇叭", "禁止掉头", "禁止超车"],
+      a: 0,
+      why: "GB 5768.2—2022 新增“禁止电动自行车进入”标志；同版还新增了粉红底的“交通事故管理”警告标志。"
+    },
+    {
+      q: "高速上看到“出口 500m”预告牌，此时最应该做什么？",
+      o: ["立即急刹，从当前车道切出去", "确认已在最右车道，打灯准备驶出", "停车看导航确认", "加速超过前车再出去"],
+      a: 1,
+      why: "500m 时应该已经完成变道、在最右车道。此时急刹跨道极危险；如果已经错过，继续到下一个出口，绝不倒车。"
+    }
+  ]
+});
+</script>
+</body>
+</html>

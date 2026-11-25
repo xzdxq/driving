@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 标线 · 信号灯 · 手势 · 重新学开车</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* 标线小样 */
+  .lines { display: grid; grid-template-columns: repeat(auto-fill, minmax(236px, 1fr)); gap: 10px; margin: 16px 0; }
+  .litem {
+    display: flex; align-items: center; gap: 11px; min-width: 0;
+    background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px;
+  }
+  .litem > svg { width: 92px; flex: none; height: auto; display: block; border-radius: 5px; }
+  .litem .lt { min-width: 0; }
+  .litem b { display: block; font-size: 14px; line-height: 1.45; }
+  .litem span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+  /* 第一节 变道动画：两辆车，虚线通过 / 实线被拦 */
+  @keyframes carPass {
+    0%, 7%   { transform: translate(80px, 62px); }
+    32%      { transform: translate(300px, 62px); }
+    48%, 64% { transform: translate(400px, 124px); }
+    92%, 100%{ transform: translate(648px, 124px); }
+  }
+  @keyframes carBlock {
+    0%, 7%   { transform: translate(70px, 234px); }
+    26%      { transform: translate(300px, 234px); }
+    38%, 58% { transform: translate(330px, 234px); }
+    70%, 88% { transform: translate(250px, 234px); }
+    100%     { transform: translate(70px, 234px); }
+  }
+  .car-a { transform: translate(400px, 124px); animation: carPass 8s ease-in-out infinite; }
+  .car-b { transform: translate(330px, 234px); animation: carBlock 8s ease-in-out infinite; }
+  @keyframes haltShow {
+    0%, 33%   { opacity: 0; }
+    40%, 70%  { opacity: 1; }
+    80%, 100% { opacity: 0; }
+  }
+  .halt { opacity: 1; animation: haltShow 8s ease-in-out infinite; }
+  .stage text { font-family: inherit; }
+
+  /* 第二节 左转待转区 */
+  @keyframes waitTurn {
+    0%        { offset-distance: 0%; }
+    16%, 52%  { offset-distance: 38%; }
+    68%, 80%  { offset-distance: 100%; }
+    100%      { offset-distance: 0%; }
+  }
+  .turn-car {
+    offset-path: path("M 360 322 L 360 250 L 332 250 L 332 205 L 230 172 L 112 172");
+    offset-rotate: auto;
+    offset-distance: 38%;
+    animation: waitTurn 9s ease-in-out infinite;
+  }
+  @keyframes lStraight {
+    0%, 46%   { opacity: 1; }
+    52%, 100% { opacity: .12; }
+  }
+  @keyframes lLeft {
+    0%, 46%   { opacity: .12; }
+    54%, 92%  { opacity: 1; }
+    100%      { opacity: .12; }
+  }
+  @keyframes lLeftRed {
+    0%, 46%   { opacity: 1; }
+    54%, 92%  { opacity: .12; }
+    100%      { opacity: 1; }
+  }
+  .lamp-straight { animation: lStraight 9s linear infinite; }
+  .lamp-left { animation: lLeft 9s linear infinite; }
+  .lamp-left-red { animation: lLeftRed 9s linear infinite; }
+
+  /* 车道类小卡 */
+  .marks { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 16px 0; }
+  .mark { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px; min-width: 0; }
+  .mark > svg { width: 100%; height: auto; display: block; border-radius: 8px; margin-bottom: 9px; }
+  .mark b { display: block; font-size: 14.5px; }
+  .mark span { display: block; font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* 第三节 网状线对比 */
+  @keyframes gridWarn {
+    0%, 100% { stroke-opacity: .5; }
+    50%      { stroke-opacity: 1; }
+  }
+  .grid-warn { animation: gridWarn 2.2s ease-in-out infinite; }
+  @keyframes voxPulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: .35; }
+  }
+  .vox { animation: voxPulse 2.2s ease-in-out infinite; }
+
+  /* 第四节 信号灯循环 */
+  @keyframes sigRed {
+    0%, 32%   { opacity: 1; }
+    36%, 100% { opacity: .1; }
+  }
+  @keyframes sigGreen {
+    0%, 35%   { opacity: .1; }
+    38%, 68%  { opacity: 1; }
+    72%, 100% { opacity: .1; }
+  }
+  @keyframes sigYellow {
+    0%, 71%   { opacity: .1; }
+    74%, 90%  { opacity: 1; }
+    94%, 100% { opacity: .1; }
+  }
+  .sig-r { animation: sigRed 9s linear infinite; }
+  .sig-g { opacity: .1; animation: sigGreen 9s linear infinite; }
+  .sig-y { opacity: .1; animation: sigYellow 9s linear infinite; }
+  .sigflex { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; align-items: center; }
+  .sigflex svg { width: 100%; max-width: 170px; margin: 0 auto; }
+
+  /* 第五节 手势卡 */
+  .gcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin: 16px 0; }
+  .gcard { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .gcard > svg { width: 66px; flex: none; height: 66px; }
+  .gcard b { display: block; font-size: 14px; }
+  .gcard span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .prio { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-weight: 800; }
+  .prio .pchip { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; font-size: 14px; }
+  .prio .pchip.hot { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .prio .pgt { color: var(--muted); font-weight: 700; }
+
+  @media (max-width: 760px) {
+    .sigflex { grid-template-columns: 1fr; }
+    .sigflex svg { max-width: 150px; }
+    .lines { grid-template-columns: 1fr; }
+    .gcards { grid-template-columns: 1fr 1fr; }
+    .gcard { flex-direction: column; text-align: center; gap: 4px; }
+    .gcard > svg { width: 60px; height: 60px; }
+    .litem > svg { width: 84px; }
+  }
+  @media (max-width: 420px) {
+    .gcards { grid-template-columns: 1fr; }
+    .gcard { flex-direction: row; text-align: left; }
+  }
+  .sec { scroll-margin-top: 104px; }
+</style>
+</head>
+<body data-mod="02_markings">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span>重新学开车</a>
+    <span class="crumb">02 · <b>标线 · 信号 · 手势</b></span>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="01_signs.html">标志</a>
+      <a href="02_markings.html" class="on">标线</a>
+      <a href="03_scenes.html">场景</a>
+      <a href="04_rules.html">规则</a>
+      <a href="05_points.html">记分</a>
+      <a href="06_ev.html">电车</a>
+      <a href="07_practice.html">实操</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">模块 02 / 共 7 个</span>
+    <h1>标线、信号灯、手势：路上真正的指令</h1>
+    <p>标线是<b>画在地上的规则</b>，比头顶的牌子更常被忽略：牌子你还抬头看一眼，地上的线很多人压根没看见。它们和信号灯、交警手势一起，决定你这一刻<b>能不能动</b>。</p>
+    <div class="hero-tags">
+      <span class="chip">颜色 + 虚实两个坐标</span>
+      <span class="chip">3 段车流动效</span>
+      <span class="chip">8 种交警手势</span>
+      <span class="chip">12 题闯关</span>
+    </div>
+  </section>
+
+  <nav class="toc">
+    <a href="#s1" class="on">颜色与虚实</a>
+    <a href="#s2">车道标线</a>
+    <a href="#s3">禁压禁停</a>
+    <a href="#s4">信号灯</a>
+    <a href="#s5">交警手势</a>
+    <a href="#s6">速查表</a>
+    <a href="#quiz">闯关</a>
+  </nav>
+
+  <!-- ================= 1 ================= -->
+  <section class="sec" id="s1">
+    <h2><span class="num">1</span>标线的两个坐标：颜色 + 虚实</h2>
+    <p class="lead">别一条条背线。先看<b>颜色</b>判断它管哪股车流，再看<b>虚实</b>判断能不能跨。两个坐标一组合，绝大多数标线当场就能读出来。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>白色：管“同向”</b>
+        <p class="small mb0">分隔同向车流、划出车道边界、告诉你在路口该往哪走。白线两边跑的车，方向是一样的。</p>
+      </div>
+      <div class="card">
+        <b>黄色：管“对向”和“路边”</b>
+        <p class="small mb0">画在路中间，分隔对向车流，等于一堵不能随便跨越的墙；画在路侧，管的是能不能停车。</p>
+      </div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      白线像<b>同一条流水线上的分隔栏</b>，越过它只是换一条道；黄线像<b>对面的墙</b>，越过去就是迎着对向车流。虚实则是“这堵墙有没有开口”：虚线是留给你安全变道或借道的口子，实线是封死的。
+    </div>
+
+    <h3 class="sub">七种中心线，一眼判定</h3>
+    <div class="lines">
+      <div class="litem">
+        <svg viewBox="0 0 160 40" role="img" aria-label="白色虚线"><rect width="160" height="40" rx="6" fill="#444b55"/><line x1="6" y1="20" x2="154" y2="20" stroke="#fff" stroke-width="4" stroke-dasharray="14 10"/></svg>
+        <div class="lt"><b>白虚线</b><span>同向车道的分界，安全时可以变道。</span></div>
+      </div>
+      <div class="litem">
+        <svg viewBox="0 0 160 40" role="img" aria-label="白色实线"><rect width="160" height="40" rx="6" fill="#444b55"/><line x1="6" y1="20" x2="154" y2="20" stroke="#fff" stroke-width="4"/></svg>
+        <div class="lt"><b>白实线</b><span>车道边界，不得越线变道，也不得压线行驶。</span></div>
+      </div>
+      <div class="litem">
+        <svg viewBox="0 0 160 40" role="img" aria-label="双白实线"><rect width="160" height="40" rx="6" fill="#444b55"/><line x1="6" y1="16" x2="154" y2="16" stroke="#fff" stroke-width="3"/><line x1="6" y1="24" x2="154" y2="24" stroke="#fff" stroke-width="3"/></svg>
+        <div class="lt"><b>双白实线</b><span>隧道、桥梁、匝道等严禁跨越，两条线就是双重强调。</span></div>
+      </div>
+      <div class="litem">
+        <svg viewBox="0 0 160 40" role="img" aria-label="黄色单实线"><rect width="160" height="40" rx="6" fill="#444b55"/><line x1="6" y1="20" x2="154" y2="20" stroke="#ffd24a" stroke-width="4"/></svg>
+        <div class="lt"><b>黄单实线</b><span>分隔对向车流，禁止跨越、禁止压线。</span></div>
+      </div>
+      <div class="litem">
+        <svg viewBox="0 0 160 40" role="img" aria-label="黄色双实线"><rect width="160" height="40" rx="6" fill="#444b55"/><line x1="6" y1="16" x2="154" y2="16" stroke="#ffd24a" stroke-width="3"/><line x1="6" y1="24" x2="154" y2="24" stroke="#ffd24a" stroke-width="3"/></svg>
+        <div class="lt"><b>黄双实线</b><span>严禁跨越：不超车、不掉头、不压线。</span></div>
+      </div>
+      <div class="litem">
+        <svg viewBox="0 0 160 40" role="img" aria-label="黄色虚线"><rect width="160" height="40" rx="6" fill="#444b55"/><line x1="6" y1="20" x2="154" y2="20" stroke="#ffd24a" stroke-width="4" stroke-dasharray="14 10"/></svg>
+        <div class="lt"><b>黄虚线</b><span>安全时可借道超车、掉头，对向有车就等。</span></div>
+      </div>
+      <div class="litem">
+        <svg viewBox="0 0 160 40" role="img" aria-label="黄色虚实线"><rect width="160" height="40" rx="6" fill="#444b55"/><line x1="6" y1="16" x2="154" y2="16" stroke="#ffd24a" stroke-width="3" stroke-dasharray="12 9"/><line x1="6" y1="24" x2="154" y2="24" stroke="#ffd24a" stroke-width="3"/></svg>
+        <div class="lt"><b>黄虚实线</b><span>虚线一侧可越，实线一侧不可越。只看<b>你这一侧</b>。</span></div>
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定</span>
+      <b>白线管同向，黄线管对向；虚线是“可以，但要看安全”，实线是“不可以，没有例外”。</b>黄虚实线只看自己这一侧：自己这边虚线就能越，实线就不能越。
+    </div>
+
+    <h3 class="sub">路侧的黄线：管的是停车，不是行车</h3>
+    <div class="grid g2">
+      <div class="card flat">
+        <div class="litem mb0" style="border:0;padding:0">
+          <svg viewBox="0 0 160 40" role="img" aria-label="路侧黄色实线"><rect width="160" height="40" rx="6" fill="#444b55"/><rect x="0" y="31" width="160" height="9" fill="#c8d1dc"/><line x1="6" y1="26" x2="154" y2="26" stroke="#ffd24a" stroke-width="4"/></svg>
+          <div class="lt"><b>路侧黄实线 = 禁止停车</b><span>一秒都不能停：上下客、等人、看导航都不行。</span></div>
+        </div>
+        <div class="flex" style="margin-top:10px">
+          <span class="sign sm" data-sign="p-noparking"></span>
+          <span class="small muted">和红叉标志一一对应</span>
+        </div>
+      </div>
+      <div class="card flat">
+        <div class="litem mb0" style="border:0;padding:0">
+          <svg viewBox="0 0 160 40" role="img" aria-label="路侧黄色虚线"><rect width="160" height="40" rx="6" fill="#444b55"/><rect x="0" y="31" width="160" height="9" fill="#c8d1dc"/><line x1="6" y1="26" x2="154" y2="26" stroke="#ffd24a" stroke-width="4" stroke-dasharray="14 10"/></svg>
+          <div class="lt"><b>路侧黄虚线 = 禁止长时停车</b><span>可临时上下客，人不能离车，也不能停着不走。</span></div>
+        </div>
+        <div class="flex" style="margin-top:10px">
+          <span class="sign sm" data-sign="p-nolongparking"></span>
+          <span class="small muted">和单斜杠标志一一对应</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <svg viewBox="0 0 720 340" role="img" aria-label="动画：车辆在虚线处变道成功，在实线处被拦下">
+        <text x="34" y="24" font-size="14" font-weight="700" fill="#2b333d">白虚线 · 安全时可以变更车道</text>
+        <rect x="20" y="34" width="680" height="118" rx="8" fill="#4a525c"/>
+        <line x1="20" y1="93" x2="700" y2="93" stroke="#fff" stroke-width="3.5" stroke-dasharray="18 14"/>
+        <rect x="20" y="200" width="680" height="118" rx="8" fill="#4a525c"/>
+        <text x="34" y="192" font-size="14" font-weight="700" fill="#2b333d">白实线 · 不得越线变道</text>
+        <line x1="20" y1="259" x2="700" y2="259" stroke="#fff" stroke-width="3.5"/>
+
+        <g class="car-a">
+          <rect x="-27" y="-11" width="54" height="22" rx="7" fill="#2f80ed"/>
+          <rect x="-8" y="-9" width="18" height="18" rx="4" fill="#cfe4ff"/>
+          <rect x="-28" y="-13" width="6" height="6" rx="2" fill="#ffd24a"/>
+          <rect x="-28" y="7" width="6" height="6" rx="2" fill="#ffd24a"/>
+          <rect x="-24" y="-14" width="9" height="4" rx="2" fill="#1b2733"/>
+          <rect x="-24" y="10" width="9" height="4" rx="2" fill="#1b2733"/>
+          <rect x="13" y="-14" width="9" height="4" rx="2" fill="#1b2733"/>
+          <rect x="13" y="10" width="9" height="4" rx="2" fill="#1b2733"/>
+        </g>
+        <g class="car-b">
+          <rect x="-27" y="-11" width="54" height="22" rx="7" fill="#e8720c"/>
+          <rect x="-8" y="-9" width="18" height="18" rx="4" fill="#ffe6c9"/>
+          <rect x="-28" y="-13" width="6" height="6" rx="2" fill="#ffd24a"/>
+          <rect x="-28" y="7" width="6" height="6" rx="2" fill="#ffd24a"/>
+          <rect x="-24" y="-14" width="9" height="4" rx="2" fill="#1b2733"/>
+          <rect x="-24" y="10" width="9" height="4" rx="2" fill="#1b2733"/>
+          <rect x="13" y="-14" width="9" height="4" rx="2" fill="#1b2733"/>
+          <rect x="13" y="10" width="9" height="4" rx="2" fill="#1b2733"/>
+        </g>
+        <g class="halt">
+          <circle cx="386" cy="259" r="17" fill="#d7263d"/>
+          <path d="M379 252l14 14M393 252l-14 14" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <rect x="410" y="268" width="62" height="22" rx="6" fill="#d7263d"/>
+        <text x="416" y="284" font-size="12" font-weight="700" fill="#fff">被拦下</text>
+        <text x="470" y="128" font-size="13" font-weight="700" fill="#0f8a54">变道成功</text>
+        <text x="20" y="336" font-size="11.5" fill="#5d6b7a">顶部车：虚线处打灯、看镜、安全后变道　·　底部车：实线处试变道被拦，只能退回原车道</text>
+      </svg>
+      <div class="stage-cap">虚线是允许，实线是禁止，不是建议。</div>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">别搞混</span>
+      实线不是“没车就能过”。<b>只要车轮压上白实线或黄实线，就是违法</b>；实线区唯一正确的操作是：提前在虚线区把车道选好。
+    </div>
+    <div class="tip">
+      <span class="lbl">上手</span>
+      变道三件事：<b>打灯 → 看镜和盲区 → 确认安全后一次跨过一条线</b>。不要连续跨两条实线，也不要在实线区的最后几米硬挤。
+    </div>
+  </section>
+
+  <!-- ================= 2 ================= -->
+  <section class="sec" id="s2">
+    <h2><span class="num">2</span>车道类标线：先选道，再进路口</h2>
+    <p class="lead">路口最常见的违法不是闯红灯，而是<b>到了实线区才发现走错道</b>。车道标线的作用，就是让你在虚线区把“左、直、右”定下来，进了实线区就不再给你反悔的机会。</p>
+
+    <div class="marks">
+      <div class="mark">
+        <svg viewBox="0 0 360 170" role="img" aria-label="导向箭头：三条车道分别为左转、直行、右转">
+          <rect width="360" height="170" rx="8" fill="#4a525c"/>
+          <line x1="120" y1="10" x2="120" y2="160" stroke="#fff" stroke-width="2" stroke-dasharray="12 10" opacity=".75"/>
+          <line x1="240" y1="10" x2="240" y2="160" stroke="#fff" stroke-width="2" stroke-dasharray="12 10" opacity=".75"/>
+          <line x1="12" y1="148" x2="348" y2="148" stroke="#fff" stroke-width="6"/>
+          <path d="M76 136V92q0-14-14-14H38" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+          <path d="M38 78l-14 0 10-11M38 78l-14 0 10 11" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M180 136V52M180 52l-14 15M180 52l14 15" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M284 136V92q0-14 14-14h24" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+          <path d="M322 78l14 0-10-11M322 78l14 0-10 11" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="16" y="24" font-size="13" fill="#cfe4ff">左</text>
+          <text x="130" y="24" font-size="13" fill="#cfe4ff">直</text>
+          <text x="252" y="24" font-size="13" fill="#cfe4ff">右</text>
+        </svg>
+        <b>导向箭头</b>
+        <span>进路口前按箭头选道。已经进入实线区，就只能按箭头走，不能再变。</span>
+      </div>
+
+      <div class="mark">
+        <svg viewBox="0 0 360 170" role="img" aria-label="锯齿线表示可变导向车道">
+          <rect width="360" height="170" rx="8" fill="#4a525c"/>
+          <rect x="86" y="8" width="188" height="34" rx="6" fill="#1769c9"/>
+          <text x="180" y="31" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">← 直 右（随灯变化）</text>
+          <polyline points="104,52 128,70 104,88 128,106 104,124 128,142 104,160" fill="none" stroke="#fff" stroke-width="3.5"/>
+          <polyline points="256,52 232,70 256,88 232,106 256,124 232,142 256,160" fill="none" stroke="#fff" stroke-width="3.5"/>
+          <path d="M180 150V82M180 82l-13 14M180 82l13 14" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <b>可变导向车道（锯齿线）</b>
+        <span>车道功能不固定。看上方电子屏或车道指示牌“此刻是什么”，别按昨天或印象走。</span>
+      </div>
+
+      <div class="mark">
+        <svg viewBox="0 0 360 170" role="img" aria-label="潮汐车道：双黄虚线与对向箭头">
+          <rect width="360" height="170" rx="8" fill="#4a525c"/>
+          <line x1="172" y1="8" x2="172" y2="162" stroke="#ffd24a" stroke-width="3" stroke-dasharray="12 9"/>
+          <line x1="188" y1="8" x2="188" y2="162" stroke="#ffd24a" stroke-width="3" stroke-dasharray="12 9"/>
+          <path d="M90 140V54M90 54l-13 15M90 54l13 15" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M270 30v86M270 116l-13-15M270 116l13-15" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="294" y="156" font-size="11" fill="#cfe4ff">随早晚高峰切换</text>
+        </svg>
+        <b>潮汐车道</b>
+        <span>双黄虚线 + 可变标志/车道灯。按当前指示方向走，逆着走就是逆行。</span>
+      </div>
+
+      <div class="mark">
+        <svg viewBox="0 0 360 170" role="img" aria-label="菱形标线预告前方人行横道">
+          <rect width="360" height="170" rx="8" fill="#4a525c"/>
+          <g fill="#fff" opacity=".92">
+            <rect x="130" y="8" width="8" height="30" rx="2"/><rect x="148" y="8" width="8" height="30" rx="2"/>
+            <rect x="166" y="8" width="8" height="30" rx="2"/><rect x="184" y="8" width="8" height="30" rx="2"/>
+            <rect x="202" y="8" width="8" height="30" rx="2"/><rect x="220" y="8" width="8" height="30" rx="2"/>
+            <rect x="238" y="8" width="8" height="30" rx="2"/>
+          </g>
+          <polygon points="180,60 226,100 180,140 134,100" fill="none" stroke="#fff" stroke-width="6"/>
+          <text x="16" y="164" font-size="11" fill="#cfe4ff">前方有人行横道，提前减速</text>
+        </svg>
+        <b>菱形标线</b>
+        <span>人行横道预告，看到就松电门、脚放刹车。减速丘和振荡标线则是在“强制”你慢下来。</span>
+      </div>
+    </div>
+
+    <h3 class="sub">左转待转区：直行绿灯先进，左转绿灯再走</h3>
+    <p>这是新手最容易“不敢进”或“抢着进”的地方。规则其实很清楚：<b>同方向直行绿灯亮时</b>，左转车可以越过停止线、驶入待转区等待；<b>左转绿灯亮时</b>，再从待转区完成左转。左转和直行都是红灯时，必须停在停止线后方。</p>
+
+    <div class="stage">
+      <svg viewBox="0 0 720 350" role="img" aria-label="动画：直行绿灯时左转车进入待转区，左转绿灯后通过">
+        <rect x="292" y="0" width="136" height="350" fill="#4a525c"/>
+        <rect x="70" y="112" width="580" height="104" fill="#4a525c"/>
+        <line x1="360" y1="250" x2="360" y2="350" stroke="#fff" stroke-width="2.5" stroke-dasharray="14 11" opacity=".7"/>
+        <line x1="70" y1="164" x2="650" y2="164" stroke="#ffd24a" stroke-width="3" opacity=".85"/>
+        <line x1="292" y1="246" x2="428" y2="246" stroke="#fff" stroke-width="7"/>
+        <text x="438" y="250" font-size="11.5" fill="#5d6b7a">停止线</text>
+        <rect x="302" y="180" width="98" height="66" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="12 8"/>
+        <path d="M356 236V212q0-12-12-12h-26" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M326 192l-10 8 10 8" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="300" y="174" font-size="11" fill="#dbe3ec">待转区</text>
+
+        <g>
+          <rect x="446" y="250" width="40" height="72" rx="7" fill="#1b2733"/>
+          <circle cx="466" cy="266" r="7" fill="#d7263d" opacity=".12"/>
+          <circle class="lamp-straight" cx="466" cy="300" r="7" fill="#2fd27a"/>
+          <text x="466" y="336" font-size="11" text-anchor="middle" fill="#5d6b7a">直行</text>
+        </g>
+        <g>
+          <rect x="496" y="250" width="40" height="72" rx="7" fill="#1b2733"/>
+          <circle class="lamp-left-red" cx="516" cy="266" r="7" fill="#ff5252"/>
+          <circle class="lamp-left" cx="516" cy="300" r="7" fill="#2fd27a" opacity=".12"/>
+          <text x="516" y="336" font-size="11" text-anchor="middle" fill="#5d6b7a">左转</text>
+        </g>
+
+        <g class="turn-car">
+          <rect x="-24" y="-10" width="48" height="20" rx="6" fill="#2f80ed"/>
+          <rect x="-6" y="-8" width="16" height="16" rx="3" fill="#cfe4ff"/>
+          <rect x="-25" y="-12" width="5" height="5" rx="2" fill="#ffd24a"/>
+          <rect x="-25" y="7" width="5" height="5" rx="2" fill="#ffd24a"/>
+          <rect x="-21" y="-13" width="8" height="4" rx="2" fill="#1b2733"/>
+          <rect x="-21" y="9" width="8" height="4" rx="2" fill="#1b2733"/>
+          <rect x="12" y="-13" width="8" height="4" rx="2" fill="#1b2733"/>
+          <rect x="12" y="9" width="8" height="4" rx="2" fill="#1b2733"/>
+        </g>
+        <rect x="196" y="24" width="328" height="48" rx="10" fill="#f8fafc" opacity=".95" stroke="#e3e8ef"/>
+        <text x="360" y="40" text-anchor="middle" font-size="13" font-weight="700" fill="#2b333d">① 直行绿灯：进入待转区等待</text>
+        <text x="360" y="60" text-anchor="middle" font-size="13" font-weight="700" fill="#0f8a54">② 等左转绿灯亮：完成左转</text>
+      </svg>
+      <div class="stage-cap">动画循环：车先越过停止线进入虚线待转区停住，等左转箭头变绿后才驶出。两个灯都红时，不许进。</div>
+    </div>
+    <p class="anim-note">看动画时只记一件事：<b>进待转区看直行灯，出待转区看左转灯</b>。左转灯红着就老实等，别把待转区当“提前转弯区”。</p>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      路口里的每一秒都有不同方向的车流在交叉。如果大家都在路口中间才决定“我要左转”，整个路口的放行节奏就会被打乱。标线用虚实把<b>决策窗口前移</b>：在直行段完成选择，进路口只负责执行。
+    </div>
+
+    <div class="grid g3">
+      <div class="card flat">
+        <b>直行待行区</b>
+        <p class="small mb0">给直行车的“提前排队区”，<b>只在电子屏提示“直行车辆进入待行区”时才能进</b>；没有提示就停在停止线后。</p>
+      </div>
+      <div class="card flat">
+        <b>公交专用道</b>
+        <p class="small mb0">地面常写“公交专用”并标时段。时段内社会车辆不得占用；能不能借道右转，看现场标志，不靠猜。</p>
+      </div>
+      <div class="card flat">
+        <b>非机动车道</b>
+        <p class="small mb0">和机动车道之间多为白实线。机动车不得驶入、不得借道超车，更不能停车占道。</p>
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定</span>
+      路口前 50–100 m 就把车道选好；进入实线区就<b>不再变道</b>。特殊车道的功能看<b>当前电子屏/车道灯</b>，不看记忆、不看导航的旧数据。
+    </div>
+
+    <div class="trap">
+      <span class="lbl">别搞混</span>
+      锯齿线车道不是“固定左转道”。它的方向可能按早晚高峰切换，<b>头顶写什么就走什么</b>；排错队就按当前箭头走，到前面再绕，别在实线区硬挤。
+    </div>
+  </section>
+
+  <!-- ================= 3 ================= -->
+  <section class="sec" id="s3">
+    <h2><span class="num">3</span>禁止压、禁止停的三种线</h2>
+    <p class="lead">有三种标线，画的不是“路”，而是“别进来”：<b>导流线</b>把车流分开，<b>网状线</b>给路口留出泄洪口，<b>停止线</b>给红灯留出缓冲。压上去的那一刻，你不是在省时间，是在堵别人的路。</p>
+
+    <div class="marks">
+      <div class="mark">
+        <svg viewBox="0 0 360 180" role="img" aria-label="导流线：分流处的白色斜纹区域">
+          <rect width="360" height="180" fill="#e6ecf3"/>
+          <rect x="60" y="0" width="240" height="180" fill="#4a525c"/>
+          <clipPath id="flowclip"><polygon points="180,18 244,158 116,158"/></clipPath>
+          <defs>
+            <pattern id="hatch02" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+              <line x1="0" y1="0" x2="0" y2="18" stroke="#fff" stroke-width="4"/>
+            </pattern>
+          </defs>
+          <polygon points="180,18 244,158 116,158" fill="#4a525c" stroke="#fff" stroke-width="4"/>
+          <g clip-path="url(#flowclip)"><polygon points="180,18 244,158 116,158" fill="url(#hatch02)"/></g>
+          <path d="M92 154V84M92 84l-11 13M92 84l11 13" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M268 154V84M268 84l-11 13M268 84l11 13" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="10" y="8" width="106" height="22" rx="6" fill="#f8fafc" opacity=".94"/>
+          <text x="18" y="24" font-size="11.5" fill="#2b333d">分流处 / 匝道口</text>
+        </svg>
+        <b>导流线</b>
+        <span>白色斜纹区域，不是“缓冲带”。不得压线、越线行驶，更不能停车。</span>
+      </div>
+      <div class="mark">
+        <svg viewBox="0 0 360 200" role="img" aria-label="停止线：红灯时车辆停在停止线后方">
+          <rect width="360" height="200" fill="#e6ecf3"/>
+          <rect x="90" y="0" width="180" height="200" fill="#4a525c"/>
+          <g fill="#fff" opacity=".9">
+            <rect x="100" y="34" width="9" height="34" rx="2"/><rect x="121" y="34" width="9" height="34" rx="2"/>
+            <rect x="142" y="34" width="9" height="34" rx="2"/><rect x="163" y="34" width="9" height="34" rx="2"/>
+            <rect x="184" y="34" width="9" height="34" rx="2"/><rect x="205" y="34" width="9" height="34" rx="2"/>
+            <rect x="226" y="34" width="9" height="34" rx="2"/><rect x="247" y="34" width="9" height="34" rx="2"/>
+          </g>
+          <rect x="90" y="132" width="180" height="9" fill="#fff"/>
+          <text x="276" y="140" font-size="11" fill="#5d6b7a">停止线</text>
+          <g transform="translate(180 170)">
+            <rect x="-22" y="-28" width="44" height="56" rx="10" fill="#2f80ed"/>
+            <rect x="-15" y="-19" width="30" height="16" rx="4" fill="#cfe4ff"/>
+            <rect x="-24" y="-22" width="5" height="7" rx="2" fill="#ffd24a"/>
+            <rect x="19" y="-22" width="5" height="7" rx="2" fill="#ffd24a"/>
+            <rect x="-18" y="8" width="6" height="12" rx="2" fill="#1b2733"/>
+            <rect x="12" y="8" width="6" height="12" rx="2" fill="#1b2733"/>
+          </g>
+          <rect x="284" y="20" width="34" height="62" rx="7" fill="#1b2733"/>
+          <circle cx="301" cy="36" r="8" fill="#ff5252"/>
+          <circle cx="301" cy="62" r="8" fill="#2fd27a" opacity=".15"/>
+          <text x="280" y="100" font-size="11" fill="#5d6b7a">红灯</text>
+        </svg>
+        <b>停止线</b>
+        <span>红灯时必须停在停止线后方，车头不越线。越线就是违法，也容易挡住行人和横向车流。</span>
+      </div>
+    </div>
+
+    <h3 class="sub">网状线：堵车时更不能停上去</h3>
+    <div class="compare">
+      <div class="cmp-box">
+        <svg class="cmp-svg" viewBox="0 0 360 190" role="img" aria-label="车辆在网状线外等待" style="width:100%;height:auto;display:block;border-radius:8px">
+          <rect width="360" height="190" fill="#e6ecf3"/>
+          <rect x="110" y="0" width="140" height="190" fill="#4a525c"/>
+          <rect x="0" y="70" width="360" height="60" fill="#4a525c"/>
+          <rect x="124" y="76" width="112" height="48" fill="none" stroke="#ffd24a" stroke-width="3"/>
+          <g stroke="#ffd24a" stroke-width="2">
+            <line x1="124" y1="76" x2="236" y2="124"/><line x1="150" y1="76" x2="236" y2="107"/>
+            <line x1="124" y1="93" x2="210" y2="124"/><line x1="176" y1="76" x2="236" y2="95"/>
+            <line x1="202" y1="76" x2="236" y2="90"/><line x1="124" y1="108" x2="170" y2="124"/>
+          </g>
+          <g transform="translate(180 155)">
+            <rect x="-20" y="-30" width="40" height="58" rx="9" fill="#0f8a54"/>
+            <rect x="-13" y="-21" width="26" height="15" rx="3" fill="#d8f5e6"/>
+            <rect x="-22" y="-24" width="4" height="7" rx="2" fill="#ffd24a"/>
+            <rect x="18" y="-24" width="4" height="7" rx="2" fill="#ffd24a"/>
+          </g>
+          <g transform="translate(180 32)">
+            <rect x="-20" y="-26" width="40" height="52" rx="9" fill="#2f80ed"/>
+            <rect x="-13" y="-18" width="26" height="13" rx="3" fill="#cfe4ff"/>
+          </g>
+          <circle cx="294" cy="150" r="13" fill="#0f8a54"/>
+          <path d="M288 150l5 5 9-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="258" y="70" font-size="11" fill="#5d6b7a">前方拥堵</text>
+          <text x="252" y="180" font-size="11" fill="#0f8a54">等在网格外</text>
+        </svg>
+        <div class="cmp-title">停在网状线前</div>
+        <div class="cmp-desc">前面堵着，就在网格线外等。等路口空出位置，再跟上去。</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="cmp-box">
+        <svg class="cmp-svg" viewBox="0 0 360 190" role="img" aria-label="车辆停在网状线上堵死路口" style="width:100%;height:auto;display:block;border-radius:8px">
+          <rect width="360" height="190" fill="#e6ecf3"/>
+          <rect x="110" y="0" width="140" height="190" fill="#4a525c"/>
+          <rect x="0" y="70" width="360" height="60" fill="#4a525c"/>
+          <rect class="grid-warn" x="124" y="76" width="112" height="48" fill="rgba(255,210,74,.16)" stroke="#ffd24a" stroke-width="3"/>
+          <g stroke="#ffd24a" stroke-width="2">
+            <line x1="124" y1="76" x2="236" y2="124"/><line x1="150" y1="76" x2="236" y2="107"/>
+            <line x1="124" y1="93" x2="210" y2="124"/><line x1="176" y1="76" x2="236" y2="95"/>
+            <line x1="202" y1="76" x2="236" y2="90"/><line x1="124" y1="108" x2="170" y2="124"/>
+          </g>
+          <g transform="translate(180 100)">
+            <rect x="-21" y="-31" width="42" height="60" rx="9" fill="#e8720c"/>
+            <rect x="-14" y="-22" width="28" height="15" rx="3" fill="#ffe6c9"/>
+            <rect x="-23" y="-25" width="4" height="7" rx="2" fill="#ffd24a"/>
+            <rect x="19" y="-25" width="4" height="7" rx="2" fill="#ffd24a"/>
+          </g>
+          <g class="vox" transform="translate(284 100)">
+            <circle r="15" fill="#d7263d"/>
+            <path d="M-6 -6 L6 6 M6 -6 L-6 6" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+          </g>
+          <path d="M20 62h44M64 62l-8-6M64 62l-8 6" fill="none" stroke="#ff8b8b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M340 140h-44M296 140l8-6M296 140l8 6" fill="none" stroke="#ff8b8b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="252" y="64" font-size="11" fill="#d7263d">横向车流过不去</text>
+          <text x="252" y="182" font-size="11" fill="#d7263d">堵死路口</text>
+        </svg>
+        <div class="cmp-title">停在网状线上</div>
+        <div class="cmp-desc">自己看着只是“跟着前车”，实际把横向车流整个堵死，路口越堵越死。</div>
+      </div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      网状线画在路口内部或出入口，是给<b>横向车流和转弯车流留的通道</b>。它不要求你停，它要求你<b>别停</b>。所以判断标准不是“是不是绿灯”，而是“前面有没有空位容得下我的车”。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定</span>
+      导流线：<b>不压、不越、不停</b>。网状线：<b>任何时候都不停</b>，前方拥堵就在线外等。停止线：<b>红灯车头不过线</b>，黄灯未过线就停。
+    </div>
+
+    <div class="trap">
+      <span class="lbl">血亏操作</span>
+      绿灯亮着，前车往前挪一点，你也跟着把车头顶进网状线，然后前车停住——<b>整条横向车流被你堵死</b>。正确做法：等前车完全通过、网格内腾出你车长的空间，再进。
+    </div>
+  </section>
+
+  <!-- ================= 4 ================= -->
+  <section class="sec" id="s4">
+    <h2><span class="num">4</span>信号灯：圆饼灯和箭头灯谁管谁</h2>
+    <p class="lead">信号灯是<b>会变的标线</b>：它决定你这一刻能不能越过停止线。先分清你头顶是圆饼灯还是箭头灯，再看它管哪个方向，最后才谈“能不能转”。</p>
+
+    <div class="compare">
+      <div class="cmp-box">
+        <svg viewBox="0 0 200 130" role="img" aria-label="圆饼红灯" style="width:130px;max-width:100%;height:auto;display:block;margin:0 auto">
+          <rect x="70" y="4" width="60" height="122" rx="14" fill="#1b2733"/>
+          <circle cx="100" cy="34" r="18" fill="#ff5252"/>
+          <circle cx="100" cy="65" r="18" fill="#ffcf00" opacity=".14"/>
+          <circle cx="100" cy="96" r="18" fill="#2fd27a" opacity=".14"/>
+        </svg>
+        <div class="cmp-title">圆饼红灯</div>
+        <div class="cmp-desc">管整个路口的方向。右转有条件下可以走，但不是必须走。</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="cmp-box">
+        <svg viewBox="0 0 200 130" role="img" aria-label="右转箭头红灯" style="width:130px;max-width:100%;height:auto;display:block;margin:0 auto">
+          <rect x="70" y="4" width="60" height="122" rx="14" fill="#1b2733"/>
+          <circle cx="100" cy="34" r="18" fill="#ff5252"/>
+          <path d="M94 40V29q0-5 5-5h7" fill="none" stroke="#1b2733" stroke-width="4" stroke-linecap="round"/>
+          <path d="M101 20l7 4-7 4" fill="none" stroke="#1b2733" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="100" cy="65" r="18" fill="#ffcf00" opacity=".14"/>
+          <circle cx="100" cy="96" r="18" fill="#2fd27a" opacity=".14"/>
+        </svg>
+        <div class="cmp-title">右转箭头红灯</div>
+        <div class="cmp-desc">只给右转下的命令：红灯就是不能右转，必须停在停止线后。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <b>圆饼红灯，到底能不能右转？</b>
+      <p class="small">同时满足三个条件才可以：<b>① 没有“禁止右转”标志</b>；<b>② 不妨碍被放行的车辆和行人</b>（斑马线上有人就必须等）；<b>③ 现场没有其他限制</b>。有些城市对特定路口有单独规定，<span class="nowrap">以现场标志为准</span>。</p>
+      <p class="small mb0 muted">只要路口有<b>右转箭头灯</b>，就看箭头：箭头红 = 不能转，箭头绿 = 可以转。箭头灯不亮时，回到圆饼灯判断。</p>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      圆饼灯管的是整个路口的通行顺序，右转一般不会和对向直行直接冲突，所以法律留了一个“让行后可以通过”的口子；箭头灯是专门为某个方向设的，亮红就是明确告诉你<b>这个方向现在有冲突</b>。设置右转箭头灯的路口，通常右转与行人或横向车流的冲突更大。
+    </div>
+
+    <div class="grid g2" style="margin-top:14px">
+      <div class="card flat">
+        <b>箭头灯只管箭头方向</b>
+        <p class="small mb0">左转箭头红，不代表直行红；直行圆饼绿，也不代表左转箭头绿。你走哪个方向，就看管那个方向的灯。</p>
+      </div>
+      <div class="card flat">
+        <b>箭头不亮，按圆饼灯</b>
+        <p class="small mb0">右转箭头没亮、只有圆饼红灯：按圆饼红灯的右转规则判断，别自己发明一套。</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="sigflex">
+        <svg viewBox="0 0 180 300" role="img" aria-label="红绿黄循环的信号灯">
+          <rect x="42" y="8" width="96" height="256" rx="22" fill="#1b2733" stroke="#3a4552" stroke-width="2"/>
+          <circle class="sig-r" cx="90" cy="62" r="31" fill="#ff5252"/>
+          <circle class="sig-y" cx="90" cy="136" r="31" fill="#ffcf00"/>
+          <circle class="sig-g" cx="90" cy="210" r="31" fill="#2fd27a"/>
+          <rect x="83" y="264" width="14" height="26" rx="3" fill="#2b333d"/>
+          <text x="90" y="298" text-anchor="middle" font-size="11" fill="#5d6b7a">循环：红 → 绿 → 黄</text>
+        </svg>
+        <div class="card flat" style="margin:0">
+          <b>黄灯亮起时，你在哪？</b>
+          <ul class="mb0 small">
+            <li><b>车身已越过停止线</b>：继续通过，别在路口中间急刹。</li>
+            <li><b>还没越过停止线</b>：停车等下一轮，不能加速抢。</li>
+            <li><b>黄灯一直闪</b>：不是正常红绿灯，是警示；减速、瞭望，确认安全后通过。</li>
+            <li><b>灯不亮或乱闪</b>：按无信号路口处理——减速、让右方来车、转弯让直行。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stage-cap">黄灯不是“加速灯”，它只给已经进入路口的车留收尾时间。你踩得再深，它也不会变长。</div>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定</span>
+      先看有没有<b>箭头灯</b>：有就按箭头，红停绿行；没有或箭头不亮，再看<b>圆饼灯</b>。圆饼红灯右转 = 无禁令 + 让行 + 安全，三个条件缺一不可。
+    </div>
+
+    <div class="trap">
+      <span class="lbl">别搞混</span>
+      圆饼红灯右转是“<b>可以</b>”，不是“<b>应该</b>”。斑马线上有行人、横向车流还在放行，你就必须停住等；催你的后车按喇叭，也不能拿它当通行权。
+    </div>
+  </section>
+
+  <!-- ================= 5 ================= -->
+  <section class="sec" id="s5">
+    <h2><span class="num">5</span>交警手势：现场最高优先级</h2>
+    <p class="lead">信号灯坏了、事故堵死、大雾看不清，交警就会站到路中间用手势接管路口。这时候<b>他的手比灯大</b>。你不需要背整套教材，先记住三个方向逻辑，再认识八种常见手势。</p>
+
+    <div class="gcards">
+      <div class="gcard">
+        <svg viewBox="0 0 90 90" role="img" aria-label="停止手势示意">
+          <line x1="14" y1="84" x2="76" y2="84" stroke="#dbe3ec" stroke-width="2"/>
+          <circle cx="45" cy="15" r="7" fill="#1b2733"/>
+          <path d="M45 23v30M45 53l-10 28M45 53l10 28" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M45 33l24 0 0-22" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="69" cy="8" r="6" fill="#d7263d"/>
+          <path d="M81 24v22M81 46l-6-7M81 46l6-7" fill="none" stroke="#d7263d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div><b>停止</b><span>面向你，手臂高举。看到就停，别再往前挪。</span></div>
+      </div>
+      <div class="gcard">
+        <svg viewBox="0 0 90 90" role="img" aria-label="直行手势示意">
+          <line x1="14" y1="84" x2="76" y2="84" stroke="#dbe3ec" stroke-width="2"/>
+          <circle cx="45" cy="15" r="7" fill="#1b2733"/>
+          <path d="M45 23v30M45 53l-10 28M45 53l10 28" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M45 33H15M45 33h26" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M58 66h20M78 66l-7-6M78 66l-7 6" fill="none" stroke="#1f6feb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div><b>直行</b><span>手臂摆向你要去的方向，允许该方向车流通过。</span></div>
+      </div>
+      <div class="gcard">
+        <svg viewBox="0 0 90 90" role="img" aria-label="左转弯手势示意">
+          <line x1="14" y1="84" x2="76" y2="84" stroke="#dbe3ec" stroke-width="2"/>
+          <circle cx="45" cy="15" r="7" fill="#1b2733"/>
+          <path d="M45 23v30M45 53l-10 28M45 53l10 28" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M45 33H16q-8 0-8 8v8" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M58 66H28q-8 0-8-8v-2" fill="none" stroke="#1f6feb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 50l0 10M20 50l-6 7M20 50l6 7" fill="none" stroke="#1f6feb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div><b>左转弯</b><span>摆臂指向左侧，允许左转。看懂方向，不要只盯手掌。</span></div>
+      </div>
+      <div class="gcard">
+        <svg viewBox="0 0 90 90" role="img" aria-label="左转弯待转手势示意">
+          <line x1="14" y1="84" x2="76" y2="84" stroke="#dbe3ec" stroke-width="2"/>
+          <circle cx="45" cy="15" r="7" fill="#1b2733"/>
+          <path d="M45 23v30M45 53l-10 28M45 53l10 28" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M45 33l-18 18" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M20 62l10 8M30 70l-2-9M30 70l-9 2" fill="none" stroke="#1f6feb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4"/>
+        </svg>
+        <div><b>左转弯待转</b><span>示意左转车先进入待转区等待，还不是让你立刻转。</span></div>
+      </div>
+      <div class="gcard">
+        <svg viewBox="0 0 90 90" role="img" aria-label="右转弯手势示意">
+          <line x1="14" y1="84" x2="76" y2="84" stroke="#dbe3ec" stroke-width="2"/>
+          <circle cx="45" cy="15" r="7" fill="#1b2733"/>
+          <path d="M45 23v30M45 53l-10 28M45 53l10 28" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M45 33h24" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M66 46q10 8 4 18" fill="none" stroke="#1f6feb" stroke-width="4" stroke-linecap="round"/>
+          <path d="M70 64l0-8 7 4" fill="none" stroke="#1f6feb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div><b>右转弯</b><span>摆臂指向右侧，允许右转。右转也要让行人。</span></div>
+      </div>
+      <div class="gcard">
+        <svg viewBox="0 0 90 90" role="img" aria-label="变道手势示意">
+          <line x1="14" y1="84" x2="76" y2="84" stroke="#dbe3ec" stroke-width="2"/>
+          <circle cx="45" cy="15" r="7" fill="#1b2733"/>
+          <path d="M45 23v30M45 53l-10 28M45 53l10 28" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M45 33h28" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M56 62h22M78 62l-7-6M78 62l-7 6M56 62l7-6M56 62l7 6" fill="none" stroke="#1f6feb" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div><b>变道</b><span>手臂水平摆动，提示车辆按指示变道，不是催你快走。</span></div>
+      </div>
+      <div class="gcard">
+        <svg viewBox="0 0 90 90" role="img" aria-label="减速慢行手势示意">
+          <line x1="14" y1="84" x2="76" y2="84" stroke="#dbe3ec" stroke-width="2"/>
+          <circle cx="45" cy="15" r="7" fill="#1b2733"/>
+          <path d="M45 23v30M45 53l-10 28M45 53l10 28" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M45 33l24 18" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M62 44v26M62 70l-6-7M62 70l6-7" fill="none" stroke="#1f6feb" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M73 50v14M73 64l-5-6M73 64l5-6" fill="none" stroke="#1f6feb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div><b>减速慢行</b><span>单臂前伸、向下压。脚离电门，把速度降下来。</span></div>
+      </div>
+      <div class="gcard">
+        <svg viewBox="0 0 90 90" role="img" aria-label="靠边停车手势示意">
+          <line x1="14" y1="84" x2="76" y2="84" stroke="#dbe3ec" stroke-width="2"/>
+          <circle cx="45" cy="15" r="7" fill="#1b2733"/>
+          <path d="M45 23v30M45 53l-10 28M45 53l10 28" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M45 33l22 16" fill="none" stroke="#1b2733" stroke-width="6" stroke-linecap="round"/>
+          <path d="M62 58h16M78 58l-7-6M78 58l-7 6" fill="none" stroke="#1f6feb" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M82 24v50" stroke="#9aa7b6" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <div><b>靠边停车</b><span>手臂指向路侧，打右灯、减速，靠边停稳。</span></div>
+      </div>
+    </div>
+    <p class="anim-note">以上是“手臂指向”示意图，不是完整动作分解；现场以交警的实际手势为准。看不懂时最安全的动作只有一个：<b>先停住，别猜。</b></p>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      交警在现场，能看到你看不到的信息：前方事故、救护车要通过、信号灯故障、路口已经堵死。所以规则把<b>现场指挥放在最高优先级</b>，不是为了让人难记，而是为了让路口只有一个决策源。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">记法</span>
+      <b>面向你 + 手臂高举 = 停止；手臂摆动指向哪边 = 允许往哪边走；单臂前伸下压 = 减速慢行。</b>先看交警面向哪股车流，再看他的手臂，不要看他背对你时的动作。
+    </div>
+
+    <div class="card">
+      <b>现场听谁的？</b>
+      <div class="prio" style="margin:8px 0 6px">
+        <span class="pchip hot">交警手势</span><span class="pgt">＞</span>
+        <span class="pchip">信号灯</span><span class="pgt">＞</span>
+        <span class="pchip">交通标志</span><span class="pgt">＞</span>
+        <span class="pchip">交通标线</span>
+      </div>
+      <p class="small mb0 muted">交警手势和信号灯冲突时，听交警；信号灯和标线冲突时，以信号灯为准；导航和现场冲突时，以现场为准。</p>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">别搞混</span>
+      交警在指挥<b>横向车流</b>，不代表你也能走。他只对面向的那股车流发指令；你这条车道没收到放行信号，就继续停在停止线后。
+    </div>
+  </section>
+
+  <!-- ================= 6 ================= -->
+  <section class="sec" id="s6">
+    <h2><span class="num">6</span>速查表：一张表收口</h2>
+    <p class="lead">练车前扫一眼，路上只需要记住“颜色看方向，虚实看能不能越”。具体处罚和特殊路段规定，以现场标志和当地规定为准。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:22%">颜色 / 虚实</th><th style="width:16%">管什么</th><th style="width:30%">含义</th><th>能不能做</th></tr></thead>
+        <tbody>
+          <tr><td><b>白虚线</b></td><td>同向车道</td><td>车道分界，留了开口</td><td class="hl-g">安全时可以变道</td></tr>
+          <tr><td><b>白实线</b></td><td>同向车道</td><td>车道边界，封死</td><td class="hl-r">不可越线变道、压线</td></tr>
+          <tr><td><b>双白实线</b></td><td>同向车道</td><td>隧道、桥梁等严禁跨越</td><td class="hl-r">严禁跨越</td></tr>
+          <tr><td><b>黄单实线</b></td><td>对向车流</td><td>分隔对向车道</td><td class="hl-r">禁止跨越、压线</td></tr>
+          <tr><td><b>黄双实线</b></td><td>对向车流</td><td>最严格的中央分隔</td><td class="hl-r">禁超车、禁掉头、禁压线</td></tr>
+          <tr><td><b>黄虚线</b></td><td>对向车流</td><td>留了借道开口</td><td class="hl-g">安全时可借道超车、掉头</td></tr>
+          <tr><td><b>黄虚实线</b></td><td>对向车流</td><td>两侧规则不同</td><td>虚线一侧可越，实线一侧不可</td></tr>
+          <tr><td><b>路侧黄实线</b></td><td>停车</td><td>禁止停车</td><td class="hl-r">一秒都不能停</td></tr>
+          <tr><td><b>路侧黄虚线</b></td><td>停车</td><td>禁止长时停车</td><td class="hl-y">可临时上下客，人不能离车</td></tr>
+          <tr><td><b>导流线</b></td><td>分流点</td><td>白色斜纹区域</td><td class="hl-r">不压、不越、不停</td></tr>
+          <tr><td><b>网状线</b></td><td>路口 / 出入口</td><td>黄色交叉网格</td><td class="hl-r">任何时候都不停</td></tr>
+          <tr><td><b>停止线</b></td><td>路口</td><td>红灯的停车边界</td><td class="hl-r">车头不得越线</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <span class="lbl">提醒</span>
+      标线会和新旧路面、施工改道叠加。遇到标线、标志、导航说法不一致，<b>以现场标志和交警指挥为准</b>；不确定就减速，别用“我以为”过路口。
+    </div>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section class="sec" id="quiz">
+    <h2><span class="num">✓</span>闯关：12 题</h2>
+    <p class="lead">全部是路上会遇到的场景判断，不考条文编号。点选项立即判分，答错会给依据。目标：12 题至少对 10 题。</p>
+    <div id="quiz1"></div>
+  </section>
+
+  <div class="pager">
+    <a href="01_signs.html"><div class="pdir">← 上一模块</div><div class="pt">01 交通标志</div></a>
+    <a href="03_scenes.html" class="next"><div class="pdir">下一模块 →</div><div class="pt">03 道路场景</div></a>
+  </div>
+
+  <footer class="foot">
+    <div class="fr"><span>02 标线 · 信号灯 · 手势</span><span>图示为示意重绘 · 以现场标志和当地规定为准</span></div>
+  </footer>
+</main>
+
+<script src="assets/js/signs.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+Driving.quiz("#quiz1", {
+  id: "02_markings-01",
+  title: "标线闯关",
+  qs: [
+    {
+      q: "路口前的车道线已经变成白实线，你发现左侧才是左转道。这时应该？",
+      o: ["打灯后趁没车，跨实线并过去", "保持当前车道，按当前箭头通过，再找地方绕回", "停车等后车让，再慢慢挤过去", "压着线走，哪边空走哪边"],
+      a: 1,
+      why: "白实线区不得越线变道，压线、跨线都属违法。已经进入实线区，只能按当前车道的箭头通过，到前面再绕。"
+    },
+    {
+      q: "路中间是黄色双实线，你错过了掉头口。可以在这里掉头吗？",
+      o: ["可以，掉头不受标线限制", "可以，只要对向暂时没车", "不可以，双黄实线禁止跨越，继续走到允许掉头处", "可以，夜间车少时"],
+      a: 2,
+      why: "双黄实线严禁跨越，掉头、超车、压线都不行。要走到允许掉头的位置，或黄色虚线、有掉头缺口的地方再掉。"
+    },
+    {
+      q: "可变导向车道（两侧是锯齿线）上方电子屏此刻显示“直行”，你本来准备左转。应该？",
+      o: ["按原计划左转，车道位置没变", "按电子屏当前指示直行，到前面再绕", "停在车道内等它变成左转", "压锯齿线并入左转道"],
+      a: 1,
+      why: "可变导向车道的方向由当前的电子屏或车道指示决定，不是固定的。进入后按当前指示走，不能临时变道。"
+    },
+    {
+      q: "同方向直行绿灯刚亮，左转箭头还是红的。你开左转车，应该？",
+      o: ["驶入左转待转区等待", "停在停止线后，等左转箭头变绿", "直接左转，直行绿灯就是全部放行", "倒车让出路口"],
+      a: 0,
+      why: "同方向直行绿灯亮时，左转车可以越过停止线进入待转区等待；左转绿灯亮后，再从待转区完成左转。"
+    },
+    {
+      q: "前方拥堵，绿灯亮着，但前车前方只剩半个车位。你跟上去停在黄色网状线上，会怎样？",
+      o: ["没问题，绿灯允许通行", "没问题，只停一小会儿", "把横向车流堵死，属于违法停车；应停在网状线外等空位", "打开双闪就可以停"],
+      a: 2,
+      why: "网状线任何时候都禁止停车。能不能进要看前方有没有空位，而不是看灯是不是绿的；堵在网格上会把路口越堵越死。"
+    },
+    {
+      q: "圆饼红灯亮，路口没有禁止右转标志，斑马线上无行人，右侧横向也无来车。你准备右转，正确做法是？",
+      o: ["直接转，圆饼红灯等于右转绿灯", "可以右转，但要确认安全、不妨碍被放行的车辆和行人", "必须等圆饼变绿", "先鸣笛，再快速右转"],
+      a: 1,
+      why: "圆饼红灯在无禁止右转标志、且不妨碍被放行车辆和行人的前提下可以右转。这是“可以”，仍要看斑马线和横向车流。"
+    },
+    {
+      q: "路口的右转箭头灯亮红灯（不是圆饼灯）。你能否右转？",
+      o: ["能，右转不受箭头灯管", "能，圆饼灯红才不能右转", "不能，右转箭头红灯禁止右转，停在停止线后", "减速后可以右转"],
+      a: 2,
+      why: "有右转箭头灯时按箭头走：箭头红就是禁止右转，圆饼红灯的右转规则不再适用；箭头不亮才回到圆饼灯判断。"
+    },
+    {
+      q: "黄灯亮起，你的车头离停止线还有两米。应该？",
+      o: ["加速冲过去", "停在停止线后，等下一轮", "停在路中间等下一个灯", "跟着前车冲过去"],
+      a: 1,
+      why: "黄灯时还没越过停止线，应停车等待；已越过停止线才可以继续通过。黄灯不是加速灯。"
+    },
+    {
+      q: "导航让你在这个分岔口右转，但你已开过导流线缺口，想直接压白色斜纹区过去。应该？",
+      o: ["可以压，导流线只是提示", "可以停在里面看导航", "不得压线、越线，也不能停车；继续往前到下一个路口绕", "没车就可以横穿"],
+      a: 2,
+      why: "导流线用来分隔车流，不得压线、越线行驶，更不能停车。错过就继续走，不要在分流点硬切。"
+    },
+    {
+      q: "路边是黄色实线，你想靠边停两分钟接人，人不下车。可以吗？",
+      o: ["可以，两分钟不算停", "可以，人不离车就行", "不可以，路侧黄实线禁止停车", "晚上车少可以停"],
+      a: 2,
+      why: "路侧黄实线表示禁止停车，临时上下客、等人都不行。允许临时上下客的是路侧黄虚线（禁止长时停车），且人不能离车。"
+    },
+    {
+      q: "交警在路口打手势让你这条车道停止，但信号灯是绿的。你应该？",
+      o: ["按信号灯走", "按交警手势停车", "看前车走不走", "鸣笛确认后再走"],
+      a: 1,
+      why: "现场指挥优先级最高：交警手势 > 信号灯 > 标志 > 标线。交警面向你的车道示意停止，就必须停。"
+    },
+    {
+      q: "红灯亮着，你的车头最多可以停在哪里？",
+      o: ["停止线后方，车头不越线", "斑马线上，方便观察", "路口中间，随时准备走", "可以越过停止线半米，方便起步"],
+      a: 0,
+      why: "红灯必须在停止线后方停车，车头越线即违法，也不能占用人行横道和路口内部。"
+    }
+  ]
+});
+</script>
+</body>
+</html>

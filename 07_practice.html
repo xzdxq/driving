@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07 上车实操清单 · 重新学开车</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .diagram { background: #eef2f7; border: 1px solid var(--line); border-radius: 14px; padding: 10px; margin: 16px 0; }
+  .diagram svg { width: 100%; height: auto; display: block; }
+  .diagram .cap { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+  .diagram text { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .mirror-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .mirror { text-align: center; }
+  .mirror svg { width: 100%; height: auto; }
+  .mirror b { display: block; font-size: 13.5px; margin-top: 4px; }
+  .mirror span { font-size: 12px; color: var(--muted); }
+  @media (max-width: 640px) { .mirror-grid { grid-template-columns: 1fr; } }
+  @media print {
+    .topbar, .toc, .pager, .foot, .no-print { display: none !important; }
+    body { background: #fff; font-size: 12pt; }
+    .card, .quiz, .diagram { box-shadow: none; border-color: #bbb; break-inside: avoid; }
+    .sec { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body data-mod="07_practice">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span>重新学开车</a>
+    <span class="crumb">07 · <b>上车实操</b></span>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="01_signs.html">标志</a>
+      <a href="02_markings.html">标线</a>
+      <a href="03_scenes.html">场景</a>
+      <a href="04_rules.html">规则</a>
+      <a href="05_points.html">记分</a>
+      <a href="06_ev.html">电车</a>
+      <a href="07_practice.html" class="on">实操</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">模块 07 / 共 7 个</span>
+    <h1>上车实操：把清单带进教练车</h1>
+    <p>这一页不是知识，是<b>动作顺序</b>。上车前照着做一遍，教练课上按任务单练，比“多开几圈”有效得多。清单可以勾选，也可以直接打印。</p>
+    <div class="hero-tags">
+      <span class="chip">绕车检查</span>
+      <span class="chip">座椅后视镜</span>
+      <span class="chip">电车首次上手</span>
+      <span class="chip">6 次课任务单</span>
+      <span class="chip">可打印</span>
+    </div>
+    <div class="flex no-print" style="margin-top:14px">
+      <button class="btn primary" type="button" onclick="window.print()">打印这一页</button>
+      <span class="small muted">打印时会自动隐藏导航，只留内容</span>
+    </div>
+  </section>
+
+  <nav class="toc no-print">
+    <a href="#s1" class="on">绕车一周</a>
+    <a href="#s2">座椅后视镜</a>
+    <a href="#s3">电车首次</a>
+    <a href="#s4">起步停车</a>
+    <a href="#s5">车感练习</a>
+    <a href="#s6">倒车</a>
+    <a href="#s7">六次课</a>
+    <a href="#s8">常见错误</a>
+    <a href="#s9">下车前</a>
+  </nav>
+
+  <section class="sec" id="s1">
+    <h2><span class="num">1</span>上车前 60 秒：绕车一周</h2>
+    <p class="lead">三年没开车，最先丢的是“车周围有什么”的意识。绕车不是形式，是找出轮胎、小孩、宠物、漏液这些坐进车里永远看不到的东西。</p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 600 300" role="img" aria-label="绕车一周检查路线示意">
+        <rect width="600" height="300" fill="#eef2f7"/>
+        <path d="M120 110 Q80 110 80 150 Q80 190 120 190 L480 190 Q520 190 520 150 Q520 110 480 110 Z"
+              fill="none" stroke="#1f6feb" stroke-width="3" stroke-dasharray="10 8"/>
+        <rect x="210" y="118" width="180" height="64" rx="14" fill="#334155"/>
+        <rect x="240" y="128" width="120" height="44" rx="8" fill="#94a3b8"/>
+        <circle cx="245" cy="188" r="14" fill="#111"/>
+        <circle cx="355" cy="188" r="14" fill="#111"/>
+        <circle cx="245" cy="112" r="14" fill="#111"/>
+        <circle cx="355" cy="112" r="14" fill="#111"/>
+        <g font-size="12" font-weight="700" fill="#fff">
+          <circle cx="300" cy="78" r="13" fill="#1f6feb"/><text x="300" y="82" text-anchor="middle">1</text>
+          <circle cx="478" cy="150" r="13" fill="#1f6feb"/><text x="478" y="154" text-anchor="middle">2</text>
+          <circle cx="420" cy="228" r="13" fill="#1f6feb"/><text x="420" y="232" text-anchor="middle">3</text>
+          <circle cx="180" cy="228" r="13" fill="#1f6feb"/><text x="180" y="232" text-anchor="middle">4</text>
+          <circle cx="120" cy="150" r="13" fill="#1f6feb"/><text x="120" y="154" text-anchor="middle">5</text>
+        </g>
+        <text x="300" y="272" text-anchor="middle" font-size="12" fill="#475569">从车头开始逆时针绕一圈，回到驾驶门</text>
+      </svg>
+      <div class="cap">绕车路线：车头 → 副驾侧 → 车尾 → 驾驶侧。</div>
+    </div>
+
+    <div class="card">
+      <ul class="checklist">
+        <li><input type="checkbox" id="c1" data-persist="p1"><label for="c1"><b>轮胎</b>：四个轮子有无瘪气、鼓包、扎钉，花纹里有没有卡石子。</label></li>
+        <li><input type="checkbox" id="c2" data-persist="p2"><label for="c2"><b>车底地面</b>：有没有油渍、水渍（电车重点看冷却液/玻璃水，不是机油）。</label></li>
+        <li><input type="checkbox" id="c3" data-persist="p3"><label for="c3"><b>车头/车尾</b>：有没有小孩、宠物、矮桩、石墩。</label></li>
+        <li><input type="checkbox" id="c4" data-persist="p4"><label for="c4"><b>车牌</b>：完好、无遮挡、无泥污。</label></li>
+        <li><input type="checkbox" id="c5" data-persist="p5"><label for="c5"><b>灯光/镜片</b>：灯罩有没有破，后视镜有没有被掰。</label></li>
+        <li><input type="checkbox" id="c6" data-persist="p6"><label for="c6"><b>电车额外</b>：充电口盖是否关好，充电枪是否已拔。</label></li>
+      </ul>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">习惯</span>
+      把“绕车一周”绑在“上车”这个动作上，就像系安全带一样，不绕完不拉车门。头三个月每次都做，之后会变成下意识。
+    </div>
+  </section>
+
+  <section class="sec" id="s2">
+    <h2><span class="num">2</span>座椅和后视镜：先把自己放对位置</h2>
+    <p class="lead">坐姿不对，后面所有操作都会变形：踩刹车够不着、打方向耸肩、看后视镜要扭头。上车先调这三样，再谈开车。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>座椅</b>
+        <ul class="small mb0">
+          <li><b>前后</b>：刹车踩到底，膝盖仍微屈（约 120°），不能完全伸直。</li>
+          <li><b>高低</b>：能看到引擎盖前端或至少能看到前方 5 米路面；头顶离车顶至少一拳。</li>
+          <li><b>靠背</b>：略向后倾（约 100–110°），不要半躺。</li>
+          <li><b>头枕</b>：中心与耳朵上沿齐平，不是枕脖子。</li>
+          <li><b>方向盘</b>：手腕能搭在 12 点位置，手臂微屈；不要抱着方向盘开。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <b>安全带</b>
+        <ul class="small mb0">
+          <li>肩带过锁骨中间，不勒脖子、不夹腋下。</li>
+          <li>腰带贴髋骨，不压肚子。</li>
+          <li>冬天厚外套先脱掉再系，否则安全带会松。</li>
+          <li>后排同样要系；儿童用安全座椅，不坐副驾。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub">三个后视镜怎么调</h3>
+    <div class="diagram">
+      <div class="mirror-grid">
+        <div class="mirror">
+          <svg viewBox="0 0 220 120" role="img" aria-label="内后视镜调整：看到完整后窗">
+            <rect x="10" y="10" width="200" height="100" rx="10" fill="#334155"/>
+            <rect x="26" y="26" width="168" height="68" rx="6" fill="#cfe3ff"/>
+            <line x1="26" y1="60" x2="194" y2="60" stroke="#64748b" stroke-width="2" stroke-dasharray="6 6"/>
+            <rect x="90" y="40" width="40" height="40" rx="4" fill="#334155" opacity=".55"/>
+            <text x="110" y="110" text-anchor="middle" font-size="10" fill="#cbd5e1">地平线居中</text>
+          </svg>
+          <b>内后视镜</b><span>看到完整后窗，地平线在中间</span>
+        </div>
+        <div class="mirror">
+          <svg viewBox="0 0 220 120" role="img" aria-label="左后视镜：车身占四分之一">
+            <rect x="10" y="10" width="200" height="100" rx="10" fill="#334155"/>
+            <rect x="22" y="22" width="176" height="76" rx="6" fill="#cfe3ff"/>
+            <line x1="22" y1="60" x2="198" y2="60" stroke="#64748b" stroke-width="2" stroke-dasharray="6 6"/>
+            <rect x="22" y="22" width="44" height="76" fill="#334155" opacity=".55"/>
+            <text x="110" y="110" text-anchor="middle" font-size="10" fill="#cbd5e1">车身 1/4</text>
+          </svg>
+          <b>左后视镜</b><span>车身占内侧 1/4，地平线居中</span>
+        </div>
+        <div class="mirror">
+          <svg viewBox="0 0 220 120" role="img" aria-label="右后视镜：车身占四分之一，地平线略高">
+            <rect x="10" y="10" width="200" height="100" rx="10" fill="#334155"/>
+            <rect x="22" y="22" width="176" height="76" rx="6" fill="#cfe3ff"/>
+            <line x1="22" y1="48" x2="198" y2="48" stroke="#64748b" stroke-width="2" stroke-dasharray="6 6"/>
+            <rect x="154" y="22" width="44" height="76" fill="#334155" opacity=".55"/>
+            <text x="110" y="110" text-anchor="middle" font-size="10" fill="#cbd5e1">地平线略高</text>
+          </svg>
+          <b>右后视镜</b><span>车身占内侧 1/4，地平线略高</span>
+        </div>
+      </div>
+      <div class="cap">调完记住：镜子解决 80%，剩下 20% 靠扭头。</div>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">别省这一步</span>
+      换人开、洗过车、被别人调过镜子，都要重调。后视镜位置不对，变道时的判断全是错的。
+    </div>
+  </section>
+
+  <section class="sec" id="s3">
+    <h2><span class="num">3</span>电车第一次上手：先关掉“高级功能”</h2>
+    <p class="lead">电车的操作逻辑和油车不同，第一次开建议把能关的辅助都关掉，用最“笨”的模式熟悉车辆。</p>
+
+    <div class="card">
+      <ol class="steps">
+        <li><b>找挡位</b><span>多数电车是怀挡或旋钮：P（驻车）、R（倒）、N（空）、D（前进）。确认挡位显示在仪表上，不要凭手感。</span></li>
+        <li><b>启动</b><span>踩住刹车再挂 D 或按启动键。很多电车“没有点火声”，看仪表是否 READY。</span></li>
+        <li><b>关掉单踏板</b><span>第一次开先关闭单踏板/强回收，用“松电门滑行 + 踩刹车”的传统逻辑，避免误操作。</span></li>
+        <li><b>把回收调到最低</b><span>低回收下松电门几乎像空挡滑行，更容易控制；熟悉后再逐步调高。</span></li>
+        <li><b>确认驻车逻辑</b><span>电子手刹、Auto Hold 是否自动介入；坡道起步会不会溜车。在空地上试一次。</span></li>
+        <li><b>试刹车脚感</b><span>电车有动能回收 + 机械制动，前段可能偏软。在空地以 20 km/h 试几次刹车，记住踩多少能停。</span></li>
+        <li><b>找应急装置</b><span>机械门把手、双闪、危险断电开关的位置，看一遍说明书再上路。</span></li>
+      </ol>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      电车起步扭矩大、松开电门就有拖拽感（高回收时），三年没开车的人最容易在这两点上误判：<b>要么起步窜出去，要么以为在滑行其实在急减速</b>。先把变量减到最少，再逐步加回来。
+    </div>
+
+    <div class="tip">
+      <span class="lbl">上手顺序</span>
+      空地（关单踏板）→ 小区低速（低回收）→ 城市道路（标准回收）→ 熟练后再试单踏板。不要第一天就开单踏板上路。
+    </div>
+  </section>
+
+  <section class="sec" id="s4">
+    <h2><span class="num">4</span>起步与停车：固定动作顺序</h2>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>起步（每次一样）</b>
+        <ol class="small mb0">
+          <li>系安全带，调好座椅后视镜。</li>
+          <li>踩住刹车。</li>
+          <li>挂 D 挡，松电子手刹。</li>
+          <li>打左转向灯（从路边起步）。</li>
+          <li>看内镜、左外镜，扭头看左后方盲区。</li>
+          <li>确认安全，缓抬刹车/轻踩电门。</li>
+        </ol>
+      </div>
+      <div class="card">
+        <b>停车（每次一样）</b>
+        <ol class="small mb0">
+          <li>提前打右转向灯，看右后视镜。</li>
+          <li>减速靠边，距路沿 30 cm 以内。</li>
+          <li>停稳，挂 P 挡，拉电子手刹。</li>
+          <li>关灯光、空调、车窗。</li>
+          <li>看左后方，用“荷式开门”下车。</li>
+          <li>锁车，确认充电口盖关闭。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">荷式开门</span>
+      用<b>离车门较远的那只手</b>开门（左门用右手）。身体会自然转向后方，眼睛也就跟着看向后方来车——这是防“开门杀”最有效的动作。
+    </div>
+  </section>
+
+  <section class="sec" id="s5">
+    <h2><span class="num">5</span>车感练习：直线、跟车、变道、转弯</h2>
+
+    <div class="card">
+      <h4 class="mini">直线行驶</h4>
+      <ul class="small">
+        <li><b>看远</b>：视线放在前方 100–200 米，不要盯车头。看得越远，车越直。</li>
+        <li><b>微调</b>：方向盘修正幅度不超过 1/4 圈，修完回正，不要来回画龙。</li>
+        <li><b>居中</b>：用左右后视镜看车身与车道线的距离，两边大致相等。</li>
+        <li><b>稳速</b>：电门稳住，不要一脚一脚地“点”。</li>
+      </ul>
+
+      <h4 class="mini">跟车</h4>
+      <ul class="small">
+        <li>三秒法则；雨天、夜间加倍。</li>
+        <li>前车刹车灯亮，你的脚要立刻移到刹车上（不一定要踩）。</li>
+        <li>不要跟大车太近，视线会被完全挡住。</li>
+      </ul>
+
+      <h4 class="mini">变道</h4>
+      <ul class="small">
+        <li>看镜 → 打灯 3 秒 → 扭头看盲区 → 缓打方向。</li>
+        <li>一次只变一条车道；实线不变道。</li>
+        <li>变道后回正方向，关转向灯。</li>
+      </ul>
+
+      <h4 class="mini">转弯</h4>
+      <ul class="small mb0">
+        <li>进弯前减速，弯中匀速，出弯再加速（“慢进快出”）。</li>
+        <li>左转转大弯、右转转小弯；右转必看人行横道和右后方。</li>
+        <li>转弯时不要同时踩电门和刹车，脚放一个踏板上。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="s6">
+    <h2><span class="num">6</span>倒车与侧方：慢，就是快</h2>
+
+    <div class="card">
+      <ul class="small">
+        <li><b>倒车前先看一眼</b>：车尾有没有矮桩、小孩、宠物。倒车影像有畸变，雷达有盲区。</li>
+        <li><b>影像只是辅助</b>：参考线会随方向盘变化，不能当成“绝对位置”。以镜子和实际距离为准。</li>
+        <li><b>速度</b>：电车用蠕行 + 刹车控制，脚放在刹车上，不要踩电门倒车。</li>
+        <li><b>有人指挥</b>：摇下车窗，听指挥；看不清就停。</li>
+        <li><b>侧方停车</b>：与前车平行、间距约 50 cm → 倒车到右后轮与前车尾部平齐 → 右打满 → 看左后视镜 → 回正 → 左打满入位。</li>
+      </ul>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">别做</span>
+      不要完全依赖倒车影像和雷达。它们解决“有没有东西”，不解决“距离够不够、角度对不对”。低速+多看镜+不确定就停，是倒车唯一的安全策略。
+    </div>
+  </section>
+
+  <section class="sec" id="s7">
+    <h2><span class="num">7</span>六次教练课：照单练</h2>
+    <p class="lead">每次课只定 1–2 个目标，练完能复述“我做了什么、为什么”。把这张表给教练看，比说“带我练练”有效。</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:8%">课次</th><th style="width:22%">目标</th><th>练什么</th><th style="width:24%">达标标准</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1</td><td><b>找回车感</b></td><td>空场：起步停车、直线、8 字、刹车脚感、方向盘修正</td><td>不用想就能起步；20 km/h 能稳住车道</td></tr>
+          <tr><td class="c">2</td><td><b>低速道路</b></td><td>小区/辅路：观察顺序、跟车、变道、靠边停车</td><td>变道前能完整做“镜-灯-盲区”</td></tr>
+          <tr><td class="c">3</td><td><b>城市路口</b></td><td>信号灯、右转礼让行人、无灯路口让行、待转区</td><td>右转能主动停车让行人；无灯路口不抢</td></tr>
+          <tr><td class="c">4</td><td><b>复杂路段</b></td><td>环岛、窄路会车、掉头、侧方停车</td><td>环岛进出不打错灯；侧方能一把进</td></tr>
+          <tr><td class="c">5</td><td><b>快速路/高架</b></td><td>匝道汇入、车距、出口提前变道、限速</td><td>汇入不犹豫；出口不临时跨道</td></tr>
+          <tr><td class="c">6</td><td><b>高速</b></td><td>匝道加速、跟车、超车、服务区进出、故障处置</td><td>能保持 3 秒车距；知道三角牌放哪</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <span class="lbl">和教练说</span>
+      “我三年没开车，基础操作还在但判断生疏。请多让我自己判断，你只在我要犯错前提醒。”——这样练的是你的判断，不是教练的副刹。
+    </div>
+  </section>
+
+  <section class="sec" id="s8">
+    <h2><span class="num">8</span>十个最常见的复训错误</h2>
+    <div class="card">
+      <ul class="checklist">
+        <li><input type="checkbox" id="e1" data-persist="e1"><label for="e1">起步忘松手刹 / 忘挂 D 挡。</label></li>
+        <li><input type="checkbox" id="e2" data-persist="e2"><label for="e2">变道只看后视镜，不扭头看盲区。</label></li>
+        <li><input type="checkbox" id="e3" data-persist="e3"><label for="e3">跟车太近，前车急刹时没有余量。</label></li>
+        <li><input type="checkbox" id="e4" data-persist="e4"><label for="e4">右转只看左边来车，不看右侧行人。</label></li>
+        <li><input type="checkbox" id="e5" data-persist="e5"><label for="e5">路口抢黄灯 / 绿灯最后两秒加速。</label></li>
+        <li><input type="checkbox" id="e6" data-persist="e6"><label for="e6">停车不看后方就开门。</label></li>
+        <li><input type="checkbox" id="e7" data-persist="e7"><label for="e7">完全依赖倒车影像和雷达。</label></li>
+        <li><input type="checkbox" id="e8" data-persist="e8"><label for="e8">第一次开电车就开单踏板 + 高回收。</label></li>
+        <li><input type="checkbox" id="e9" data-persist="e9"><label for="e9">疲劳硬撑、夜间长途不休息。</label></li>
+        <li><input type="checkbox" id="e10" data-persist="e10"><label for="e10">开车时手持手机（记 3 分）。</label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="s9">
+    <h2><span class="num">9</span>下车前最后 30 秒</h2>
+    <div class="card">
+      <ul class="checklist">
+        <li><input type="checkbox" id="d1" data-persist="d1"><label for="d1">挂 P 挡，拉电子手刹。</label></li>
+        <li><input type="checkbox" id="d2" data-persist="d2"><label for="d2">关灯光、空调、车窗、天窗。</label></li>
+        <li><input type="checkbox" id="d3" data-persist="d3"><label for="d3">看左后方，荷式开门下车。</label></li>
+        <li><input type="checkbox" id="d4" data-persist="d4"><label for="d4">带手机/钥匙，锁车确认。</label></li>
+        <li><input type="checkbox" id="d5" data-persist="d5"><label for="d5">停在充电位时，确认充电口盖关好。</label></li>
+      </ul>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">复训节奏</span>
+      静态复习 1 周 → 6 次教练课（每周 2–3 次）→ 自己独立开 2–3 次短途（有人在副驾更好）。<b>不要一次练太久</b>，每次 1.5 小时以内，疲劳时判断力下降得比技术快。
+    </div>
+  </section>
+
+  <div class="pager no-print">
+    <a href="06_ev.html"><div class="pdir">← 上一模块</div><div class="pt">06 电车知识</div></a>
+    <a href="index.html" class="next"><div class="pdir">回到 →</div><div class="pt">总目录</div></a>
+  </div>
+
+  <footer class="foot">
+    <div class="fr"><span>07 上车实操清单</span><span>可打印 · 勾选状态存本机</span></div>
+  </footer>
+</main>
+
+<script src="assets/js/signs.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

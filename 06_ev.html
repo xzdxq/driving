@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 电车知识 · 重新学开车</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .stage svg text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .ev-list { margin: 8px 0 0; padding-left: 1.15em; }
+  .ev-list li { font-size: 14.5px; color: var(--muted); margin-bottom: 6px; }
+  .ev-list li:last-child { margin-bottom: 0; }
+  .ev-list b { color: var(--ink-2); }
+  @media (max-width: 760px) {
+    .toc { margin-left: -14px; margin-right: -14px; }
+  }
+</style>
+</head>
+<body data-mod="06_ev">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span>重新学开车</a>
+    <span class="crumb">06 · <b>电车知识</b></span>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="01_signs.html">标志</a>
+      <a href="02_markings.html">标线</a>
+      <a href="03_scenes.html">场景</a>
+      <a href="04_rules.html">规则</a>
+      <a href="05_points.html">记分</a>
+      <a href="06_ev.html" class="on">电车</a>
+      <a href="07_practice.html">实操</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">模块 06 / 共 7 个</span>
+    <h1>电车：开起来像车，<span class="nowrap">养起来像手机</span></h1>
+    <p>电车和油车最大的差别，不在中控屏有多大，而在<b class="nowrap">脚上</b>和<b class="nowrap">补能</b>：松电门会减速、起步来得快、充电要分慢充快充，冬天续航还会打折。你准备买电车，这一页就把“以后每天都会用到”的部分讲透。</p>
+    <div class="hero-tags">
+      <span class="chip">三电一张图</span>
+      <span class="chip">快充曲线</span>
+      <span class="chip">单踏板安全</span>
+      <span class="chip">冬季续航</span>
+      <span class="chip">12 题闯关</span>
+    </div>
+  </section>
+
+  <nav class="toc">
+    <a href="#s1" class="on">三电</a>
+    <a href="#s2">电池</a>
+    <a href="#s3">充电</a>
+    <a href="#s4">续航</a>
+    <a href="#s5">动能回收</a>
+    <a href="#s6">驾驶差异</a>
+    <a href="#s7">涉水碰撞</a>
+    <a href="#s8">故障拖车</a>
+    <a href="#s9">保养年检</a>
+    <a href="#s10">速查</a>
+    <a href="#quiz">闯关</a>
+  </nav>
+
+  <!-- ================= 1 ================= -->
+  <section class="sec" id="s1">
+    <h2><span class="num">1</span>三电：电池、电机、电控</h2>
+    <p class="lead">电车的核心就三样：<b>电池、电机、电控</b>，合称“三电”。结构比油车简单，但多了一套几百伏的高压系统——这是你唯一需要“敬而远之”的地方。</p>
+
+    <div class="grid g3">
+      <div class="card">
+        <b>电池包：铺在底盘中间</b>
+        <p class="small muted mb0">在前后轴之间，像一块厚地板。好处是重心低、开起来稳；代价是地板被垫高、离地间隙小，托底时它首当其冲。</p>
+      </div>
+      <div class="card">
+        <b>电机：直接驱动车轮</b>
+        <p class="small muted mb0">通电就出扭矩，通过单速减速器带动车轮。没有变速箱，所以没有换挡顿挫，也没有发动机怠速。</p>
+      </div>
+      <div class="card">
+        <b>电控：管能量怎么走</b>
+        <p class="small muted mb0">把电池的直流电变成电机要用的交流电，同时管功率分配、动能回收和热管理。它像交通警察，决定“电往哪走、走多少”。</p>
+      </div>
+    </div>
+
+    <div class="stage" style="max-width:900px;margin-left:auto;margin-right:auto">
+      <svg viewBox="0 0 680 360" role="img" aria-label="电车车身剖面示意图：电池包位于底盘中间，橙色高压线束连接充电口、电池、电控和电机">
+        <defs>
+          <marker id="ev-a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0L10 5L0 10Z" fill="#5d6b7a"/>
+          </marker>
+          <marker id="ev-a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0L10 5L0 10Z" fill="#f97316"/>
+          </marker>
+        </defs>
+
+        <rect x="28" y="20" width="26" height="7" rx="3.5" fill="#f97316"/>
+        <text x="62" y="29" font-size="16" font-weight="700" fill="#c25e00">橙色线束 = 高压电</text>
+
+        <line x1="24" y1="302" x2="656" y2="302" stroke="#c3ccd8" stroke-width="2" stroke-dasharray="7 9"/>
+        <ellipse cx="332" cy="302" rx="286" ry="6" fill="#12161c" opacity=".06"/>
+
+        <path d="M28 252 L28 214 C28 200 37 192 53 188 L128 177 C156 138 202 122 256 122 L386 122 C440 122 478 138 506 174 L606 187 C626 191 638 200 638 214 L638 252 Z" fill="#fff" stroke="#2b333d" stroke-width="4" stroke-linejoin="round"/>
+
+        <path d="M144 184 L204 146 L252 146 L252 184 Z" fill="#e8f0ff" stroke="#9fb3cc" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M266 146 L378 146 L378 184 L266 184 Z" fill="#e8f0ff" stroke="#9fb3cc" stroke-width="2"/>
+        <path d="M392 146 L446 152 L470 184 L392 184 Z" fill="#e8f0ff" stroke="#9fb3cc" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M128 184 L506 184" stroke="#cfd8e3" stroke-width="2"/>
+        <path d="M252 184 L252 250 M390 184 L390 250" stroke="#cfd8e3" stroke-width="2"/>
+
+        <circle cx="168" cy="262" r="38" fill="#2b333d"/>
+        <circle cx="168" cy="262" r="18" fill="#dbe3ec"/>
+        <circle cx="168" cy="262" r="6" fill="#2b333d"/>
+        <circle cx="568" cy="262" r="38" fill="#2b333d"/>
+        <circle cx="568" cy="262" r="18" fill="#dbe3ec"/>
+        <circle cx="568" cy="262" r="6" fill="#2b333d"/>
+
+        <rect x="222" y="252" width="220" height="28" rx="8" fill="#dbeafe" stroke="#1f6feb" stroke-width="3"/>
+        <text x="332" y="271" text-anchor="middle" font-size="15" font-weight="700" fill="#164a9c">动力电池包</text>
+
+        <rect x="58" y="190" width="24" height="20" rx="5" fill="#fff5eb" stroke="#f97316" stroke-width="2"/>
+        <text x="58" y="181" font-size="13" font-weight="700" fill="#c25e00">充电口</text>
+
+        <path d="M82 200 C118 202 138 212 168 218 C190 222 208 236 222 250" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round"/>
+        <path d="M442 260 C446 246 458 232 474 220" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round"/>
+        <path d="M496 207 L508 207" stroke="#f97316" stroke-width="6" stroke-linecap="round"/>
+
+        <rect x="452" y="194" width="44" height="26" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="2.5"/>
+        <text x="474" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">电控</text>
+        <rect x="508" y="194" width="54" height="26" rx="6" fill="#d1fae5" stroke="#0f8a54" stroke-width="2.5"/>
+        <text x="535" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">电机</text>
+        <path d="M535 220 L560 240" stroke="#0f8a54" stroke-width="4" stroke-linecap="round" stroke-dasharray="4 4"/>
+
+        <text x="120" y="158" font-size="13" font-weight="700" fill="#c25e00">高压线束</text>
+        <path d="M142 162 L156 204" stroke="#f97316" stroke-width="1.5" marker-end="url(#ev-a2)"/>
+
+        <path d="M332 316 L332 282" stroke="#5d6b7a" stroke-width="1.5" marker-end="url(#ev-a1)"/>
+        <rect x="218" y="316" width="228" height="28" rx="9" fill="#fff" stroke="#cfd8e3"/>
+        <text x="332" y="335" text-anchor="middle" font-size="14" font-weight="700" fill="#12161c">电池包：底盘中间的最低点</text>
+      </svg>
+      <div class="stage-cap">示意图只标位置关系，具体布置因车型而异：电池包在底盘中间，橙色线束把高压电送到电控和电机；电机经减速器直接驱动车轮。</div>
+    </div>
+
+    <div class="note">
+      <span class="lbl">正常现象</span>
+      停车时没声音、没抖动，是正常的。判断车“能不能走”别靠听，靠看：仪表显示 <b>READY / 就绪</b>、挡位在 D 或 R、电量正常，再动车。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">高压</span>
+      <b>橙色 = 高压。</b>机舱、车底和充电口附近的橙色线束、橙色插头，不碰、不拆、不改装。洗车时也别拿高压水枪对着充电口和电池包猛冲。
+    </div>
+
+    <div class="trap">
+      <span class="lbl">别用油车习惯</span>
+      电车没有怠速，等红灯时安静得像个关机状态。挂 D 挡松开刹车，多数车还会蠕行；停稳后拉手刹或 Auto Hold，别一直用脚“憋着”。
+    </div>
+  </section>
+
+  <!-- ================= 2 ================= -->
+  <section class="sec" id="s2">
+    <h2><span class="num">2</span>电池：两种主流化学体系，各有取舍</h2>
+    <p class="lead">现在主流就两种：<b>磷酸铁锂（LFP）</b>和<b>三元锂（NCM / NCA）</b>。不是谁全面碾压谁，而是把“耐热、寿命、成本”和“能量密度、低温表现”做了不同交换。</p>
+
+    <div class="grid g2">
+      <div class="card" style="border-top:4px solid #1f6feb">
+        <b>磷酸铁锂（LFP）</b>
+        <ul class="ev-list">
+          <li><b>更耐高温</b>，热稳定性相对好</li>
+          <li><b>循环寿命长</b>，充放次数多，长期持有更省心</li>
+          <li><b>成本低</b>，同价位车型里很常见</li>
+          <li>相对弱项：<b>低温性能</b>和<b>能量密度</b>，同样体积装的电少一些，冬天更怕冷</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:4px solid #0f8a54">
+        <b>三元锂（NCM / NCA）</b>
+        <ul class="ev-list">
+          <li><b>能量密度高</b>，同样重量或体积能装更多电</li>
+          <li><b>低温表现相对好</b>，冬天掉电没那么明显</li>
+          <li>相对弱项：<b>热稳定性更依赖热管理和结构防护</b>，成本也更高</li>
+          <li>同体系不同厂家的配方、封装、热管理差别很大，不能只看“三元 / 铁锂”四个字下结论</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">共同点</span>
+      两种电池都怕三件事：<b>过充过放、高温、碰撞挤压</b>。BMS（电池管理系统）负责盯着每一串电芯的电压和温度，该限流限流、该报警报警。你要做的，是按说明书充电、别长期亏电停着、别把车当船开。
+    </div>
+
+    <div class="trap">
+      <span class="lbl">托底之后</span>
+      电池包在底盘最低处，<b>磕碰后即使外观没事，也建议去店里检查电池包底部</b>。外壳变形可能伤到内部结构或密封。如果仪表报警、闻到焦糊味、看到液体渗出，别继续开：停车、远离、联系救援。
+    </div>
+
+    <div class="tip">
+      <span class="lbl">选车</span>
+      你准备买电车，别只问“三元还是铁锂”。更值得问的是：<b>电池有没有液冷 / 热管理、底盘有没有结构防护、BMS 和充电策略是否保守、三电质保跟不跟车</b>。化学体系只是起点，厂家的热管理和结构设计才决定日常体验。
+    </div>
+  </section>
+
+  <!-- ================= 3 ================= -->
+  <section class="sec" id="s3">
+    <h2><span class="num">3</span>充电：慢充过日子，快充赶时间</h2>
+    <p class="lead">充电分两条路：日常用<b>交流慢充</b>，赶时间用<b>直流快充</b>。搞懂这两件事，充电焦虑会少一大半。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>交流慢充（AC）</b>
+        <p class="small muted">家用桩、目的地桩、随车充。常见 7kW、11kW，速度慢，但对电池温和，适合过夜充。家里或公司能充，日常基本不用去公共桩。</p>
+        <p class="small mb0"><span class="chip">过夜充</span> <span class="chip">对电池更温和</span></p>
+      </div>
+      <div class="card">
+        <b>直流快充（DC）</b>
+        <p class="small muted">公共快充桩，功率从几十到几百 kW。补能快，适合长途；通常充到 80% 左右就走，别死等 100%。</p>
+        <p class="small mb0"><span class="chip">长途补能</span> <span class="chip">80% 就走</span></p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <b>为什么 800V 平台被反复提？</b>
+      <p class="small muted">因为 <b>功率 = 电压 × 电流</b>。想让充电更快，要么提高电压，要么加大电流。800V 平台的价值是：<b>同样功率下电流更小、线束发热更少</b>；同样电流下也能送出更大功率。对开车的人意味着——在支持的大功率桩上，同样时间可能充进更多电；但桩不支持，车再高压也快不起来。</p>
+      <p class="small mb0">所以别只认“800V”三个字，先看你常走的路线有没有能喂饱它的桩。</p>
+    </div>
+
+    <div class="stage" style="max-width:720px;margin-left:auto;margin-right:auto">
+      <svg viewBox="0 0 560 330" role="img" aria-label="快充功率曲线示意图：电量从低到八成时功率较高，超过八成后功率明显下降">
+        <defs>
+          <linearGradient id="ev-charge-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1f6feb" stop-opacity=".18"/>
+            <stop offset="1" stop-color="#1f6feb" stop-opacity=".02"/>
+          </linearGradient>
+        </defs>
+
+        <rect x="64" y="48" width="365" height="204" fill="#0f8a54" opacity=".06"/>
+        <rect x="429" y="48" width="91" height="204" fill="#e8720c" opacity=".08"/>
+
+        <g stroke="#dbe3ec" stroke-width="1">
+          <line x1="64" y1="48" x2="520" y2="48"/>
+          <line x1="64" y1="116" x2="520" y2="116"/>
+          <line x1="64" y1="184" x2="520" y2="184"/>
+          <line x1="64" y1="252" x2="520" y2="252"/>
+        </g>
+
+        <path d="M64 214 C88 188 100 110 132 88 L425 88 C452 92 466 120 478 150 C490 186 506 220 520 240 L520 252 L64 252 Z" fill="url(#ev-charge-fill)"/>
+        <path d="M64 214 C88 188 100 110 132 88 L425 88 C452 92 466 120 478 150 C490 186 506 220 520 240" fill="none" stroke="#1f6feb" stroke-width="4" stroke-linecap="round"/>
+
+        <line x1="429" y1="56" x2="429" y2="252" stroke="#e8720c" stroke-width="1.5" stroke-dasharray="5 5"/>
+        <circle cx="429" cy="88" r="5" fill="#e8720c" class="pulse"/>
+
+        <line x1="64" y1="48" x2="64" y2="252" stroke="#2b333d" stroke-width="1.5"/>
+        <line x1="64" y1="252" x2="528" y2="252" stroke="#2b333d" stroke-width="1.5"/>
+
+        <text x="20" y="150" text-anchor="middle" font-size="13" fill="#5d6b7a" transform="rotate(-90 20 150)">充电功率</text>
+        <g font-size="13" fill="#5d6b7a" text-anchor="middle">
+          <text x="64" y="272">0</text>
+          <text x="155" y="272">20</text>
+          <text x="246" y="272">40</text>
+          <text x="338" y="272">60</text>
+          <text x="429" y="272">80</text>
+          <text x="520" y="272">100</text>
+        </g>
+        <text x="520" y="300" text-anchor="end" font-size="13" fill="#5d6b7a">电量（%）</text>
+
+        <text x="250" y="72" text-anchor="middle" font-size="14" font-weight="700" fill="#0f8a54">高功率平台（约到 80%）</text>
+        <text x="478" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#c25e00">80% 后降功率</text>
+      </svg>
+      <div class="stage-cap">曲线只表示形状，不是任何车型的实测：低电量时功率逐步爬升，到八成左右是平台末端，之后为保护电池主动降功率，最后一段最慢。</div>
+    </div>
+
+    <h3 class="sub">家充：慢，但最省心</h3>
+    <div class="card flat">
+      <ul class="mb0">
+        <li><b>7kW 桩通常需要 32A 专用回路和可靠接地</b>，由持证电工安装；老旧小区先确认电表和线路容量，别自己拉线。</li>
+        <li><b>不要“飞线”。</b>从楼上拉插线板、用普通插座长期大功率充电，插头和线路容易过热，这是最常见的家用充电火灾来源。</li>
+        <li>充电枪插到底，确认锁止；第二天拔枪前，先在中控或 APP 结束充电。</li>
+        <li>长期停放别把电放空，按厂家建议留一部分电量；具体区间看说明书。</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">公共快充：快，但要讲规矩</h3>
+    <div class="card flat">
+      <ul class="mb0">
+        <li>插枪前看一眼<b>枪口和车上插座</b>：有水、泥沙、异物就不充，擦干或换桩。</li>
+        <li>国标接口，枪头对准插到底，听到或看到锁止再启动；拔枪前先结束充电，<b>不要强行拔</b>。</li>
+        <li><b>雷雨、积水、枪口有水时不充。</b>充电时人可以在车里，但不建议在车内睡觉（尤其夏天），以防异常时反应不及。</li>
+        <li>闻到焦糊味、看到冒烟、枪头异常发烫：立即停止充电，远离车辆，联系桩企和消防。不要用手去拔、去摸。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= 4 ================= -->
+  <section class="sec" id="s4">
+    <h2><span class="num">4</span>续航：为什么标称和实际差那么多</h2>
+    <p class="lead">标称续航是 <b>CLTC 工况</b>下测出来的“考试分数”：恒温、低速、不开空调。你实际怎么开，才决定能跑多远。</p>
+
+    <div class="tbl-wrap compact">
+      <table>
+        <thead><tr><th>影响因素</th><th>大致表现</th><th>你能做的</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>车速</b></td>
+            <td>高速巡航比市区更费电；超过 120 km/h，风阻上升很快</td>
+            <td>长途把巡航放在 80–100 km/h 左右，别一路顶着限速跑</td>
+          </tr>
+          <tr>
+            <td><b>温度</b></td>
+            <td>冬季低温续航可能打 5–7 折，开暖风更明显</td>
+            <td>插枪预热电池和座舱；优先用座椅、方向盘加热</td>
+          </tr>
+          <tr>
+            <td><b>空调</b></td>
+            <td>制冷制热都耗电，暖风尤其</td>
+            <td>出发前预热，行驶中合理设温，别开着窗吹暖风</td>
+          </tr>
+          <tr>
+            <td><b>载重 / 胎压</b></td>
+            <td>满载、胎压偏低都会增加电耗</td>
+            <td>胎压按门框或说明书标注，冷车测，别凭感觉</td>
+          </tr>
+          <tr>
+            <td><b>驾驶风格</b></td>
+            <td>急加速、急刹、频繁变道更费电</td>
+            <td>预判路况，用回收代替一部分刹车，但别为了省电晚刹车</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      表显续航是估算，会随最近一段驾驶习惯跳来跳去。更靠谱的看法是：<b>电量百分比 + 近期平均电耗</b>。规划长途时留出找桩、排队、绕路的余量，别按“刚好够”算。
+    </div>
+
+    <div class="tip">
+      <span class="lbl">冬天</span>
+      最省电的顺序：<b>插枪预热</b>（电从桩来，不耗电池）→ <b>座椅 / 方向盘加热</b> → 再开暖风。胎压按厂家标注，冷车测；不要为了省电把胎压打得很高，抓地力会变差。
+    </div>
+
+    <div class="note">
+      <span class="lbl">规划</span>
+      剩多少电找桩，取决于下一段路有没有桩、要不要排队。陌生路线宁可早充一次，也别赌“应该能到”。服务区充电桩节假日排队是常态，留出时间比留出电量更重要。
+    </div>
+  </section>
+
+  <!-- ================= 5 ================= -->
+  <section class="sec" id="s5">
+    <h2><span class="num">5</span>动能回收与单踏板：脚上最不一样的地方</h2>
+    <p class="lead">松电门时，电机反过来当发电机，把车的动能变成电充回电池，同时产生一股拖拽感——这就是<b>动能回收</b>。它是电车和油车脚感差别最大的地方。</p>
+
+    <div class="stage" style="max-width:720px;margin-left:auto;margin-right:auto">
+      <svg viewBox="0 0 560 270" role="img" aria-label="单踏板能量流向图：加速时电池经电控驱动电机和车轮，回收时车轮带动电机发电回充电池">
+        <defs>
+          <marker id="ev-a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0L10 5L0 10Z" fill="#e8720c"/>
+          </marker>
+          <marker id="ev-a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0L10 5L0 10Z" fill="#0f8a54"/>
+          </marker>
+        </defs>
+
+        <text x="280" y="34" text-anchor="middle" font-size="14" font-weight="700" fill="#c25e00">加速：电池 → 电控 → 电机 → 车轮（放电）</text>
+        <text x="280" y="242" text-anchor="middle" font-size="14" font-weight="700" fill="#0f8a54">回收：车轮 → 电机 → 电控 → 电池（发电）</text>
+
+        <g stroke="#e8720c" stroke-width="4" fill="none" marker-end="url(#ev-a3)" class="flow">
+          <path d="M140 76 L184 76"/>
+          <path d="M274 76 L318 76"/>
+          <path d="M434 76 L458 76"/>
+        </g>
+        <g stroke="#0f8a54" stroke-width="4" fill="none" marker-end="url(#ev-a4)" class="flow">
+          <path d="M458 196 L434 196"/>
+          <path d="M318 196 L274 196"/>
+          <path d="M184 196 L140 196"/>
+        </g>
+
+        <rect x="24" y="104" width="112" height="64" rx="12" fill="#dbeafe" stroke="#1f6feb" stroke-width="3"/>
+        <text x="80" y="143" text-anchor="middle" font-size="15" font-weight="700" fill="#164a9c">电池包</text>
+
+        <rect x="190" y="104" width="80" height="64" rx="12" fill="#fef3c7" stroke="#b45309" stroke-width="3"/>
+        <text x="230" y="143" text-anchor="middle" font-size="15" font-weight="700" fill="#92400e">电控</text>
+
+        <rect x="324" y="104" width="106" height="64" rx="12" fill="#d1fae5" stroke="#0f8a54" stroke-width="3"/>
+        <text x="377" y="143" text-anchor="middle" font-size="15" font-weight="700" fill="#065f46">电机</text>
+
+        <circle cx="496" cy="136" r="34" fill="#f1f5f9" stroke="#2b333d" stroke-width="4"/>
+        <text x="496" y="141" text-anchor="middle" font-size="13" font-weight="700" fill="#12161c">车轮</text>
+      </svg>
+      <div class="stage-cap">橙色是放电方向，绿色是回收方向。松电门时，车轮带着电机转，电机变成发电机，把电送回电池——减速感就是这股拖拽力。</div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>回收强度可调</b>
+        <p class="small muted mb0">通常有低、标准、高几档。市区走走停停用高回收确实省电，但雨雪天要调低：松电门就相当于轻刹车，驱动轮可能先失去附着。</p>
+      </div>
+      <div class="card">
+        <b>低回收更像油车</b>
+        <p class="small muted mb0">刚从油车换过来，先用低回收或标准回收，把“滑行”的感觉找回来，再逐步尝试高回收。别一上来就开单踏板。</p>
+      </div>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">关键安全点</span>
+      <b>回收减速时刹车灯不一定亮。</b>部分车型强回收会点亮，轻回收往往不亮。后车看到你没亮灯却在快速接近，很容易追尾。养成习惯：只要回收力度明显，就轻点一下刹车“打招呼”，也让刹车灯亮起来。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">底线</span>
+      <b>单踏板模式不能替代刹车。</b>紧急情况，脚必须踩刹车踏板。坡道停车用 P 挡 / 电子手刹，不要靠“电门踩住”悬停。
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      回收不是无限的：电池快满、温度太低、路面很滑时，回收力度会被限制，减速感变弱。所以别把“松电门能减速”当成刹车备份，脚该挪到刹车踏板时就得挪。
+    </div>
+  </section>
+
+  <!-- ================= 6 ================= -->
+  <section class="sec" id="s6">
+    <h2><span class="num">6</span>电车的驾驶差异：复训的人最该先适应什么</h2>
+    <p class="lead">这一节不讲参数，讲你上车后脚上、眼上、心理上会遇到的差异。三年没开车再换电车，最怕的是“用油车的肌肉记忆开电车”。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>起步：扭矩来得快</b>
+        <p class="small muted mb0">电门初段扭矩大，轻轻一点就窜。湿滑路面、倒车、停车入位要更柔，别用油车“点一下油”的力度。</p>
+      </div>
+      <div class="card">
+        <b>安静：行人听不到你</b>
+        <p class="small muted mb0">低速靠 AVAS 低速提示音提醒路人。小区、停车场要主动观察；提示音不响要去检查，别指望“别人会让我”。</p>
+      </div>
+      <div class="card">
+        <b>车重：稳，但惯性大</b>
+        <p class="small muted mb0">电池让车更重，重心低所以稳，但刹车距离不一定比油车短。跟车别贴，下坡别只靠回收。</p>
+      </div>
+      <div class="card">
+        <b>轮胎：可能磨得更快</b>
+        <p class="small muted mb0">扭矩大、车重高，轮胎磨损可能更快。定期看胎压和花纹，按厂家规格换胎，别只图便宜。</p>
+      </div>
+      <div class="card">
+        <b>刹车片：用得少反而容易出问题</b>
+        <p class="small muted mb0">回收承担了大部分减速，刹车片用得少，容易生锈或卡滞。按厂家要求定期检查；雨后或长期停放后，低速轻踩几下刹车。</p>
+      </div>
+      <div class="card">
+        <b>刹车脚感：可能和油车不同</b>
+        <p class="small muted mb0">线控制动 / CRBS 先回收再机械制动，初段可能偏空或不够线性。找块空地试几次不同力度的刹车，提前适应。</p>
+      </div>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">复训第一天</span>
+      先别急着上路。空场里做四件事：<b>轻踩电门感受出力、松电门感受回收、低速踩几脚刹车找脚感、试一次 Auto Hold / 电子手刹</b>。四件事都顺了，再进小区道路。
+    </div>
+
+    <div class="note">
+      <span class="lbl">提醒</span>
+      电车的“静”会放大车速错觉：同样 60 km/h，车内比油车安静得多，容易不知不觉开快。多用仪表确认速度，别靠耳朵判断。
+    </div>
+  </section>
+
+  <!-- ================= 7 ================= -->
+  <section class="sec" id="s7">
+    <h2><span class="num">7</span>涉水、碰撞、起火：三个必须知道的场景</h2>
+    <p class="lead">电池包的防护等级不低，但“防水”不等于“可以当船开”。这一节记住三个场景：涉水、碰撞、起火。</p>
+
+    <h3 class="sub">涉水：以说明书为准，别超过半个车轮</h3>
+    <p>电池包一般有 <b>IP67 / IP68</b> 防护，但这只是电池包的防尘防水等级，<b>不代表整车可以随意涉水</b>。以说明书标注的最大涉水深度为准，通常不建议超过半个车轮。</p>
+    <ol class="steps">
+      <li><b>先判断</b><span>看水深、看前车能不能过、对照说明书上限。超过半个车轮或水流急，直接绕路。</span></li>
+      <li><b>低速、匀速、一次通过</b><span>不中途停车、不倒车、不急加速。稳住电门，别在水里“冲浪”。</span></li>
+      <li><b>出来后轻踩刹车</b><span>低速轻踩几次，让制动盘把水甩掉；留意仪表有没有绝缘、电池或动力系统报警。</span></li>
+    </ol>
+
+    <h3 class="sub">碰撞：高压会自动切断，但别去碰橙色件</h3>
+    <div class="card flat">
+      <ul class="mb0">
+        <li>碰撞后高压系统<b>通常会</b>自动切断，但不要触碰橙色线束或破损电池，也不要回车里拿东西。</li>
+        <li>远离车辆，报警（122 / 110），并告诉救援人员<b>这是电车</b>。</li>
+        <li>如果电池冒烟、有异味、有液体渗出，站到上风口，远离，别围观。</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">起火：交给消防，不要自己扑</h3>
+    <div class="trap">
+      <span class="lbl">别靠近</span>
+      锂电池火灾需要<b>大量水降温</b>，普通灭火器很难彻底扑灭。交给消防处理，不要靠近围观，也不要重新进入车内。你能做的是：远离、报警、提醒周围人别靠近。
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      电池包最怕“碰撞挤压 + 高温 + 进水后短路”叠加。你看不到内部，所以判断标准不是“外观没事”，而是<b>有没有报警、异味、渗液、异常发热</b>。
+    </div>
+  </section>
+
+  <!-- ================= 8 ================= -->
+  <section class="sec" id="s8">
+    <h2><span class="num">8</span>故障与拖车：两个新手最容易懵的坑</h2>
+    <p class="lead">电车也会“亏电”，但亏的是 <b>12V 小电瓶</b>；拖车也不能随便拖。这两个坑，很多新车主第一次遇到会懵。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>12V 小电瓶亏电</b>
+        <p class="small muted mb0">它负责唤醒整车控制器、门锁、灯光和屏幕。它亏电，动力电池再满也上不了电，门都可能打不开。可按说明书搭电或用应急电源；平时别长时间停放不动，提车时先找到机械钥匙。</p>
+      </div>
+      <div class="card">
+        <b>拖车：不能用普通拖车绳</b>
+        <p class="small muted mb0">不要拖驱动轮着地的电车。用<b>平板拖车</b>，或按说明书进入运输模式 / 抬起驱动轮。否则电机被动发电，可能损坏电控。</p>
+      </div>
+      <div class="card">
+        <b>充电枪拔不出</b>
+        <p class="small muted mb0">先在中控或 APP <b>结束充电</b>，等锁止机构释放；还不行再用应急拉索（位置看说明书），不要硬拽，更不要用工具撬。</p>
+      </div>
+      <div class="card">
+        <b>高压 / 电池故障灯</b>
+        <p class="small muted mb0">靠边停车、断电、下车、联系救援。不要自行拆橙色插头或电池包，也不要用自来水冲洗底盘“降温”。</p>
+      </div>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">提车第一周</span>
+      随车说明书别扔在手套箱里吃灰。把<b>应急拉索、机械钥匙、搭电点、拖车钩</b>的位置翻一遍，最好拍照存手机。真遇到事，半夜在停车场翻说明书是最不靠谱的。
+    </div>
+  </section>
+
+  <!-- ================= 9 ================= -->
+  <section class="sec" id="s9">
+    <h2><span class="num">9</span>保养、年检、保险：养起来像手机，但不能真当手机</h2>
+    <p class="lead">电车养起来确实比油车省心：没有机油、机滤、火花塞。但“省”不等于“不用管”，该看的底盘、刹车、轮胎一样不能少。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <b>保养项目比油车少</b>
+        <p class="small muted mb0">主要是：轮胎、刹车系统、空调滤芯、减速器油、冷却液、底盘检查。按厂家周期做，别只换空调滤芯就完事。</p>
+      </div>
+      <div class="card">
+        <b>年检：6 年免上线，但仍要申领标志</b>
+        <p class="small muted mb0">非营运小微型载客汽车 6 年内免上线检验（仍需按期申领检验标志），第 6 年、第 10 年上线检验，10 年以上每年一次。以最新规定为准。</p>
+      </div>
+      <div class="card">
+        <b>2025 年 3 月 1 日起的新规</b>
+        <p class="small muted mb0">《新能源汽车运行安全性能检验规程》实施，<b>动力电池安全（充电）检测、电气安全检测</b>成为必检内容。年检前先自己看看充电口、底盘有没有明显损伤。</p>
+      </div>
+      <div class="card">
+        <b>保险：确认三电保障</b>
+        <p class="small muted mb0">新能源汽车商业保险专属条款覆盖电池、电机、电控（三电）及自燃等风险。投保时确认三电保障，别只看价格。</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="lbl">定损</span>
+      托底、涉水后及时报案定损，别自己先找修理厂拆。电池包的定损和维修需要厂家授权渠道，私自拆装可能影响质保和后续理赔。
+    </div>
+  </section>
+
+  <!-- ================= 10 ================= -->
+  <section class="sec" id="s10">
+    <h2><span class="num">10</span>速查表：充电 / 续航 / 安全 / 保养</h2>
+    <div class="tbl-wrap compact">
+      <table>
+        <thead>
+          <tr><th>充电</th><th>续航</th><th>安全</th><th>保养</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>日常慢充，出远门快充</td>
+            <td>CLTC 偏理想，看脚法和天气</td>
+            <td>橙色线束是高压，不碰</td>
+            <td>轮胎、刹车、滤芯、油液、底盘</td>
+          </tr>
+          <tr>
+            <td>快充 80% 就走，后面慢</td>
+            <td>高速 80–100 较省，120 以上费</td>
+            <td>托底后检查电池包底部</td>
+            <td>6 年免上线，6/10 年上线</td>
+          </tr>
+          <tr>
+            <td>插枪前看枪口、插座</td>
+            <td>冬季 5–7 折，插枪预热</td>
+            <td>涉水低速匀速，一次过</td>
+            <td>2025 年 3 月起电池必检</td>
+          </tr>
+          <tr>
+            <td>雷雨积水不充，先结束再拔</td>
+            <td>看电量百分比 + 平均电耗</td>
+            <td>碰撞后远离、报警</td>
+            <td>保险确认三电，托底先定损</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted center mb0">具体数值和操作以随车说明书、厂家要求及最新法规为准。</p>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section class="sec" id="quiz">
+    <h2><span class="num">✓</span>闯关：12 题</h2>
+    <p class="lead">点选项立即判分，答错会给出依据。目标：12 题至少对 10 题；错题回到对应小节再看一遍。</p>
+    <div id="quiz1"></div>
+  </section>
+
+  <div class="pager">
+    <a href="05_points.html">
+      <div class="pdir">← 上一模块</div>
+      <div class="pt">05 记分点</div>
+    </a>
+    <a href="07_practice.html" class="next">
+      <div class="pdir">下一模块 →</div>
+      <div class="pt">07 上车实操</div>
+    </a>
+  </div>
+
+  <footer class="foot">
+    <div class="fr">
+      <span>06 电车知识</span>
+      <span>以随车说明书与厂家要求为准</span>
+    </div>
+  </footer>
+</main>
+
+<script src="assets/js/signs.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+Driving.quiz("#quiz1", {
+  id: "06_ev-01",
+  title: "电车闯关",
+  qs: [
+    {
+      q: "纯电车的动力电池包通常布置在哪里？",
+      o: ["后备箱下方", "车顶夹层", "底盘中间、前后轴之间", "原来放发动机的机舱里"],
+      a: 2,
+      why: "电池包铺在底盘中间，重心低、开起来稳；但占用地板厚度、离地间隙小，托底时最先受伤。见第 1 节。"
+    },
+    {
+      q: "在机舱或车底看到橙色线束，正确做法是？",
+      o: ["只是装饰，可以随意挪动", "是高压线束，非专业人员不要触碰", "是 12V 低压线，可以搭电", "是充电线，可以剪断改装"],
+      a: 1,
+      why: "橙色是高压系统的标识，电压通常几百伏。不要触碰、拆卸或改装，维修交给专业人员。见第 1 节。"
+    },
+    {
+      q: "磷酸铁锂（LFP）电池相对突出的特点是？",
+      o: ["更耐高温、循环寿命长、成本低", "能量密度最高、冬季最不怕冷", "不需要 BMS 管理", "可以随意过充过放"],
+      a: 0,
+      why: "LFP 更耐高温、循环寿命长、成本低；相对弱项是低温性能和能量密度。三元锂能量密度高、低温表现相对好，但更依赖热管理。见第 2 节。"
+    },
+    {
+      q: "直流快充时，电量到 80% 左右功率明显下降，主要原因是？",
+      o: ["充电桩坏了", "电量越满充电越快", "车机死机了", "保护电池，避免高电量阶段继续大电流充电"],
+      a: 3,
+      why: "高电量阶段继续大功率充电会加速老化、增加发热风险，BMS 会主动降功率。赶时间充到 80% 左右就可以走。见第 3 节。"
+    },
+    {
+      q: "在家装 7kW 交流充电桩，下面哪种做法正确？",
+      o: ["从普通插座拉一根延长线就行", "用 32A 专用回路、可靠接地，请持证电工安装", "把地线拆掉就不会跳闸", "充电时用湿毛巾给枪头降温"],
+      a: 1,
+      why: "7kW 桩通常需要 32A 专用回路和可靠接地，由持证电工安装。飞线、普通插座长期大功率充电容易过热起火。见第 3 节。"
+    },
+    {
+      q: "冬天电车的实际续航通常会怎样？",
+      o: ["比标称更长，因为电池怕热", "和标称完全一致", "只受胎压影响", "可能只有标称的 5–7 折，开暖风更明显"],
+      a: 3,
+      why: "低温让电池活性下降、暖风耗电，实际续航可能打 5–7 折。出发前插枪预热电池和座舱更省电。见第 4 节。"
+    },
+    {
+      q: "雨雪天，动能回收强度应该怎么设？",
+      o: ["调低一些，避免松电门就突然减速导致打滑", "调到最高，省电又防滑", "关掉刹车灯", "无所谓，和天气无关"],
+      a: 0,
+      why: "高回收相当于松电门就轻刹车，湿滑路面驱动轮容易失去附着。雨雪天降低回收强度、拉大跟车距离。见第 5 节。"
+    },
+    {
+      q: "单踏板模式下遇到紧急情况，应该？",
+      o: ["只松电门，靠回收减速", "先挂 P 挡", "必须踩刹车踏板", "拉手刹"],
+      a: 2,
+      why: "回收减速受电量、温度限制，减速度有限，也不能给后车明确的刹车灯信号。紧急情况必须踩刹车踏板。见第 5 节。"
+    },
+    {
+      q: "电车涉水，正确做法是？",
+      o: ["IP67 防水，可以随便冲", "中途停车观察", "快速冲过去减少进水", "以说明书最大涉水深度为准，低速匀速一次通过"],
+      a: 3,
+      why: "IP67 / IP68 是电池包的防护等级，不代表整车可以随意涉水。以说明书为准，通常不建议超过半个车轮；低速匀速一次通过，不中途停车、倒车或急加速。见第 7 节。"
+    },
+    {
+      q: "电车托底后外观看起来没事，应该？",
+      o: ["继续开，电车不怕托底", "去店里检查电池包底部", "自己用千斤顶顶起来看看", "用水冲洗底盘"],
+      a: 1,
+      why: "电池包在底盘最低处，磕碰可能伤到内部结构或密封。即使外观没事也建议检查；出现报警、异味、渗液要停车远离并联系救援。见第 2 节。"
+    },
+    {
+      q: "电车的小电瓶（12V）亏电，可能出现什么情况？",
+      o: ["整车无法上电，门也可能打不开", "完全没影响，动力电池会给它充电", "续航直接减少一半", "刹车会立刻失灵"],
+      a: 0,
+      why: "12V 电瓶负责唤醒整车控制器、门锁、灯光等。亏电会导致无法上电、门打不开，可按说明书搭电或用应急电源。见第 8 节。"
+    },
+    {
+      q: "电车需要拖车时，正确方式是？",
+      o: ["用普通拖车绳拖着走", "挂 N 挡随便拖", "平板拖车，或按说明书抬起驱动轮 / 进入运输模式", "拖着驱动轮慢慢走没事"],
+      a: 2,
+      why: "驱动轮着地被动转动会让电机发电，可能损坏电控。应使用平板拖车，或按说明书进入运输模式、抬起驱动轮。见第 8 节。"
+    }
+  ]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 道路场景 · 重新学开车</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .scene {
+    background: #e9eef4; border: 1px solid var(--line); border-radius: 14px;
+    padding: 10px; margin: 16px 0; overflow: hidden;
+  }
+  .scene svg { width: 100%; height: auto; display: block; border-radius: 10px; }
+  .scene-cap { font-size: 12.5px; color: var(--muted); margin-top: 8px; text-align: center; }
+  .scene-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); justify-content: center; margin-top: 6px; }
+  .scene-legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
+  .scene text { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+  .card-mini { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .card-mini b { display: block; margin-bottom: 4px; }
+
+  @keyframes hitflash { 0%, 58% { opacity: 0; } 62%, 70% { opacity: .95; } 80%, 100% { opacity: 0; } }
+  .hit { animation: hitflash 7s linear infinite; }
+  @keyframes bikeblink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  .warn-blink { animation: bikeblink 1.2s ease-in-out infinite; }
+  @keyframes count3 { 0%, 8% { opacity: 1; } 30%, 100% { opacity: .15; } }
+  .c1 { animation: count3 3.9s linear infinite; }
+  .c2 { animation: count3 3.9s linear infinite; animation-delay: 1.3s; }
+  .c3 { animation: count3 3.9s linear infinite; animation-delay: 2.6s; }
+</style>
+</head>
+<body data-mod="03_scenes">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-dot"></span>重新学开车</a>
+    <span class="crumb">03 · <b>道路场景</b></span>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="01_signs.html">标志</a>
+      <a href="02_markings.html">标线</a>
+      <a href="03_scenes.html" class="on">场景</a>
+      <a href="04_rules.html">规则</a>
+      <a href="05_points.html">记分</a>
+      <a href="06_ev.html">电车</a>
+      <a href="07_practice.html">实操</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">模块 03 / 共 7 个</span>
+    <h1>道路场景：把“看懂了”变成“做对了”</h1>
+    <p>标志和规则是静态的，路是动态的。这一页用会动的图讲六个最容易出事、也最容易做错的场景：环岛、大车内轮差、变道盲区、匝道汇入、右转礼让、跟车距离。每个场景都配一张“判定卡”，上车前看一遍。</p>
+    <div class="hero-tags">
+      <span class="chip">6 个动态场景</span>
+      <span class="chip">每个配判定卡</span>
+      <span class="chip">12 题场景判断</span>
+    </div>
+  </section>
+
+  <nav class="toc">
+    <a href="#s1" class="on">环岛</a>
+    <a href="#s2">内轮差</a>
+    <a href="#s3">变道盲区</a>
+    <a href="#s4">匝道汇入</a>
+    <a href="#s5">右转礼让</a>
+    <a href="#s6">跟车距离</a>
+    <a href="#s7">夜间雨天</a>
+    <a href="#s8">事故现场</a>
+    <a href="#quiz">闯关</a>
+  </nav>
+
+  <!-- 1 环岛 -->
+  <section class="sec" id="s1">
+    <h2><span class="num">1</span>环岛：进环岛的车让环内车</h2>
+    <p class="lead">环岛没有红灯，靠“让”维持秩序。唯一的核心规则：<b>准备进环岛的车，让已经在环岛里的车</b>。</p>
+
+    <div class="scene">
+      <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="环岛动画：蓝车在入口等待，绿车沿环岛行驶">
+        <defs>
+          <path id="ringPath" d="M400 310A110 110 0 1 0 400 90A110 110 0 1 0 400 310" fill="none"/>
+          <path id="enterPath" d="M400 380L400 310A110 110 0 1 0 400 90" fill="none"/>
+          <g id="carShape">
+            <rect x="-17" y="-8" width="34" height="16" rx="4" fill="currentColor"/>
+            <rect x="-5" y="-5" width="11" height="10" rx="2" fill="#fff" opacity=".7"/>
+          </g>
+        </defs>
+        <rect width="800" height="400" fill="#e9eef4"/>
+        <rect x="340" y="0" width="120" height="95" fill="#6b7280"/>
+        <rect x="340" y="320" width="120" height="80" fill="#6b7280"/>
+        <rect x="0" y="140" width="285" height="120" fill="#6b7280"/>
+        <rect x="515" y="140" width="285" height="120" fill="#6b7280"/>
+        <circle cx="400" cy="200" r="140" fill="#6b7280"/>
+        <circle cx="400" cy="200" r="80" fill="#dfe6ee"/>
+        <circle cx="400" cy="200" r="110" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="10 12" opacity=".55"/>
+        <rect x="340" y="318" width="120" height="6" fill="#fff" opacity=".85"/>
+        <text x="470" y="338" font-size="12" fill="#334155">这里让行</text>
+        <path d="M460 323L468 332" stroke="#334155" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+        <!-- 环内绿车 -->
+        <g>
+          <animateMotion dur="9s" repeatCount="indefinite" rotate="auto">
+            <mpath xlink:href="#ringPath"/>
+          </animateMotion>
+          <use xlink:href="#carShape" color="#0f8a54"/>
+        </g>
+        <!-- 入口蓝车：先停住，再进入 -->
+        <g>
+          <animateMotion dur="9s" repeatCount="indefinite" rotate="auto" keyPoints="0;0;1" keyTimes="0;0.3;1">
+            <mpath xlink:href="#enterPath"/>
+          </animateMotion>
+          <use xlink:href="#carShape" color="#1f6feb"/>
+        </g>
+        <text x="400" y="392" text-anchor="middle" font-size="12" fill="#334155">蓝车：等环内绿车过去，再进</text>
+        <text x="560" y="66" font-size="12" fill="#334155">绿车已在环内 → 优先</text>
+      </svg>
+      <div class="scene-legend">
+        <span><i class="dot" style="background:#0f8a54"></i>已在环岛内</span>
+        <span><i class="dot" style="background:#1f6feb"></i>准备进入</span>
+      </div>
+      <div class="scene-cap">动图循环约 9 秒：绿车绕环，蓝车在让行线前等待，空档出现后再进入。</div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      环岛内没有停止线，环内车无法预判谁会突然插进来。把优先权给环内车，整个环岛的流速才稳定。进环岛时你的视线应该<b>先看左前方（环内来车方向）</b>，而不是盯着出口。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定卡</span>
+      <ul class="mb0">
+        <li><b>进入前</b>：减速到能随时停，看左前方环内来车；有车就等。</li>
+        <li><b>进入时</b>：<b>不打左灯</b>（你本来就要往右绕），顺着环逆时针走。</li>
+        <li><b>选车道</b>：右转/第一个出口走外圈；直行、左转走内圈，别在环内来回切。</li>
+        <li><b>出去前</b>：提前打<b>右转向灯</b>，看右后视镜，确认右后方没有直行的非机动车。</li>
+        <li><b>错过了出口</b>：再绕一圈，绝不在环内停车、倒车或急打方向。</li>
+      </ul>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">易错</span>
+      很多人进环岛打左灯“示意我要进去”，这是错的——左灯会让环内车误以为你要变道。正确做法是进环岛不打灯，出环岛打右灯。
+    </div>
+  </section>
+
+  <!-- 2 内轮差 -->
+  <section class="sec" id="s2">
+    <h2><span class="num">2</span>大车内轮差：右侧那条“死亡弯月”</h2>
+    <p class="lead">大车转弯时，后轮的轨迹比前轮更靠内侧。前后轮之间的那块区域，驾驶人从后视镜里根本看不到，行人或骑车人站进去就会被卷进车底。</p>
+
+    <div class="scene">
+      <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="大车右转内轮差动画：骑车人直行进入危险区">
+        <defs>
+          <path id="truckPath" d="M800 360L600 360A160 160 0 0 1 440 200L440 -20" fill="none"/>
+          <path id="bikePath" d="M800 250L280 250" fill="none"/>
+          <g id="truckShape">
+            <rect x="-110" y="-17" width="116" height="34" rx="4" fill="#334155"/>
+            <rect x="6" y="-15" width="28" height="30" rx="3" fill="#475569"/>
+            <rect x="27" y="-11" width="7" height="22" fill="#cbd5e1"/>
+            <rect x="-96" y="-19" width="14" height="5" rx="2" fill="#1e293b"/>
+            <rect x="-60" y="-19" width="14" height="5" rx="2" fill="#1e293b"/>
+            <rect x="-96" y="14" width="14" height="5" rx="2" fill="#1e293b"/>
+            <rect x="-60" y="14" width="14" height="5" rx="2" fill="#1e293b"/>
+          </g>
+          <g id="bikeShape">
+            <circle cx="-8" cy="4" r="5.5" fill="none" stroke="#111" stroke-width="2"/>
+            <circle cx="9" cy="4" r="5.5" fill="none" stroke="#111" stroke-width="2"/>
+            <path d="M-8 4L0 -6h6l7 10" fill="none" stroke="#111" stroke-width="2"/>
+            <circle cx="1" cy="-10" r="3.2" fill="#f59e0b"/>
+          </g>
+        </defs>
+        <rect width="800" height="400" fill="#e9eef4"/>
+        <rect x="0" y="200" width="800" height="200" fill="#6b7280"/>
+        <rect x="360" y="0" width="240" height="200" fill="#6b7280"/>
+        <line x1="0" y1="300" x2="360" y2="300" stroke="#fff" stroke-width="3" stroke-dasharray="12 12" opacity=".6"/>
+        <line x1="480" y1="0" x2="480" y2="200" stroke="#fff" stroke-width="3" stroke-dasharray="12 12" opacity=".6"/>
+
+        <!-- 内轮差危险区 -->
+        <path d="M600 360A160 160 0 0 1 440 200L510 200A90 90 0 0 0 600 290Z" fill="#ef4444" opacity=".32"/>
+        <path d="M600 360A160 160 0 0 1 440 200" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="8 6"/>
+        <path d="M600 290A90 90 0 0 1 510 200" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="8 6"/>
+        <text x="556" y="286" font-size="13" font-weight="700" fill="#991b1b">内轮差</text>
+        <text x="556" y="304" font-size="13" font-weight="700" fill="#991b1b">危险区</text>
+
+        <!-- 碰撞点 -->
+        <circle class="hit" cx="505" cy="250" r="16" fill="#ef4444"/>
+        <circle class="hit" cx="505" cy="250" r="26" fill="none" stroke="#ef4444" stroke-width="3"/>
+
+        <!-- 大车 -->
+        <g>
+          <animateMotion dur="7s" repeatCount="indefinite" rotate="auto">
+            <mpath xlink:href="#truckPath"/>
+          </animateMotion>
+          <use xlink:href="#truckShape"/>
+        </g>
+        <!-- 骑车人 -->
+        <g>
+          <animateMotion dur="7s" repeatCount="indefinite" begin="0.4s">
+            <mpath xlink:href="#bikePath"/>
+          </animateMotion>
+          <use xlink:href="#bikeShape"/>
+        </g>
+        <text x="640" y="228" font-size="12" fill="#334155">骑车人直行</text>
+        <text x="120" y="360" font-size="12" fill="#e5e7eb">大车右转，后轮切向内侧</text>
+      </svg>
+      <div class="scene-cap">动图循环约 7 秒：大车右转，骑车人直行，两者在红区交叉。</div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      大车轴距长、车身长，前轮转过弯心后，后轮还在更靠外的位置，只能走一条更小的半径。车身越长、转弯越急，<b>前后轮轨迹差得越多</b>。这个差值就是内轮差，通常有 1–2 米，半挂车更大。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定卡</span>
+      <ul class="mb0">
+        <li><b>骑车/步行</b>：看到大车打右灯，<b>不要停在它右侧或车头前等</b>，退到它车尾后方或人行道上，等它完全转完。</li>
+        <li><b>不要抢</b>：不要以为“它在左转我直行我有理”，大车驾驶人真的看不见你。</li>
+        <li><b>你自己开小车右转</b>：同样要看右后视镜 + 扭头，电动车就藏在右侧盲区。</li>
+        <li><b>停车</b>：不要停在大车转弯内侧的路口角上等红灯。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 盲区 -->
+  <section class="sec" id="s3">
+    <h2><span class="num">3</span>变道盲区：后视镜里没有，不等于没有车</h2>
+    <p class="lead">后视镜只能覆盖车尾两侧的一部分，<b>车尾左右 45° 的斜后方是盲区</b>。摩托车、电动车体积小，正好能整个藏在里面。</p>
+
+    <div class="scene">
+      <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="变道盲区动画：摩托车在左侧相邻车道的盲区里，蓝车向左变道时相撞">
+        <defs>
+          <path id="motoPath" d="M110 50L505 50" fill="none"/>
+          <g id="motoShape">
+            <rect x="-16" y="-7" width="32" height="14" rx="4" fill="#f59e0b"/>
+            <circle cx="-10" cy="9" r="5" fill="#111"/>
+            <circle cx="10" cy="9" r="5" fill="#111"/>
+            <circle cx="0" cy="-4" r="4" fill="#111"/>
+          </g>
+        </defs>
+        <rect width="800" height="300" fill="#6b7280"/>
+        <line x1="0" y1="100" x2="800" y2="100" stroke="#fff" stroke-width="3" stroke-dasharray="14 14" opacity=".55"/>
+        <line x1="0" y1="200" x2="800" y2="200" stroke="#fff" stroke-width="3" stroke-dasharray="14 14" opacity=".55"/>
+
+        <!-- 盲区：向左变道时看左后方，向右变道时看右后方 -->
+        <path d="M150 2L362 2L362 82L150 82Z" fill="#ef4444" opacity=".3" stroke="#fca5a5" stroke-width="1.5" stroke-dasharray="6 6"/>
+        <path d="M438 218L650 218L650 298L438 298Z" fill="#ef4444" opacity=".3" stroke="#fca5a5" stroke-width="1.5" stroke-dasharray="6 6"/>
+        <text x="256" y="17" text-anchor="middle" font-size="12" fill="#fee2e2" font-weight="700">左盲区：后视镜看不到</text>
+        <text x="544" y="240" text-anchor="middle" font-size="12" fill="#fee2e2" font-weight="700">右盲区</text>
+
+        <!-- ego：直行后向左变道，进入摩托所在车道 -->
+        <g>
+          <animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 -100;0 -100" keyTimes="0;.62;.74;1" dur="6s" repeatCount="indefinite"/>
+          <rect x="365" y="132" width="70" height="36" rx="7" fill="#1f6feb"/>
+          <rect x="380" y="139" width="40" height="22" rx="4" fill="#dbeafe"/>
+          <circle cx="378" cy="128" r="4" fill="#fbbf24"/>
+        </g>
+
+        <!-- 摩托车：在左侧相邻车道，从后方赶上来（画在蓝车之上，碰撞时才看得见） -->
+        <g>
+          <animateMotion dur="6s" repeatCount="indefinite">
+            <mpath xlink:href="#motoPath"/>
+          </animateMotion>
+          <circle class="warn-blink" r="26" fill="none" stroke="#fbbf24" stroke-width="3"/>
+          <use xlink:href="#motoShape"/>
+        </g>
+        <circle class="hit" cx="400" cy="60" r="18" fill="#ef4444"/>
+
+        <text x="200" y="284" text-anchor="middle" font-size="12" fill="#fff">后视镜里：空的　→　但盲区里有摩托</text>
+      </svg>
+      <div class="scene-cap">动图循环约 6 秒：摩托车从后方驶入左盲区，蓝车只扫了一眼后视镜就向左并线，正好撞上刚驶出盲区的摩托。</div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      后视镜的视野是有限的扇形，车尾正后方和斜后方 45° 是结构性盲区，任何车都有。摩托车宽度不到半米，进入盲区后从镜子里完全消失，但它可能正以 60 km/h 与你并排。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定卡：变道四步</span>
+      <ol class="mb0">
+        <li><b>看内后视镜</b>：确认正后方没有紧跟的车。</li>
+        <li><b>看外后视镜</b>：看目标车道后方。</li>
+        <li><b>打转向灯</b>：至少提前 3 秒，给后车反应时间。</li>
+        <li><b>扭头看盲区</b>：快速回头扫一眼目标侧后方（不是转头看后排），确认后再动方向。</li>
+      </ol>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">易错</span>
+      “后视镜里那辆车消失了”——它没有飞走，<b>大概率是进了你的盲区</b>。这时候变道，正好撞上。判断方法是看它消失前的位置和速度，宁等三秒。
+    </div>
+  </section>
+
+  <!-- 4 匝道汇入 -->
+  <section class="sec" id="s4">
+    <h2><span class="num">4</span>匝道汇入：加速车道是用来“加速”的</h2>
+    <p class="lead">汇入主路最常见的错误，是在加速车道上慢慢开、到尽头才往里挤。<b>加速车道的任务只有一个：把速度提到接近主路车流</b>，然后找空档并进去。</p>
+
+    <div class="scene">
+      <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="匝道汇入动画：蓝车沿加速车道提速并入主路">
+        <defs>
+          <path id="rampPath" d="M-30 288Q240 286 372 196L660 196" fill="none"/>
+          <path id="mainA" d="M-140 115L940 115" fill="none"/>
+          <path id="mainB" d="M-140 195L940 195" fill="none"/>
+          <g id="car2">
+            <rect x="-20" y="-9" width="40" height="18" rx="4" fill="currentColor"/>
+            <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#fff" opacity=".7"/>
+          </g>
+        </defs>
+        <rect width="800" height="300" fill="#e9eef4"/>
+        <rect x="0" y="70" width="800" height="160" fill="#6b7280"/>
+        <path d="M-30 288Q240 286 372 196L660 196" stroke="#6b7280" stroke-width="74" fill="none" stroke-linecap="round"/>
+        <line x1="0" y1="150" x2="800" y2="150" stroke="#fff" stroke-width="3" stroke-dasharray="14 14" opacity=".6"/>
+        <line x1="0" y1="70" x2="800" y2="70" stroke="#e5e7eb" stroke-width="3" opacity=".8"/>
+        <line x1="0" y1="230" x2="800" y2="230" stroke="#e5e7eb" stroke-width="3" opacity=".8"/>
+
+        <!-- 主路车 -->
+        <g>
+          <animateMotion dur="4.5s" repeatCount="indefinite">
+            <mpath xlink:href="#mainA"/>
+          </animateMotion>
+          <use xlink:href="#car2" color="#94a3b8"/>
+        </g>
+        <g>
+          <animateMotion dur="4.5s" repeatCount="indefinite" begin="1.4s">
+            <mpath xlink:href="#mainB"/>
+          </animateMotion>
+          <use xlink:href="#car2" color="#94a3b8"/>
+        </g>
+
+        <!-- ego -->
+        <g>
+          <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
+            <mpath xlink:href="#rampPath"/>
+          </animateMotion>
+          <use xlink:href="#car2" color="#1f6feb"/>
+        </g>
+        <text x="120" y="266" font-size="12" fill="#334155">① 加速到接近主路车速</text>
+        <text x="350" y="176" font-size="12" fill="#334155">② 看镜 + 扭头找空档</text>
+        <text x="620" y="230" font-size="12" fill="#334155">③ 打灯并入</text>
+        <text x="660" y="60" font-size="12" fill="#334155">主路车流</text>
+      </svg>
+      <div class="scene-cap">动图循环约 6 秒：蓝车沿加速车道提速，在灰车之间的空档并入主路右车道。</div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      主路车速可能是 80–100 km/h，你在匝道上只有 40 km/h。速度差太大，后车必须在 1–2 秒内决定急刹还是撞你。<b>并线的本质是“速度匹配 + 找空档”，不是“找机会插进去”</b>。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定卡</span>
+      <ul class="mb0">
+        <li><b>进加速车道就踩</b>：把速度提上来，别一进来就刹车。</li>
+        <li><b>看后视镜 + 扭头</b>：确认目标车道后方没有快速接近的车。</li>
+        <li><b>打灯 3 秒</b>：然后<b>果断</b>并线，犹豫比并线更危险。</li>
+        <li><b>不要连续跨两条车道</b>：一次只并一条。</li>
+        <li><b>主路车没有让行义务</b>：你是汇入方，要让主路车；但也不能停在加速车道尽头等，应该提前找空档。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 右转礼让 -->
+  <section class="sec" id="s5">
+    <h2><span class="num">5</span>右转礼让：最难的不是转弯，是“停得住”</h2>
+    <p class="lead">右转时视线在左前方（看对向直行车），很容易忽略右侧的人行横道和右后方的电动车。这个场景出事率极高，而且几乎全是全责。</p>
+
+    <div class="scene">
+      <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="右转礼让动画：蓝车在人行横道前停车，等待行人通过">
+        <defs>
+          <path id="turnPath" d="M40 365L400 365Q455 365 455 386L455 470" fill="none"/>
+          <path id="pedPath" d="M440 447L580 447" fill="none"/>
+          <g id="egoShape">
+            <rect x="-22" y="-10" width="44" height="20" rx="5" fill="#1f6feb"/>
+            <rect x="-7" y="-6" width="14" height="12" rx="3" fill="#dbeafe"/>
+          </g>
+          <g id="pedShape">
+            <circle cx="0" cy="-8" r="4" fill="#111"/>
+            <path d="M0 -2v9M0 1l-5 6M0 1l5 6M0 7l-4 8M0 7l4 8" stroke="#111" stroke-width="3" stroke-linecap="round" fill="none"/>
+          </g>
+        </defs>
+        <rect width="800" height="480" fill="#e9eef4"/>
+        <rect x="0" y="260" width="800" height="140" fill="#6b7280"/>
+        <rect x="420" y="0" width="140" height="480" fill="#6b7280"/>
+        <line x1="0" y1="330" x2="420" y2="330" stroke="#fff" stroke-width="3" stroke-dasharray="14 14" opacity=".55"/>
+        <line x1="560" y1="330" x2="800" y2="330" stroke="#fff" stroke-width="3" stroke-dasharray="14 14" opacity=".55"/>
+        <line x1="490" y1="0" x2="490" y2="260" stroke="#fff" stroke-width="3" stroke-dasharray="14 14" opacity=".55"/>
+
+        <!-- 南侧人行横道 -->
+        <g fill="#fff" opacity=".9">
+          <rect x="430" y="424" width="10" height="46"/><rect x="448" y="424" width="10" height="46"/>
+          <rect x="466" y="424" width="10" height="46"/><rect x="484" y="424" width="10" height="46"/>
+          <rect x="502" y="424" width="10" height="46"/><rect x="520" y="424" width="10" height="46"/>
+          <rect x="538" y="424" width="10" height="46"/>
+        </g>
+        <!-- 停止线：在南向车道、人行横道之前 -->
+        <rect x="420" y="412" width="70" height="5" fill="#fff" opacity=".85"/>
+
+        <!-- 行人 -->
+        <g>
+          <animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.48;1">
+            <mpath xlink:href="#pedPath"/>
+          </animateMotion>
+          <use xlink:href="#pedShape"/>
+        </g>
+        <use xlink:href="#pedShape" x="500" y="447"/>
+
+        <!-- ego：停在停止线前，行人过完再走 -->
+        <g>
+          <animateMotion dur="6s" repeatCount="indefinite" rotate="auto" keyPoints="0;0.84;0.84;1" keyTimes="0;0.5;0.66;1">
+            <mpath xlink:href="#turnPath"/>
+          </animateMotion>
+          <use xlink:href="#egoShape"/>
+        </g>
+        <text x="300" y="352" font-size="12" fill="#fff">停在这里等</text>
+        <path d="M398 348L444 378" stroke="#fff" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="600" y="452" font-size="12" fill="#334155">行人优先</text>
+      </svg>
+      <div class="scene-cap">动图循环约 6 秒：蓝车在停止线前停住，行人通过后再右转。</div>
+    </div>
+
+    <div class="why">
+      <span class="lbl">为什么</span>
+      右转时驾驶人的注意力天然偏向左侧来车，右侧人行横道是“余光区”。而行人的速度慢、目标小，等你发现时往往已经太近。<b>法律上，行经人行横道不减速、不停车避让行人，记 3 分</b>，出了事故基本全责。
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定卡</span>
+      <ul class="mb0">
+        <li><b>提前减速</b>：右转前把速度降到随时能停（20 km/h 以下）。</li>
+        <li><b>看三处</b>：左前方对向直行车 → 右后视镜（电动车）→ 右侧人行横道（行人）。</li>
+        <li><b>有人就停</b>：只要行人的行进方向与你可能冲突，就停住等，不要“蹭过去”。</li>
+        <li><b>停稳再走</b>：确认行人已通过、右后方无来车，再缓抬刹车。</li>
+        <li><b>大车右转</b>：你自己开小车也要防大车内轮差，别停在它右侧。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 跟车 -->
+  <section class="sec" id="s6">
+    <h2><span class="num">6</span>跟车距离：三秒法则</h2>
+    <p class="lead">“保持车距”太抽象。可执行的标准是时间：<b>前车经过某个固定物，你数三秒才到，就是安全距离</b>。速度越快，同样的三秒对应的米数越长。</p>
+
+    <div class="scene">
+      <svg viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="三秒跟车法则示意">
+        <defs>
+          <g id="car3">
+            <rect x="-26" y="-12" width="52" height="24" rx="5" fill="currentColor"/>
+            <rect x="-9" y="-8" width="18" height="16" rx="3" fill="#fff" opacity=".7"/>
+          </g>
+        </defs>
+        <rect width="800" height="260" fill="#6b7280"/>
+        <line x1="0" y1="130" x2="800" y2="130" stroke="#fff" stroke-width="3" stroke-dasharray="16 14" opacity=".5"/>
+        <rect x="236" y="30" width="8" height="70" fill="#e5e7eb"/>
+        <rect x="220" y="22" width="40" height="12" rx="2" fill="#e5e7eb"/>
+        <text x="240" y="18" text-anchor="middle" font-size="12" fill="#e5e7eb">参照物</text>
+
+        <use xlink:href="#car3" x="420" y="90" color="#94a3b8"/>
+        <use xlink:href="#car3" x="150" y="170" color="#1f6feb"/>
+
+        <path d="M420 118L420 150" stroke="#fbbf24" stroke-width="2" stroke-dasharray="5 5"/>
+        <path d="M150 196L150 150" stroke="#fbbf24" stroke-width="2" stroke-dasharray="5 5"/>
+        <path d="M150 146H420" stroke="#fbbf24" stroke-width="2"/>
+        <text x="285" y="140" text-anchor="middle" font-size="12" fill="#fde68a">≥ 3 秒</text>
+
+        <g font-size="26" font-weight="800" fill="#fff">
+          <text class="c1" x="320" y="228">1</text>
+          <text class="c2" x="360" y="228">2</text>
+          <text class="c3" x="400" y="228">3</text>
+        </g>
+        <text x="470" y="228" font-size="12" fill="#e5e7eb">秒（默数）</text>
+      </svg>
+      <div class="scene-cap">前车尾部经过参照物时开始数 1、2、3；你的车头到参照物时数满三秒，即安全。</div>
+    </div>
+
+    <div class="tbl-wrap compact">
+      <table>
+        <thead><tr><th>车速</th><th>3 秒约合距离</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>40 km/h</td><td>约 33 米</td><td>市区跟车下限</td></tr>
+          <tr><td>60 km/h</td><td>约 50 米</td><td>城市快速路</td></tr>
+          <tr><td>80 km/h</td><td>约 67 米</td><td>高架/快速路</td></tr>
+          <tr><td>100 km/h</td><td>约 83 米</td><td>高速常用</td></tr>
+          <tr><td>120 km/h</td><td>约 100 米</td><td>雨天/夜间要加倍</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rule">
+      <span class="lbl">判定卡</span>
+      <ul class="mb0">
+        <li><b>正常天气</b>：至少 3 秒；<b>雨天、夜间、雾天、跟大车</b>：加倍。</li>
+        <li><b>被加塞</b>：松电门拉开距离，不要斗气贴近。</li>
+        <li><b>跟大车</b>：看不到它前方路况，距离要更远；不要长时间并排。</li>
+        <li><b>停车等红灯</b>：能看到前车后轮着地，一般就够 2–3 米；不要贴死。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 夜间雨天 -->
+  <section class="sec" id="s7">
+    <h2><span class="num">7</span>夜间、雨天、隧道、山区：四种“看不清”的场景</h2>
+    <div class="grid g2">
+      <div class="card-mini">
+        <b>夜间会车</b>
+        <p class="small muted mb0">距对向来车 <b>150 米</b> 以外改近光。看不清路就减速到“灯光照到的地方能刹住”。不要盯着对向车灯看，看自己车道右侧边缘。</p>
+      </div>
+      <div class="card-mini">
+        <b>雨天</b>
+        <p class="small muted mb0">开近光 + 示廓灯；雨大时开雾灯。路面水膜会导致“水滑”，方向变轻、刹车变差——<b>降速、加大车距、不猛打方向</b>。</p>
+      </div>
+      <div class="card-mini">
+        <b>隧道</b>
+        <p class="small muted mb0">进洞前开近光、摘墨镜；洞内不变道、不掉头、不停车；出洞注意光线突变和横风。隧道内超车记分且极度危险。</p>
+      </div>
+      <div class="card-mini">
+        <b>山区长下坡</b>
+        <p class="small muted mb0">用低挡或高动能回收控制车速，<b>不要长时间踩刹车</b>（刹车热衰减会失灵）。弯道不超车，鸣笛提示对向。电车长下坡还能回充，但别把回收当成刹车用。</p>
+      </div>
+    </div>
+
+    <div class="tip">
+      <span class="lbl">通用</span>
+      这四种场景的共同点是<b>视距变短</b>。唯一有效的对策是把速度降到“视距之内能停住”。看不清 = 开慢点，这条比任何技巧都管用。
+    </div>
+  </section>
+
+  <!-- 8 事故现场 -->
+  <section class="sec" id="s8">
+    <h2><span class="num">8</span>事故现场：二次事故比一次更致命</h2>
+    <p class="lead">发生事故后，最危险的不是撞的那一下，而是两个人站在车道里争论、或坐在车里等交警。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <b style="color:var(--red)">高速公路：车靠边、人撤离、即报警</b>
+        <ol class="small" style="margin-bottom:0">
+          <li>能开就开到应急车道或护栏外，开双闪。</li>
+          <li>在车后 <b>150 米</b> 放三角警告牌（夜间/雨雾天更远）。</li>
+          <li><b>所有人撤到护栏外</b>，不要留在车里，不要站在车后。</li>
+          <li>打 12122 / 110，报位置（看公里牌）。</li>
+        </ol>
+      </div>
+      <div class="card">
+        <b style="color:var(--blue)">城市道路：拍照、撤离、再处理</b>
+        <ol class="small" style="margin-bottom:0">
+          <li>无人受伤、车能动：先拍照（全景 + 碰撞点 + 车牌）。</li>
+          <li>迅速把车移到不妨碍交通的地方。</li>
+          <li>用交管 12123 事故快处或报保险。</li>
+          <li>有人受伤：先打 120，保护现场，不随意搬动伤者。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="trap">
+      <span class="lbl">别做</span>
+      故障或事故停车后，<b>不按规定使用灯光、不设置警告标志</b>，记 <span class="badge b3">3 分</span>。更重要的是：站在车后摆放三角牌时，要面向来车方向、贴着护栏走，放完立刻撤到护栏外。
+    </div>
+  </section>
+
+  <!-- quiz -->
+  <section class="sec" id="quiz">
+    <h2><span class="num">✓</span>闯关：12 个场景判断</h2>
+    <p class="lead">每题都是一个真实场景。选“你会怎么做”，不是选“规定怎么写”。</p>
+    <div id="quiz1"></div>
+  </section>
+
+  <div class="pager">
+    <a href="02_markings.html"><div class="pdir">← 上一模块</div><div class="pt">02 标线 · 信号灯 · 手势</div></a>
+    <a href="04_rules.html" class="next"><div class="pdir">下一模块 →</div><div class="pt">04 通行规则</div></a>
+  </div>
+
+  <footer class="foot">
+    <div class="fr"><span>03 道路场景</span><span>动图为示意，比例已夸大</span></div>
+  </footer>
+</main>
+
+<script src="assets/js/signs.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+Driving.quiz("#quiz1", {
+  id: "scenes-01",
+  title: "场景闯关",
+  qs: [
+    {
+      q: "你准备进入环岛，环岛内左侧有一辆车正在绕行。你应该？",
+      o: ["加速抢在它前面进去", "在让行线前等它过去，再进入", "停车等环岛完全空", "打左灯示意你要进入"],
+      a: 1,
+      why: "进环岛的车让已经在环岛内的车。只需等环内车过去、出现安全空档即可进入，不必等整个环岛空。进环岛不打左灯。"
+    },
+    {
+      q: "驶出环岛前，应该打什么灯？",
+      o: ["左转向灯", "右转向灯", "双闪", "不用打灯"],
+      a: 1,
+      why: "出环岛是向右驶出，提前打右转向灯并看右后视镜，确认右后方没有直行的非机动车。"
+    },
+    {
+      q: "你骑电动车直行，前方一辆大货车打右转向灯准备右转，你正好在它右侧。你应该？",
+      o: ["加速从它右侧通过", "停在它右侧等它转完", "退到它车尾后方或人行道上等", "按喇叭提醒它"],
+      a: 2,
+      why: "大车右转存在内轮差，右侧是驾驶人看不到的“死亡弯月”。正确做法是远离它右侧和车头前方，退到车尾后方或人行道上等它转完。"
+    },
+    {
+      q: "变道前看后视镜，目标车道后方没有车。下一步应该？",
+      o: ["直接变道", "打灯后直接变道", "扭头快速看一眼盲区再变道", "按喇叭后变道"],
+      a: 2,
+      why: "后视镜有结构性盲区，摩托车、电动车可能完全藏在里面。变道四步：看镜 → 打灯 → 扭头看盲区 → 动方向。"
+    },
+    {
+      q: "在加速车道上准备汇入主路，正确做法是？",
+      o: ["慢慢开到尽头再往里挤", "把速度提到接近主路车速，找空档果断并入", "停在加速车道等主路完全没车", "直接跨两条车道进最左侧"],
+      a: 1,
+      why: "加速车道的作用就是加速。速度差太大时后车来不及反应；应提速到接近主路车速，看镜、打灯、找空档后果断并入，一次只并一条车道。"
+    },
+    {
+      q: "右转时，人行横道上有行人正在通过，你应该？",
+      o: ["减速从行人身后绕过去", "停车让行人先过", "鸣喇叭提醒行人快走", "行人还在对面车道，可以转"],
+      a: 1,
+      why: "行经人行横道应减速，遇行人正在通过必须停车让行。不按规定减速、停车、避让行人记 3 分。"
+    },
+    {
+      q: "高速上车速 100 km/h，跟车距离至少应该保持多少？",
+      o: ["约 30 米", "约 50 米", "约 80 米以上", "能看到前车车牌就行"],
+      a: 2,
+      why: "三秒法则：100 km/h 时 3 秒约 83 米。雨天、夜间要加倍。"
+    },
+    {
+      q: "雨天在高速上行驶，跟车距离应该？",
+      o: ["和平时一样", "比平时更近，防止被加塞", "比平时加倍", "看前车刹车灯就行"],
+      a: 2,
+      why: "雨天路面附着力下降、刹车距离变长、视线变差，跟车距离应加倍，同时降低车速。"
+    },
+    {
+      q: "车辆在高速上故障，无法继续行驶，三角警告牌应放在车后多远？",
+      o: ["车后 50 米", "车后 100 米", "车后 150 米", "车顶上"],
+      a: 2,
+      why: "高速上应在车后 150 米设置警告标志（夜间、雨雾天更远），开双闪，人员撤到护栏外并报警。"
+    },
+    {
+      q: "夜间会车，对向车辆距你大约 200 米，你应该？",
+      o: ["继续用远光", "在 150 米以外改用近光", "关掉所有灯", "闪远光提醒对方"],
+      a: 1,
+      why: "夜间会车应在距对向来车 150 米以外改用近光灯，避免晃到对方驾驶人。"
+    },
+    {
+      q: "山区连续长下坡，正确的控速方式是？",
+      o: ["一直踩住刹车", "空挡滑行", "用低挡或高动能回收控速，必要时点刹", "关掉动能回收滑行"],
+      a: 2,
+      why: "长时间踩刹车会导致刹车热衰减甚至失灵。应利用低挡/高回收控制车速，配合间歇点刹。空挡滑行更危险。"
+    },
+    {
+      q: "在高速上发现已经错过出口，应该？",
+      o: ["立即倒车回到出口", "在应急车道停车等机会", "继续行驶到下一个出口", "掉头逆行回去"],
+      a: 2,
+      why: "高速上倒车、逆行、穿越中央分隔带掉头一次记 12 分，且极易致命。错过就继续开到下一个出口。"
+    }
+  ]
+});
+</script>
+</body>
+</html>
