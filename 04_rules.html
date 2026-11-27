@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>04 通行规则 · 重新学开车</title>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=20261127">
 <style>
   .grid > .card + .card { margin-top: 0; }
   .stage svg text { font-family: inherit; }
@@ -42,12 +42,10 @@
   .brake { opacity: 0; animation: brakeOn 8s linear infinite; }
   .wait-tag { opacity: 0; animation: waitTag 8s linear infinite; }
 
-  /* 减少动态时给一张静态定格：右方车在路口、我车在停止线前 */
-  @media (prefers-reduced-motion: reduce) {
-    .car-a { transform: translateX(-300px); }
-    .car-b { transform: translateY(-125px); }
-    .brake, .wait-tag { opacity: 1; }
-  }
+  /* 关掉动效时给一张静态定格：右方车在路口、我车在停止线前 */
+  html.motion-off .car-a { transform: translateX(-300px); }
+  html.motion-off .car-b { transform: translateY(-125px); }
+  html.motion-off .brake, html.motion-off .wait-tag { opacity: 1; }
 </style>
 </head>
 <body data-mod="04_rules">
@@ -740,7 +738,7 @@
 </main>
 
 <script src="assets/js/signs.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="assets/js/app.js?v=20261127"></script>
 <script>
 Driving.quiz("#quiz1", {
   id: "04_rules-01",

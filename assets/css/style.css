@@ -64,6 +64,14 @@ a:hover { text-decoration: underline; }
 .topbar-nav a { color: #c3cedb; font-size: 13px; padding: 5px 9px; border-radius: 7px; white-space: nowrap; }
 .topbar-nav a:hover { background: #232a34; color: #fff; text-decoration: none; }
 .topbar-nav a.on { background: #2f3b4a; color: #fff; }
+.motion-btn {
+  font: inherit; font-size: 12.5px; line-height: 1;
+  color: #c3cedb; background: #232a34;
+  border: 1px solid #3a4552; border-radius: 7px;
+  padding: 6px 9px; cursor: pointer; white-space: nowrap;
+}
+.motion-btn:hover { background: #2f3b4a; color: #fff; }
+.motion-btn[aria-pressed="false"] { color: #8b97a6; }
 .topbar::after {
   content: ""; display: block; height: 3px;
   background-image: repeating-linear-gradient(90deg, #ffffff2e 0 26px, transparent 26px 46px);
@@ -377,6 +385,7 @@ td.c, th.c { text-align: center; }
 @media (max-width: 760px) {
   body { font-size: 15.5px; }
   .topbar-nav { display: none; }
+  .crumb { display: none; }
   .topbar::after { display: none; }
   .g2, .g3, .g4 { grid-template-columns: 1fr; }
   .compare { grid-template-columns: 1fr; }
@@ -392,7 +401,10 @@ td.c, th.c { text-align: center; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+/* 动效默认播放；点顶栏按钮或本地存 off 时停止 */
+html.motion-off *, html.motion-off *::before, html.motion-off *::after {
+  animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important;
 }
 @media print {
   .topbar, .pager, .quiz-foot .btn, .foot { display: none; }

@@ -7,6 +7,7 @@
   function lsDel(k) { try { window.localStorage.removeItem(k); } catch (e) {} }
 
   var LETTERS = ["A", "B", "C", "D", "E", "F"];
+  var MOTION_KEY = "driving.motion";
 
   function mountQuiz(el, cfg) {
     if (typeof el === "string") el = document.querySelector(el);
@@ -192,13 +193,44 @@
     });
   }
 
+  function motionOff() { return lsGet(MOTION_KEY) === "off"; }
+
+  function applyMotion() {
+    var off = motionOff();
+    document.documentElement.classList.toggle("motion-off", off);
+    document.querySelectorAll("svg").forEach(function (s) {
+      if (!s.pauseAnimations) return;
+      if (off) s.pauseAnimations();
+      else if (s.unpauseAnimations) s.unpauseAnimations();
+    });
+    var btn = document.getElementById("motion-btn");
+    if (btn) {
+      btn.textContent = off ? "播放动效" : "暂停动效";
+      btn.setAttribute("aria-pressed", off ? "false" : "true");
+      btn.title = off ? "播放页面里的动画" : "暂停页面里的动画";
+    }
+  }
+
+  function initMotion() {
+    var bar = document.querySelector(".topbar-inner");
+    if (bar && !document.getElementById("motion-btn")) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.id = "motion-btn";
+      btn.className = "motion-btn";
+      btn.setAttribute("aria-label", "页面动效");
+      btn.addEventListener("click", function () {
+        lsSet(MOTION_KEY, motionOff() ? "on" : "off");
+        applyMotion();
+      });
+      bar.appendChild(btn);
+    }
+    applyMotion();
+  }
+
   function boot() {
     if (window.Signs) window.Signs.hydrate();
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      document.querySelectorAll("svg").forEach(function (s) {
-        if (s.pauseAnimations) s.pauseAnimations();
-      });
-    }
+    initMotion();
     markSeen();
     initToc();
     initChecks();
